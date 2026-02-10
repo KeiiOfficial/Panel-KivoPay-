@@ -1,1 +1,808 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KivoPay — Aplikasi Premium</title>
+  <meta name="theme-color" content="#0b1020" />
+  <style>
+    :root{
+      --bg:#070a12;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.09);
+      --b:rgba(255,255,255,.12);
+      --t:#eaf0ff;
+      --m:#aeb9d6;
+      --a:#6ea8fe;
+      --g:#7cffb2;
+      --r:18px;
+      --shadow:0 18px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--t);
+      min-height:100vh;
+      background:
+        radial-gradient(900px 420px at 12% 8%, rgba(110,168,254,.22), transparent 60%),
+        radial-gradient(900px 420px at 88% 18%, rgba(124,255,178,.14), transparent 55%),
+        radial-gradient(700px 380px at 50% 110%, rgba(180,120,255,.10), transparent 60%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .app{max-width:1100px;margin:0 auto;padding:16px 14px 90px}
 
+    /* top */
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      margin:-16px -14px 14px;
+      padding:14px 14px 12px;
+      background:rgba(7,10,18,.70);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .row{display:flex; gap:12px; align-items:center; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:10px; min-width:0}
+    .logo{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(110,168,254,.95), rgba(124,255,178,.55));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 10px 26px rgba(110,168,254,.18);
+      display:grid; place-items:center;
+      font-weight:900;
+    }
+    .brand b{display:block; font-size:15px; letter-spacing:.2px}
+    .brand span{display:block; color:var(--m); font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .badge{
+      font-size:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg, rgba(110,168,254,.18), rgba(124,255,178,.10));
+      color:rgba(255,255,255,.92);
+      white-space:nowrap;
+    }
+    .search{
+      margin-top:12px;
+      display:flex; gap:10px; align-items:center;
+    }
+    .search input{
+      flex:1;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:var(--t);
+      padding:12px 12px;
+      border-radius:14px;
+      outline:none;
+      font-size:14px;
+    }
+    .btn{
+      padding:11px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:var(--t);
+      cursor:pointer;
+      font-weight:800;
+      transition:.12s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{background:rgba(255,255,255,.09); transform:translateY(-1px)}
+    .btn:active{transform:scale(.99)}
+    .btn.primary{
+      border-color: rgba(110,168,254,.55);
+      background: linear-gradient(135deg, rgba(110,168,254,.90), rgba(124,255,178,.18));
+      box-shadow: 0 14px 40px rgba(110,168,254,.18);
+    }
+    .btn.danger{border-color:rgba(255,110,110,.35); background:rgba(255,110,110,.10)}
+    .pill{
+      display:flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      color:var(--m);
+      font-size:12px;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--g); box-shadow:0 0 18px rgba(124,255,178,.35)}
+    .typingLine{margin-top:10px; color:rgba(255,255,255,.82); font-size:13px; line-height:1.45}
+    .caret{opacity:1; animation: blink 1s steps(2,end) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* cards grid */
+    .section{margin-top:14px; display:flex; align-items:end; justify-content:space-between; gap:10px}
+    .section h2{margin:0; font-size:16px}
+    .section small{color:var(--m)}
+    .grid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:12px;
+    }
+    @media (min-width:900px){
+      .grid{grid-template-columns: repeat(4, minmax(0,1fr))}
+    }
+    .card{
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.06);
+      box-shadow:0 12px 34px rgba(0,0,0,.35);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      transition:.12s ease;
+    }
+    .card:hover{transform:translateY(-2px)}
+    .thumb{
+      height:120px;
+      background:rgba(255,255,255,.04);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:grid; place-items:center;
+      overflow:hidden;
+    }
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block}
+    .body{padding:12px; display:flex; flex-direction:column; gap:10px; flex:1}
+    .title{margin:0; font-weight:900; font-size:14px}
+    .sub{margin:-6px 0 0; color:var(--m); font-size:12px; line-height:1.35}
+    .priceRow{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto}
+    .p{
+      font-weight:900;
+      background:linear-gradient(135deg, rgba(110,168,254,.90), rgba(124,255,178,.75));
+      -webkit-background-clip:text; background-clip:text;
+      color:transparent;
+    }
+
+    /* modal */
+    .overlay{
+      position:fixed; inset:0; z-index:50;
+      background:rgba(0,0,0,.60);
+      backdrop-filter: blur(8px);
+      display:none;
+      padding:14px;
+    }
+    .overlay.show{display:grid; place-items:center}
+    .modal{
+      width:min(820px, 100%);
+      background:rgba(12,14,26,.92);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:22px;
+      box-shadow:0 26px 80px rgba(0,0,0,.65);
+      overflow:hidden;
+      max-height:86vh;
+      display:flex;
+      flex-direction:column;
+    }
+    .mhead{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+    }
+    .mhead b{font-size:14px}
+    .x{
+      width:40px;height:40px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:var(--t);
+      cursor:pointer;
+    }
+    .mbody{padding:14px; overflow:auto}
+    .line{
+      display:flex; justify-content:space-between; gap:12px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      margin-bottom:12px;
+      font-size:13px;
+    }
+    .line span{color:var(--m); font-size:12px}
+    .variants{display:flex; flex-wrap:wrap; gap:10px}
+    .vbtn{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:var(--t);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:13px;
+      user-select:none;
+    }
+    .vbtn.active{
+      border-color: rgba(110,168,254,.55);
+      background: rgba(110,168,254,.14);
+      box-shadow:0 10px 30px rgba(110,168,254,.16);
+    }
+    .formGrid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    input, textarea{
+      width:100%;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:var(--t);
+      padding:12px 12px;
+      border-radius:14px;
+      outline:none;
+      font-size:14px;
+    }
+    textarea{resize:none}
+    .segTitle{margin:14px 0 8px; color:var(--m); font-size:12.5px}
+    .payPick{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:10px;
+    }
+    .pay{
+      display:flex; gap:10px; align-items:center;
+      padding:12px;
+      border-radius:16px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      cursor:pointer;
+      user-select:none;
+      min-width:0;
+    }
+    .pay.active{
+      border-color: rgba(124,255,178,.35);
+      background: rgba(124,255,178,.10);
+    }
+    .pay img{
+      width:34px;height:34px;border-radius:10px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.08);
+      object-fit:cover;
+      flex:0 0 auto;
+    }
+    .pay b{display:block; font-size:13px}
+    .pay span{display:block; color:var(--m); font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .payInfo{
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      padding:12px;
+      color:rgba(255,255,255,.86);
+      font-size:12.5px;
+      line-height:1.5;
+    }
+    .qrisBox{
+      margin-top:10px;
+      padding:12px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .qrisShow{
+      width:100%;
+      border:1px solid rgba(110,168,254,.40);
+      background: rgba(110,168,254,.14);
+      color:var(--t);
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .checkRow{
+      display:flex; align-items:center; gap:10px;
+      margin-top:10px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:rgba(255,255,255,.86);
+      font-size:12.5px;
+    }
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .actions .btn{flex:1}
+    .muted{color:var(--m)}
+
+    /* QRIS modal */
+    .qOverlay{
+      position:fixed; inset:0; z-index:70;
+      display:none; align-items:center; justify-content:center;
+      padding:14px;
+      background:rgba(0,0,0,.62);
+    }
+    .qOverlay.show{display:flex}
+    .qCard{
+      width:min(520px,100%);
+      border-radius:22px;
+      background:rgba(12,14,26,.96);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 26px 80px rgba(0,0,0,.65);
+      overflow:hidden;
+    }
+    .qTop{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+    }
+    .qBody{padding:14px}
+    .qImg{
+      width:100%;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid rgba(255,255,255,.10);
+      display:block;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="app">
+      <div class="row">
+        <div class="brand">
+          <div class="logo">K</div>
+          <div style="min-width:0">
+            <b>KivoPay</b>
+            <span>Aplikasi Premium • Order via WhatsApp Admin</span>
+          </div>
+        </div>
+        <div class="row" style="gap:10px">
+          <div class="pill"><span class="dot"></span>Ready</div>
+          <div class="badge" id="authBadge">🔒 Belum login</div>
+        </div>
+      </div>
+
+      <div class="typingLine">
+        <span id="typingText"></span><span class="caret">|</span>
+      </div>
+
+      <div class="search">
+        <input id="q" placeholder="Cari produk... (contoh: Netflix, Canva, Capcut)" autocomplete="off">
+        <button class="btn" id="btnLogin" type="button">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <div class="section">
+      <div>
+        <h2>Kategori: Aplikasi Premium</h2>
+        <small>Klik <b>Pesan</b> untuk pilih paket & bayar</small>
+      </div>
+      <small class="muted" id="count">0 produk</small>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- MODAL: LOGIN -->
+  <div class="overlay" id="ovLogin">
+    <div class="modal">
+      <div class="mhead">
+        <b>Login KivoPay</b>
+        <button class="x" onclick="closeModal('ovLogin')">✕</button>
+      </div>
+      <div class="mbody">
+        <div class="line">
+          <div>
+            <span>Info</span><br>
+            <b>Login dipakai untuk isi data otomatis saat checkout</b>
+          </div>
+          <div style="text-align:right">
+            <span>Status</span><br>
+            <b id="loginStatus">Belum login</b>
+          </div>
+        </div>
+
+        <div class="formGrid">
+          <input id="lgName" placeholder="Nama (wajib)">
+          <input id="lgWa" placeholder="Nomor WhatsApp (wajib) contoh: 628xxxxxxxxxx" inputmode="numeric">
+          <input id="lgPass" placeholder="Password (bebas)" type="password">
+        </div>
+
+        <div class="actions">
+          <button class="btn" onclick="demoFill()">Isi Cepat</button>
+          <button class="btn primary" onclick="doLogin()">Simpan Login</button>
+          <button class="btn danger" onclick="logout()">Keluar</button>
+        </div>
+
+        <div class="muted" style="font-size:12px; margin-top:10px; line-height:1.45">
+          Catatan: login ini hanya tersimpan di perangkat kamu (localStorage). Bukan sistem akun server.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CHECKOUT -->
+  <div class="overlay" id="ovOrder">
+    <div class="modal">
+      <div class="mhead">
+        <b>Checkout</b>
+        <button class="x" onclick="closeModal('ovOrder')">✕</button>
+      </div>
+      <div class="mbody">
+        <div class="line">
+          <div>
+            <span>Produk</span><br>
+            <b id="mProd">-</b>
+          </div>
+          <div style="text-align:right">
+            <span>Harga</span><br>
+            <b id="mPrice">Rp -</b>
+          </div>
+        </div>
+
+        <div class="segTitle">Pilih Durasi / Device</div>
+        <div class="variants" id="varBox"></div>
+
+        <div class="segTitle">Data Pembeli (wajib sebelum bayar)</div>
+        <div class="formGrid">
+          <input id="inpName" placeholder="Nama (wajib)">
+          <input id="inpEmail" placeholder="Email Buyer (wajib)">
+          <input id="inpWa" placeholder="Nomor WhatsApp (wajib) contoh: 628xxxxxxxxxx" inputmode="numeric">
+          <input id="inpLoc" placeholder="Lokasi (opsional, contoh: Indonesia)">
+        </div>
+
+        <div class="segTitle">Pilih Pembayaran</div>
+        <div class="payPick" id="payPick"></div>
+
+        <div class="payInfo" id="payInfo"></div>
+
+        <div class="checkRow">
+          <input id="paidTick" type="checkbox" style="width:18px;height:18px">
+          <label for="paidTick" style="cursor:pointer">Saya sudah bayar (wajib centang untuk munculkan tombol chat admin)</label>
+  </div>
+            <div class="actions">
+          <button class="btn" onclick="copyOrder()">Salin Format</button>
+          <button class="btn primary" id="btnOrder" onclick="orderToAdmin()" disabled>Kirim ke WhatsApp Admin</button>
+        </div>
+
+        <div class="muted" style="font-size:12px; margin-top:10px; line-height:1.45">
+          Admin WhatsApp: <b>6285150895395</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QRIS -->
+  <div class="qOverlay" id="ovQris" onclick="closeQris()">
+    <div class="qCard" onclick="event.stopPropagation()">
+      <div class="qTop">
+        <b>SHOW QRIS</b>
+        <button class="x" onclick="closeQris()">✕</button>
+      </div>
+      <div class="qBody">
+        <div class="muted" style="text-align:center;margin-bottom:10px">SCAN QRIS BERIKUT</div>
+        <img class="qImg" id="qrisBig" alt="QRIS" src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png">
+        <div class="muted" style="text-align:center;margin-top:10px">
+          Jumlah bayar: <b id="qrisAmount">Rp -</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ========= CONFIG =========
+  const ADMIN_WA = "6285150895395"; // WA admin untuk order
+  const PAY = {
+    dana:{
+      key:"dana",
+      name:"Dana",
+      acc:"087753513090",
+      an:"Kamxxx",
+      logo:"https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png"
+    },
+    seabank:{
+      key:"seabank",
+      name:"SeaBank",
+      acc:"901517870612",
+      an:"Kamxxx",
+      logo:"https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png"
+    },
+    qris:{
+      key:"qris",
+      name:"QRIS",
+      logo:"https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png",
+      qrisImg:"https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png"
+    }
+  };
+
+  // ========= DATA PRODUK =========
+  const products = [
+    { name:"Alight Motion Premium", img:"https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png",
+      variants:[{label:"Private Akun 1 Tahun", price:9600}] },
+
+    { name:"Prime Video", img:"https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png",
+      variants:[{label:"Shared 1 Bulan", price:6700},{label:"Private 1 Bulan", price:15300}] },
+
+    { name:"Bstation Premium", img:"https://images.bukaolshop.com/hosting/181218/8a64287f1e0d26389.png",
+      variants:[{label:"Akun Shared 3 Bulan", price:13300},{label:"Akun Private 1 Bulan", price:25300},{label:"Akun Private 2 Bulan", price:40300}] },
+
+    { name:"Canva Pro Premium", img:"https://images.bukaolshop.com/hosting/181218/fc56c689cb9f975773.png",
+      variants:[{label:"Member 7 Hari", price:100},{label:"Member 1 Bulan", price:700},{label:"Member 3 Bulan", price:2500},{label:"Edu Lifetime", price:10300}] },
+
+    { name:"Capcut Pro Premium", img:"https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png",
+      variants:[{label:"Private Akun 1 Bulan Gar 7h", price:11300},{label:"Private Akun 1 Bulan Gar 28h", price:20300}] },
+
+    { name:"ChatGpt Premium", img:"https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png",
+      variants:[{label:"Member Plan 1 Bulan Private", price:25700},{label:"Owner Business Plan 1 Bulan", price:84300},{label:"Plus Plan 1 Bulan Private", price:20300},{label:"Plus Plan 1 Bulan Private (Var 2)", price:30500}] },
+
+    { name:"IQIYI Premium", img:"https://images.bukaolshop.com/hosting/181218/891f9cc79330873789.png",
+      variants:[{label:"Iqiyi Premium 1 Bulan Shared", price:15300},{label:"Iqiyi Premium 1 Bulan Shared 2 Devices", price:23500}] },
+
+    { name:"Vidio Premium", img:"https://images.bukaolshop.com/hosting/181218/1174d76c8ed6103972.png",
+      variants:[{label:"Shared 1 Bulan 2 User Mobile", price:18800},{label:"Private 1 Bulan Khusus Mobile", price:32400}] },
+
+    { name:"Vision+ Premium", img:"https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png",
+      variants:[{label:"Private Akun 1 Bulan All Screen", price:30000}] },
+
+    { name:"Viu Premium", img:"https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png",
+      variants:[{label:"Private 3 Bulan 1 Device", price:7000},{label:"Private 6 Bulan 1 Device", price:8600}] },
+
+    { name:"Wetv Premium", img:"https://images.bukaolshop.com/hosting/181218/9639c4484b80226918.png",
+      variants:[{label:"Wetv Premium 1 Bulan Shared", price:13600},{label:"Wetv Premium 1 Bulan Private", price:35300}] },
+
+    { name:"YouTube Premium", img:"https://images.bukaolshop.com/hosting/181218/e1b9eae8982d985428.png",
+      variants:[{label:"Anggota Family Plan 1 Bulan Invited", price:8300}] },
+
+    { name:"Lok Lok Premium", img:"https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png",
+      variants:[{label:"Sharing 1 Bulan 3 User", price:20300},{label:"Sharing 1 Bulan 5 User", price:25300},{label:"Private 1 Bulan Basic", price:55300},{label:"Private 1 Bulan Standar", price:80000}] },
+
+    { name:"Wink Premium", img:"https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png",
+      variants:[{label:"Private 7 Day acc b", price:8300},{label:"Private 7 Day acc s", price:12300}] },
+  ];
+
+  // ========= HELPERS =========
+  const $ = (id)=>document.getElementById(id);
+  const rupiah = (n)=> "Rp " + (Number(n||0)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,".");
+  const minPrice = (p)=> Math.min(...p.variants.map(v=>v.price));
+
+  function show(id){ $(id).classList.add("show"); }
+  function closeModal(id){ $(id).classList.remove("show"); }
+
+  // ========= LOGIN (local) =========
+  function syncAuthUI(){
+    const u = JSON.parse(localStorage.getItem("kp_user") || "null");
+    $("authBadge").textContent = u ? "✅ Login: " + u.name : "🔒 Belum login";
+    $("loginStatus").textContent = u ? "Sudah login" : "Belum login";
+  }
+  function openLogin(){
+    const u = JSON.parse(localStorage.getItem("kp_user") || "null");
+    $("lgName").value = u?.name || "";
+    $("lgWa").value = u?.wa || "";
+    $("lgPass").value = u?.pass || "";
+    show("ovLogin");
+    syncAuthUI();
+  }
+  function demoFill(){
+    $("lgName").value = "Customer";
+    $("lgWa").value = "628xxxxxxxxxx";
+    $("lgPass").value = "123456";
+  }
+  function doLogin(){
+    const name = $("lgName").value.trim();
+    const wa = $("lgWa").value.trim();
+    const pass = $("lgPass").value.trim();
+    if(!name || !wa){ alert("Nama & WhatsApp wajib diisi."); return; }
+    localStorage.setItem("kp_user", JSON.stringify({name, wa, pass}));
+    closeModal("ovLogin");
+    syncAuthUI();
+  }
+  function logout(){
+    localStorage.removeItem("kp_user");
+    syncAuthUI();
+    alert("Logout berhasil.");
+  }
+
+  // ========= RENDER GRID =========
+  let filtered = [...products];
+  function renderGrid(){
+    $("count").textContent = filtered.length + " produk";
+    $("grid").innerHTML = filtered.map((p,i)=>`
+      <div class="card">
+        <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
+        <div class="body">
+          <p class="title">${p.name}</p>
+          <p class="sub">Klik Pesan untuk pilih paket & checkout</p>
+          <div class="priceRow">
+            <div class="p">Mulai ${rupiah(minPrice(p))}</div>
+            <button class="btn primary" onclick="openOrder(${i})">Pesan</button>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  // ========= CHECKOUT FLOW =========
+  let selProd = null;
+  let selVar = 0;
+  let payKey = "qris";
+
+  function openOrder(idx){
+    selProd = filtered[idx];
+    selVar = 0;
+    payKey = "qris";
+    $("paidTick").checked = false;
+    $("btnOrder").disabled = true;
+
+    $("mProd").textContent = selProd.name;
+
+    $("varBox").innerHTML = selProd.variants.map((v,vi)=>`
+      <div class="vbtn ${vi===0?'active':''}" onclick="pickVar(${vi})">
+        ${v.label} • ${rupiah(v.price)}
+      </div>
+    `).join("");
+
+    // isi data dari login kalau ada
+    const u = JSON.parse(localStorage.getItem("kp_user") || "null");
+    $("inpName").value = u?.name || "";
+    $("inpWa").value = u?.wa || "";
+    $("inpEmail").value = "";
+    $("inpLoc").value = "";
+
+    pickVar(0, true);
+    renderPayPick();
+    setPay("qris", true);
+    show("ovOrder");
+  }
+
+  function pickVar(vi, silent){
+    selVar = vi;
+    [...$("varBox").children].forEach((el,i)=>el.classList.toggle("active", i===vi));
+    const v = selProd.variants[selVar];
+    $("mPrice").textContent = rupiah(v.price);
+    $("qrisAmount").textContent = rupiah(v.price);
+    if(!silent) setPay(payKey, true);
+  }
+
+  function renderPayPick(){
+    const keys = ["dana","seabank","qris"];
+    $("payPick").innerHTML = keys.map(k=>{
+      const p = PAY[k];
+      const sub = (k==="qris") ? "Klik untuk scan" : `${p.acc} • A/N ${p.an}`;
+      return `
+        <div class="pay ${k===payKey?'active':''}" onclick="setPay('${k}')">
+          <img src="${p.logo}" alt="">
+          <div style="min-width:0">
+            <b>${p.name}</b>
+            <span title="${sub}">${sub}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function setPay(k, silent){
+    payKey = k;
+    renderPayPick();
+
+    if(k==="dana"){
+      $("payInfo").innerHTML = `
+        <b>Pembayaran Dana</b><br>
+        Transfer ke: <b>${PAY.dana.acc}</b><br>
+        A/N: <b>${PAY.dana.an}</b><br>
+        <span class="muted">Setelah bayar, centang "Saya sudah bayar" lalu kirim format ke admin.</span>
+      `;
+    }else if(k==="seabank"){
+      $("payInfo").innerHTML = `
+        <b>Pembayaran SeaBank</b><br>
+        Transfer ke: <b>${PAY.seabank.acc}</b><br>
+        A/N: <b>${PAY.seabank.an}</b><br>
+        <span class="muted">Setelah bayar, centang "Saya sudah bayar" lalu kirim format ke admin.</span>
+      `;
+    }else{
+      $("payInfo").innerHTML = `
+        <b>Pembayaran QRIS</b><br>
+        <span class="muted">Metode: Tampilkan QRIS 👁️</span>
+        <div class="qrisBox">
+          <button class="qrisShow" type="button" onclick="openQris()">Tampilkan QRIS 👁️</button>
+        </div>
+        <span class="muted">Setelah bayar, centang "Saya sudah bayar" lalu kirim format ke admin.</span>
+      `;
+      $("qrisBig").src = PAY.qris.qrisImg;
+    }
+
+    if(!silent) alert("Metode pembayaran dipilih ✅");
+  }
+
+  function openQris(){
+    $("qrisBig").src = PAY.qris.qrisImg;
+    $("ovQris").classList.add("show");
+  }
+  function closeQris(){
+    $("ovQris").classList.remove("show");
+  }
+
+  function buildOrderText(){
+    const name = $("inpName").value.trim();
+    const email = $("inpEmail").value.trim();
+    const wa = $("inpWa").value.trim();
+    const loc = $("inpLoc").value.trim();
+
+    if(!name || !email || !wa) return null;
+    const v = selProd.variants[selVar];
+    const methodLabel = (payKey==="dana") ? "Dana" : (payKey==="seabank") ? "SeaBank" : "QRIS";
+
+    // Format Orderan KivoPay ✨ (sesuai kamu)
+    return [
+      "Format Orderan KivoPay ✨",
+      `Nama : ${name}`,
+      `Produk : ${selProd.name}`,
+      `Email Buyer : ${email}`,
+      `Durasi & Device Buyer : ${v.label}`,
+      `Lokasi : ${loc || "-"}`,
+      "",
+      `Metode Pembayaran : ${methodLabel}`,
+      `Nominal : ${rupiah(v.price)}`,
+      "",
+      "Tolong Di Proses Secepatnya Ya Kak 🙏"
+    ].join("\n");
+  }
+
+  function copyOrder(){
+    const text = buildOrderText();
+    if(!text){ alert("Isi Nama, Email, WhatsApp dulu."); return; }
+    navigator.clipboard.writeText(text)
+      .then(()=>alert("Format berhasil disalin ✅"))
+      .catch(()=>alert("Gagal salin. Coba manual copy."));
+  }
+
+  function orderToAdmin(){
+    const text = buildOrderText();
+    if(!text){ alert("Isi Nama, Email, WhatsApp dulu."); return; }
+
+    if(!$("paidTick").checked){
+      alert('Centang "Saya sudah bayar" dulu.');
+      return;
+    }
+    const url = `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank");
+  }
+
+  // enable button only if paidTick checked + required fields filled
+  function syncOrderBtn(){
+    const okPaid = $("paidTick").checked;
+    const okFields = $("inpName").value.trim() && $("inpEmail").value.trim() && $("inpWa").value.trim();
+    $("btnOrder").disabled = !(okPaid && okFields);
+  }
+
+  // ========= SEARCH =========
+  $("q").addEventListener("input", ()=>{
+    const s = $("q").value.trim().toLowerCase();
+    filtered = products.filter(p=>p.name.toLowerCase().includes(s));
+    renderGrid();
+  });
+
+  // ========= TYPING ANIM =========
+  const msg = "Halo Selamat Datang Di Website KivoPay, Semogaa Layanan Kami Memuaskan ☺️🙏";
+  let i=0, dir=1;
+  function typingLoop(){
+    const el = $("typingText");
+    i += dir;
+    if(i >= msg.length){ dir = -1; setTimeout(typingLoop, 1100); el.textContent = msg.slice(0,i); return; }
+    if(i <= 0){ dir = 1; setTimeout(typingLoop, 380); el.textContent = ""; return; }
+    el.textContent = msg.slice(0,i);
+    setTimeout(typingLoop, dir===1 ? 35 : 18);
+  }
+
+  // ========= EVENTS INIT =========
+  $("btnLogin").onclick = openLogin;
+
+  document.addEventListener("input", (e)=>{
+    if(["inpName","inpEmail","inpWa","paidTick"].includes(e.target.id)) syncOrderBtn();
+  });
+  document.addEventListener("change", (e)=>{
+    if(e.target.id==="paidTick") syncOrderBtn();
+  });
+
+  // init UI
+  syncAuthUI();
+  renderGrid();
+  typingLoop();
+</script>
+</body>
+</html>
