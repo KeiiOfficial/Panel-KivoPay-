@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk Kamu, Cintaku 💕</title>
-    <!-- Font Awesome for icons -->
+    <title>Untuk Kamu, Sayang ❤️</title>
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,90 +15,126 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(145deg, #f9e3e3 0%, #ffe6f0 100%);
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Floating hearts background */
-        .heart-bg {
+        /* Animated Gradient Background */
+        .gradient-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            z-index: -2;
         }
 
-        .heart-bg i {
-            position: absolute;
-            color: rgba(255, 120, 160, 0.2);
-            font-size: 24px;
-            animation: floatHeart 8s infinite ease-in-out;
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes floatHeart {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Main container */
-        .romantic-container {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 50px 20px 50px 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(255, 200, 220, 0.5) inset;
-            padding: 30px 25px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            transition: all 0.3s;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float-particle linear infinite;
         }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        @keyframes float-particle {
+            from {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 1;
+            }
+        }
+
+        /* Main Container */
+        .container {
             position: relative;
-        }
-
-        .header h1 {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, #d53f8c, #fbb6ce);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 5px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 3px 3px 10px rgba(255, 150, 200, 0.5);
-        }
-
-        .header .subtitle {
-            font-size: 1.3rem;
-            color: #b95b8d;
-            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            z-index: 10;
         }
 
-        .header .subtitle i {
-            color: #e74694;
-            animation: heartbeat 1.5s infinite;
+        /* Glass Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 50px 20px 50px 20px;
+            padding: 50px 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.1) inset;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform-style: preserve-3d;
+            animation: float-card 6s ease-in-out infinite;
+            width: 100%;
+        }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0) rotateX(0deg); }
+            50% { transform: translateY(-20px) rotateX(2deg); }
+        }
+
+        /* Intro Text */
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        .intro h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            background: linear-gradient(135deg, #fff, #ffd1dc, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(255, 200, 220, 0.5);
+            letter-spacing: 2px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .intro h1 i {
+            font-size: 3rem;
+            margin: 0 15px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 30px rgba(255, 200, 220, 0.5); }
+            50% { text-shadow: 0 0 60px rgba(255, 100, 150, 0.8); }
         }
 
         @keyframes heartbeat {
@@ -106,636 +143,566 @@
             35% { transform: scale(1); }
         }
 
-        /* Photo/profile section */
-        .couple-section {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 35px;
-            background: rgba(255, 255, 255, 0.4);
-            padding: 25px 15px;
-            border-radius: 100px 30px 100px 30px;
-            box-shadow: 0 10px 25px -10px rgba(255, 100, 150, 0.4);
+        /* Romantic Message */
+        .message {
+            position: relative;
+            padding: 30px;
+            border-radius: 30px 10px 30px 10px;
+            background: rgba(0, 0, 0, 0.2);
+            margin: 30px 0;
+            overflow: hidden;
         }
 
-        .avatar {
-            text-align: center;
+        .message::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
+            border-radius: 32px 12px 32px 12px;
+            z-index: -1;
+            animation: borderGlow 4s linear infinite;
+            background-size: 300% 300%;
         }
 
-        .avatar i {
-            font-size: 80px;
-            color: #d45f8e;
-            filter: drop-shadow(0 8px 12px #f9acbc);
-            transition: transform 0.3s;
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .avatar i:hover {
-            transform: scale(1.1);
-        }
-
-        .avatar span {
-            display: block;
+        .message p {
             font-size: 1.8rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #97266d, #ed64a6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .heart-icon-large {
-            font-size: 50px;
-            color: #ff80b3;
-            filter: drop-shadow(0 0 8px #ffa5c3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.9; }
-        }
-
-        /* Love message */
-        .love-message {
-            text-align: center;
-            background: rgba(255, 240, 245, 0.8);
-            padding: 25px 20px;
-            border-radius: 40px 10px 40px 10px;
-            margin-bottom: 30px;
-            border-left: 8px solid #ff99bb;
-            border-right: 8px solid #ff99bb;
-            box-shadow: 0 5px 20px rgba(255, 128, 170, 0.3);
-        }
-
-        .love-message p {
-            font-size: 1.5rem;
-            color: #831d4c;
-            font-weight: 500;
             line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .love-message .signature {
-            font-size: 1.2rem;
-            color: #b1406b;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-        }
-
-        /* Countdown timer */
-        .countdown-box {
-            background: rgba(255, 215, 230, 0.5);
-            padding: 15px;
-            border-radius: 50px;
-            margin-bottom: 25px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 400;
             text-align: center;
-            border: 2px dashed #ff80aa;
+            letter-spacing: 1px;
         }
 
-        .countdown-title {
-            font-size: 1.3rem;
-            color: #a13e64;
-            margin-bottom: 10px;
-            font-weight: 600;
+        .message p i {
+            color: #ff6b8b;
+            margin: 0 5px;
         }
 
-        .timer {
+        .message .quote-mark {
+            font-size: 4rem;
+            font-family: 'Dancing Script', cursive;
+            color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+        }
+
+        .quote-mark.left {
+            top: 10px;
+            left: 20px;
+        }
+
+        .quote-mark.right {
+            bottom: 10px;
+            right: 20px;
+            transform: rotate(180deg);
+        }
+
+        /* Animated Hearts Row */
+        .hearts-row {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
         }
 
-        .time-unit {
-            background: white;
-            padding: 10px 15px;
-            border-radius: 30px;
-            min-width: 80px;
-            box-shadow: 0 5px 0 #ffb0c3;
-        }
-
-        .time-unit span {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: #c44569;
-            display: block;
-            line-height: 1.2;
-        }
-
-        .time-unit small {
-            color: #b35f7a;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        /* Photo gallery */
-        .gallery {
-            margin: 30px 0;
-        }
-
-        .gallery h3 {
+        .heart-item {
             font-size: 2rem;
-            color: #c4496f;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+            color: rgba(255, 100, 150, 0.8);
+            animation: heartFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px #ff4d6d);
         }
 
-        .photo-grid {
+        .heart-item:nth-child(1) { animation-delay: 0s; }
+        .heart-item:nth-child(2) { animation-delay: 0.4s; }
+        .heart-item:nth-child(3) { animation-delay: 0.8s; }
+        .heart-item:nth-child(4) { animation-delay: 1.2s; }
+        .heart-item:nth-child(5) { animation-delay: 1.6s; }
+        .heart-item:nth-child(6) { animation-delay: 2s; }
+        .heart-item:nth-child(7) { animation-delay: 2.4s; }
+
+        @keyframes heartFloat {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+        }
+
+        /* Reasons Cards */
+        .reasons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
         }
 
-        .photo-card {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(5px);
-            padding: 20px 10px;
-            text-align: center;
+        .reason-card {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 30px 10px 30px 10px;
-            box-shadow: 0 10px 15px -5px rgba(255, 130, 170, 0.4);
-            transition: all 0.3s;
-            border: 1px solid white;
+            padding: 30px 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        .photo-card:hover {
-            transform: translateY(-10px);
-            background: white;
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
 
-        .photo-card i {
-            font-size: 50px;
-            color: #ff7faa;
+        .reason-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .reason-card:hover::before {
+            left: 100%;
+        }
+
+        .reason-card i {
+            font-size: 3rem;
+            color: #ffb6c1;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px #ff69b4);
+            animation: iconPulse 2s infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .reason-card h3 {
+            color: white;
+            font-size: 1.3rem;
             margin-bottom: 10px;
         }
 
-        .photo-card p {
-            font-weight: 600;
-            color: #972459;
+        .reason-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
         }
 
-        /* Love notes */
-        .love-notes {
-            background: rgba(255, 220, 235, 0.6);
-            border-radius: 30px 10px 30px 10px;
-            padding: 25px 20px;
-            margin: 30px 0;
-        }
-
-        .love-notes h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 2rem;
-            color: #c44569;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        .note {
-            background: white;
+        /* Romantic Footer */
+        .romantic-footer {
+            text-align: center;
+            margin-top: 50px;
             padding: 20px;
-            border-radius: 20px 5px 20px 5px;
-            margin-bottom: 15px;
-            border-left: 12px solid #ff99bb;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.03);
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
         }
-
-        .note p {
-            font-size: 1.2rem;
-            color: #4a2c3a;
-            font-style: italic;
-        }
-
-        .note .date {
-            display: block;
-            margin-top: 10px;
-            color: #b34e73;
-            font-weight: 600;
-            text-align: right;
-        }
-
-        /* Music player (simulated) */
-        .music-player {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50px;
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 25px 0;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-        }
-
-        .music-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .music-info i {
-            font-size: 40px;
-            color: #e75480;
-            animation: spin 5s infinite linear;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .music-text h4 {
-            color: #972459;
-        }
-
-        .music-text p {
-            color: #b1597a;
-        }
-
-        .play-btn {
-            background: #ff99bb;
-            border: none;
+          .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
             color: white;
-            padding: 15px 25px;
-            border-radius: 40px;
-            font-size: 1.2rem;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+            animation: signatureGlow 3s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes signatureGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 182, 193, 0.8); }
+            50% { text-shadow: 0 0 40px rgba(255, 105, 180, 0.9); }
+        }
+
+        .floating-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            box-shadow: 0 5px 0 #b33f6b;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        .play-btn:hover {
-            background: #ff80aa;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 0 #b33f6b;
-        }
-
-        .play-btn:active {
-            transform: translateY(5px);
-            box-shadow: 0 2px 0 #b33f6b;
-        }
-
-        /* Footer / interactive */
-        .footer-romantic {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
-            color: #af4c74;
-        }
-
-        .footer-romantic .message-input {
-            display: flex;
-            width: 100%;
-            gap: 10px;
-        }
-
-        .footer-romantic input {
-            flex: 1;
-            padding: 15px 20px;
-            border: 2px solid #ffb6d1;
-            border-radius: 40px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.7);
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .footer-romantic input:focus {
-            border-color: #ff6699;
-            box-shadow: 0 0 20px #ffb3c6;
-        }
-
-        .footer-romantic button {
-            background: #ff80b3;
-            color: white;
-            border: none;
-            border-radius: 40px;
-            padding: 0 30px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-            border: 2px solid white;
-        }
-      .footer-romantic button:hover {
-            background: #ff4d94;
-            transform: scale(1.05);
-        }
-
-        #responseMessage {
-            min-height: 40px;
-            font-size: 1.2rem;
-            color: #c44569;
-            font-weight: 500;
-        }
-
-        /* Floating action button */
-        .floating-heart {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #ff80b3;
-            width: 65px;
-            height: 65px;
+        .floating-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            box-shadow: 0 8px 20px #ff99bb;
-            cursor: pointer;
-            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .floating-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(255, 77, 109, 0.6);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        .footer-text i {
+            color: #ff4d6d;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        /* Fireworks Canvas */
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             z-index: 100;
-            border: 3px solid white;
-            animation: bounce 2s infinite;
         }
 
-        .floating-heart:hover {
-            transform: scale(1.15) rotate(10deg);
-            background: #ff4d94;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
+        .delay-1 { animation-delay: 0.3s; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .delay-2 { animation-delay: 0.6s; opacity: 0; animation: fadeInUp 1s ease forwards; }
+        .delay-3 { animation-delay: 0.9s; opacity: 0; animation: fadeInUp 1s ease forwards; }
 
         /* Responsive */
-        @media (max-width: 550px) {
-            .header h1 { font-size: 2rem; }
-            .couple-section { flex-direction: column; }
-            .timer { gap: 10px; }
-            .time-unit { min-width: 60px; }
-            .time-unit span { font-size: 1.5rem; }
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 30px 20px;
+            }
+
+            .intro h1 {
+                font-size: 2.8rem;
+            }
+
+            .message p {
+                font-size: 1.3rem;
+            }
+
+            .reasons {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Background floating hearts -->
-    <div class="heart-bg" id="heartBg"></div>
+    <!-- Animated Background -->
+    <div class="gradient-bg"></div>
+    
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
 
-    <!-- Main content -->
-    <div class="romantic-container">
-        <!-- Header -->
-        <div class="header">
-            <h1>❤️‍🔥 CINTA KITA ❤️‍🔥</h1>
-            <div class="subtitle">
-                <i class="fas fa-heart"></i>
-                <span>Selamanya & Selalu</span>
-                <i class="fas fa-heart"></i>
-            </div>
-        </div>
+    <!-- Fireworks Canvas -->
+    <canvas id="fireworksCanvas"></canvas>
 
-        <!-- Couple avatar -->
-        <div class="couple-section">
-            <div class="avatar">
-                <i class="fas fa-female"></i>
-                <span>Nama Kamu</span>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="glass-card">
+            <!-- Intro dengan efek spesial -->
+            <div class="intro">
+                <h1>
+                    <i class="fas fa-star"></i>
+                    Selamat datang sayang 
+                    <i class="fas fa-star"></i>
+                </h1>
+                <div style="font-size: 2rem; margin-top: -10px;">☺️</div>
             </div>
-            <div class="heart-icon-large">
-                <i class="fas fa-heart"></i>
-            </div>
-            <div class="avatar">
-                <i class="fas fa-male"></i>
-                <span>Nama Pasangan</span>
-            </div>
-        </div>
 
-        <!-- Love message -->
-        <div class="love-message">
-            <p>✨ "Kamu adalah alasan aku tersenyum setiap hari. Terima kasih sudah menjadi bagian terindah dalam hidupku." ✨</p>
-            <div class="signature">
-                <i class="fas fa-heart"></i> Dari aku, untuk kamu <i class="fas fa-heart"></i>
+            <!-- Hearts Row Animasi -->
+            <div class="hearts-row">
+                <span class="heart-item"><i class="fas fa-heart"></i></span>
+                <span class="heart-item"><i class="fas fa-heart"></i></span>
+                <span class="heart-item"><i class="fas fa-heart"></i></span>
+                <span class="heart-item"><i class="fas fa-heart"></i></span>
+                <span class="heart-item"><i class="fas fa-heart"></i></span>
+                <span class="heart-item"><i class="fas fa-heart"></i></span>
+                <span class="heart-item"><i class="fas fa-heart"></i></span>
             </div>
-        </div>
 
-        <!-- Countdown (contoh: anniversary) -->
-        <div class="countdown-box">
-            <div class="countdown-title">
-                <i class="far fa-calendar-alt"></i> Hitung mundur ke anniversary kita berikutnya:
+            <!-- Pesan Romantis Utama -->
+            <div class="message delay-1">
+                <span class="quote-mark left">❝</span>
+                <p>
+                    <i class="fas fa-heart"></i> terimakasih yaaa udah buat aku senang setiap hari <br>
+                    sudah buat aku jadi semangat setiap hari <br>
+                    dan bisa buat aku senyum setiap hari <br><br>
+                    terimakasih udah jadi alasan aku tersenyum <br>
+                    di saat hari-hari terasa berat <br>
+                    kamu selalu hadir membawa cahaya <br>
+                    dan membuat segalanya terasa indah <br><br>
+                    setiap detik bersamamu adalah anugerah <br>
+                    setiap tawamu adalah obat terbaik <br>
+                    setiap pelukanmu adalah rumah terhangat <br>
+                    terimakasih sudah menjadi kamu yang selalu sempurna <br><br>
+                    aku bersyukur memilikimu <br>
+                    dan aku akan selalu berusaha <br>
+                    untuk membuatmu bahagia <br>
+                    seperti caramu membuatku bahagia <br>
+                    <i class="fas fa-heart" style="color: #ff4d6d;"></i>
+                </p>
+                <span class="quote-mark right">❝</span>
             </div>
-            <div class="timer" id="timer">
-                <div class="time-unit"><span id="days">00</span><small>Hari</small></div>
-                <div class="time-unit"><span id="hours">00</span><small>Jam</small></div>
-                <div class="time-unit"><span id="minutes">00</span><small>Menit</small></div>
-                <div class="time-unit"><span id="seconds">00</span><small>Detik</small></div>
-            </div>
-        </div>
 
-        <!-- Gallery of moments (iconic) -->
-        <div class="gallery">
-            <h3><i class="fas fa-camera-retro"></i> Kenangan Manis <i class="fas fa-camera-retro"></i></h3>
-            <div class="photo-grid">
-                <div class="photo-card">
-                    <i class="fas fa-umbrella-beach"></i>
-                    <p>Liburan pertama</p>
+            <!-- Alasan kenapa dia spesial -->
+            <div class="reasons delay-2">
+                <div class="reason-card">
+                    <i class="fas fa-sun"></i>
+                    <h3>Cahaya Hidup</h3>
+                    <p>Kamu selalu menerangi hari-hariku dengan senyumanmu</p>
                 </div>
-                <div class="photo-card">
-                    <i class="fas fa-birthday-cake"></i>
-                    <p>Ultah bareng</p>
+                <div class="reason-card">
+                    <i class="fas fa-smile"></i>
+                    <h3>Sumber Senyum</h3>
+                    <p>Setiap kali ingat kamu, aku selalu tersenyum tanpa sadar</p>
                 </div>
-                <div class="photo-card">
-                    <i class="fas fa-film"></i>
-                    <p>Movie date</p>
+                <div class="reason-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Penyemangat</h3>
+                    <p>Kamu adalah alasan aku terus maju dan bermimpi</p>
                 </div>
-                <div class="photo-card">
+                <div class="reason-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Rumah Terindah</h3>
+                    <p>Bersamamu, aku merasa pulang dan damai</p>
+                </div>
+            </div>
+
+            <!-- Footer Romantis -->
+            <div class="romantic-footer delay-3">
+                <div class="signature">
+                    Dari hati, untuk hatimu
+                </div>
+                
+                <!-- Tombol dengan efek spesial -->
+                <button class="floating-btn" onclick="triggerSurprise()">
+                    <i class="fas fa-heart"></i> Klik untuk kejutan <i class="fas fa-heart"></i>
+                </button>
+                
+                <div class="footer-text">
+                    <i class="fas fa-heart"></i> 
+                    dibuat dengan cinta, untuk kamu yang selalu di hati 
                     <i class="fas fa-heart"></i>
-                    <p>First kiss</p>
+                </div>
+                <div style="margin-top: 15px; color: rgba(255,255,255,0.5); font-size: 0.9rem;">
+                    ❤️ selamanya dan selalu ❤️
                 </div>
             </div>
         </div>
-
-        <!-- Love notes -->
-        <div class="love-notes">
-            <h3><i class="fas fa-pen-fancy"></i> Catatan Cinta <i class="fas fa-pen-fancy"></i></h3>
-            <div class="note">
-                <p>"Aku masih ingat pertama kali lihat kamu, dunia serasa berhenti berputar."</p>
-                <span class="date">📅 14 Feb 2023</span>
-            </div>
-            <div class="note">
-                <p>"Setiap hari bersamamu adalah petualangan yang paling kutunggu."</p>
-                <span class="date">📅 17 Mar 2024</span>
-            </div>
-            <div class="note">
-                <p>"I love you lebih dari semua bintang di langit."</p>
-                <span class="date">📅 Hari ini</span>
-            </div>
-        </div>
-
-        <!-- Music player mock -->
-        <div class="music-player">
-            <div class="music-info">
-                <i class="fas fa-compact-disc"></i>
-                <div class="music-text">
-                    <h4>Lagu Kita</h4>
-                    <p>Perfect - Ed Sheeran</p>
-                </div>
-            </div>
-            <button class="play-btn" onclick="playSong()"><i class="fas fa-play"></i> Putar lagu</button>
-        </div>
-
-        <!-- Footer with send message -->
-        <div class="footer-romantic">
-            <div style="font-size: 1.3rem; font-weight: 600;">Kirim pesan cinta ✨</div>
-            <div class="message-input">
-                <input type="text" id="loveMessage" placeholder="Tulis pesan untuk pasangan...">
-                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Kirim</button>
-            </div>
-            <div id="responseMessage"></div>
-        </div>
-    </div>
-
-    <!-- Floating button -->
-    <div class="floating-heart" onclick="createFloatingHearts()">
-        <i class="fas fa-heart"></i>
     </div>
 
     <script>
-        // Background floating hearts generator
-        function generateBackgroundHearts() {
-            const bg = document.getElementById('heartBg');
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('i');
-                heart.className = 'fas fa-heart';
-                const size = Math.floor(Math.random() * 30) + 15;
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                heart.style.fontSize = size + 'px';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                bg.appendChild(heart);
+        // Particle System
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 8 + 2;
+                const duration = Math.random() * 10 + 5;
+                const delay = Math.random() * 5;
+                const left = Math.random() * 100;
+                const opacity = Math.random() * 0.5 + 0.2;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = left + '%';
+                particle.style.animationDuration = duration + 's';
+                particle.style.animationDelay = delay + 's';
+                particle.style.background = `rgba(255, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, ${opacity})`;
+                
+                particlesContainer.appendChild(particle);
             }
         }
 
-        // Countdown timer (contoh: 1 bulan dari sekarang atau setahun lagi, bisa diubah)
-        function setCountdown() {
-            // Tentukan tanggal anniversary berikutnya (contoh: 1 bulan dari sekarang)
-            const nextAnniversary = new Date();
-            nextAnniversary.setMonth(nextAnniversary.getMonth() + 1); // +1 bulan
-            nextAnniversary.setDate(15); // kita set tanggal 15 (atau sesuai)
-            nextAnniversary.setHours(0,0,0,0);
+        // Fireworks Effect
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            function updateTimer() {
-                const now = new Date().getTime();
-                const distance = nextAnniversary - now;
+        let particles = [];
 
-                if (distance < 0) {
-                    // Jika sudah lewat, set ke bulan depan lagi
-                    nextAnniversary.setMonth(nextAnniversary.getMonth() + 1);
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.size = Math.random() * 4 + 2;
+            }
+
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.01;
+                this.size -= 0.02;
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#ff4d6d', '#ff8fa3', '#ffb3c6', '#ffffff', '#ffd700', '#ff69b4'];
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(
+                    x, 
+                    y, 
+                    colors[Math.floor(Math.random() * colors.length)]
+                ));
+            }
+        }
+
+        function animateFireworks() {
+            requestAnimationFrame(animateFireworks);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                if (particle.alpha <= 0 || particle.size <= 0) {
+                    particles.splice(index, 1);
+                } else {
+                    particle.update();
+                    particle.draw();
                 }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
-            }
-
-            updateTimer();
-            setInterval(updateTimer, 1000);
+            });
         }
+        animateFireworks();
 
-        // Fungsi untuk mengirim pesan
-        function sendMessage() {
-            const input = document.getElementById('loveMessage');
-            const msg = input.value.trim();
-            const responseDiv = document.getElementById('responseMessage');
-
-            if (msg === '') {
-                responseDiv.innerHTML = '💔 Tulis dulu pesan manisnya...';
-                responseDiv.style.color = '#b33f6b';
-                return;
-            }
-
-            responseDiv.innerHTML = '❤️ Terkirim! ❤️ "' + msg + '" akan sampai ke pasanganmu.';
-            input.value = '';
-
-            // tambahan efek hati
-            for (let i=0; i<5; i++) {
-                setTimeout(() => createFloatingHearts(), i*150);
-            }
-        }
-
-        // Floating hearts on click
-        function createFloatingHearts() {
-            for (let i = 0; i < 8; i++) {
-                const heart = document.createElement('i');
-                heart.className = 'fas fa-heart';
-                heart.style.position = 'fixed';
-                heart.style.color = '#ff4d6d';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.bottom = '0';
-                heart.style.fontSize = (Math.random() * 30 + 15) + 'px';
-                heart.style.pointerEvents = 'none';
-                heart.style.zIndex = '9999';
-                heart.style.animation = `floatUp ${Math.random() * 3 + 2}s ease-out forwards`;
-                document.body.appendChild(heart);
-
-                // Hapus setelah animasi selesai
+        // Trigger surprise function
+        function triggerSurprise() {
+            // Create multiple fireworks
+            for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
-                    heart.remove();
-                }, 5000);
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height * 0.7;
+                    createFirework(x, y);
+                }, i * 200);
+            }
+
+            // Add floating hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createFloatingHeart();
+                }, i * 100);
             }
         }
 
-        // Animasi style untuk float up
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `
-            @keyframes floatUp {
-                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        // Floating hearts
+        function createFloatingHeart() {
+            const heart = document.createElement('i');
+            heart.className = 'fas fa-heart';
+            heart.style.position = 'fixed';
+            heart.style.color = '#ff4d6d';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.bottom = '-50px';
+            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            heart.style.zIndex = '9999';
+            heart.style.pointerEvents = 'none';
+            heart.style.animation = `floatHeart ${Math.random() * 3 + 3}s ease-out forwards`;
+            heart.style.filter = 'drop-shadow(0 0 15px #ff4d6d)';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Add floating heart animation style
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes floatHeart {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
             }
         `;
-        document.head.appendChild(styleSheet);
+        document.head.appendChild(style);
 
-        // Play lagu (simulasi)
-        function playSong() {
-            alert('💖 "Perfect - Ed Sheeran" diputar! (Ini simulasi, bayangkan lagu romantis mengalun)');
-            createFloatingHearts();
-        }
+        // Handle resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
 
-        // Inisialisasi
+        // Initialize
         window.onload = function() {
-            generateBackgroundHearts();
-            setCountdown();
+            createParticles();
+            
+            // Auto trigger fireworks after 1 second
+            setTimeout(() => {
+                triggerSurprise();
+            }, 1000);
 
-            // Ganti nama sesuai keinginan (bisa diedit)
-            // Ubah teks nama di avatar
-            const avatars = document.querySelectorAll('.avatar span');
-            if (avatars.length >= 2) {
-                // Ganti dengan nama kalian (bisa diisi manual)
-                // avatars[0].innerText = 'Nadia'; // Contoh
-                // avatars[1].innerText = 'Rama';  // Contoh
-            }
+            // Repeat surprise every 10 seconds
+            setInterval(() => {
+                triggerSurprise();
+            }, 10000);
         };
 
-        // Optional: klik di luar untuk menambah hati
-        document.body.addEventListener('click', function(e) {
-            if (!e.target.closest('.floating-heart') && !e.target.closest('button') && !e.target.closest('input')) {
-                createFloatingHearts();
+        // Click anywhere for surprise
+        document.addEventListener('click', function(e) {
+            createFirework(e.clientX, e.clientY);
+            
+            // Add 5 extra hearts
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createFloatingHeart();
+                }, i * 50);
             }
         });
     </script>
