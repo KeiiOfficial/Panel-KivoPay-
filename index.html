@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROOT ACCESS :: KALI TERMINAL v2.3.1</title>
+    <title>ACCESS DENIED // DARK WEB TERMINAL v3.7.1</title>
     <style>
+        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
@@ -12,14 +13,29 @@
         }
 
         body {
-            background: black;
+            background: #000;
             font-family: 'Courier New', monospace;
-            color: #0f0;
             height: 100vh;
             overflow: hidden;
             position: relative;
         }
 
+        /* Glitch Effect Overlay */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 50%, rgba(255,0,0,0.1) 50%);
+            background-size: 4px 4px;
+            pointer-events: none;
+            z-index: 999;
+            animation: glitch 0.3s infinite;
+            opacity: 0.1;
+        }
+
+        /* Matrix Canvas */
         #matrixCanvas {
             position: fixed;
             top: 0;
@@ -27,66 +43,125 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.3;
+        }
+
+        /* Binary Rain Canvas */
+        #binaryCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.2;
             pointer-events: none;
         }
 
+        /* Main Container */
         .terminal-container {
             position: relative;
-            z-index: 10;
+            z-index: 100;
             width: 95%;
-            max-width: 1200px;
-            height: 90vh;
-            margin: 20px auto;
-            background: rgba(0, 8, 0, 0.92);
+            max-width: 1300px;
+            height: 92vh;
+            margin: 2vh auto;
+            background: rgba(0, 5, 0, 0.92);
             border: 2px solid #0f0;
-            border-radius: 10px;
-            box-shadow: 0 0 40px #0f0;
-            backdrop-filter: blur(3px);
-            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 50px #0f0, inset 0 0 30px rgba(0,255,0,0.3);
+            backdrop-filter: blur(4px);
+            padding: 20px;
             display: flex;
             flex-direction: column;
+            animation: pulse 4s infinite;
         }
 
+        /* Header */
         .terminal-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #0f0;
-            margin-bottom: 10px;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #0f0;
+            margin-bottom: 15px;
+            position: relative;
         }
 
         .status {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             display: inline-block;
+            animation: blink 1.5s infinite;
         }
 
-        .red { background: #ff5f56; box-shadow: 0 0 10px #ff5f56; }
-        .yellow { background: #ffbd2e; box-shadow: 0 0 10px #ffbd2e; }
-        .green { background: #27c93f; box-shadow: 0 0 10px #27c93f; }
+        .red { background: #ff0000; box-shadow: 0 0 20px #ff0000; }
+        .yellow { background: #ffff00; box-shadow: 0 0 20px #ffff00; animation-delay: 0.5s; }
+        .green { background: #00ff00; box-shadow: 0 0 20px #00ff00; animation-delay: 1s; }
 
         .title {
             margin-left: auto;
             color: #0f0;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px #0f0;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #0f0;
+            animation: flicker 3s infinite;
         }
 
+        /* Welcome Screen */
+        .welcome-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: welcomeFade 5s forwards;
+            pointer-events: none;
+        }
+
+        .welcome-text {
+            color: #0f0;
+            font-size: 4rem;
+            text-shadow: 0 0 30px #0f0;
+            margin-bottom: 20px;
+            animation: textPulse 2s infinite;
+        }
+
+        .warning-text {
+            color: #ff0;
+            font-size: 1.5rem;
+            margin: 10px;
+            opacity: 0;
+            animation: fadeIn 1s forwards 2s;
+        }
+
+        .danger-text {
+            color: #f00;
+            font-size: 2rem;
+            margin: 10px;
+            opacity: 0;
+            animation: fadeIn 1s forwards 3s;
+        }
+
+        /* Main Terminal */
         .terminal {
             flex: 1;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #0f0;
-            border-radius: 5px;
-            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #0f0;
+            border-radius: 8px;
+            padding: 20px;
             overflow-y: auto;
             font-size: 1.1rem;
             line-height: 1.6;
-            box-shadow: inset 0 0 20px rgba(0,255,0,0.2);
-            margin-bottom: 10px;
+            box-shadow: inset 0 0 40px rgba(0,255,0,0.2);
+            margin-bottom: 15px;
+            position: relative;
         }
 
         .output {
@@ -95,55 +170,41 @@
         }
 
         .output div {
-            margin: 3px 0;
+            margin: 5px 0;
+            animation: slideIn 0.3s ease;
         }
 
-        .warning {
-            color: #ff0;
-            text-shadow: 0 0 5px #ff0;
-        }
+        /* Message Types */
+        .system { color: #0ff; text-shadow: 0 0 8px #0ff; }
+        .success { color: #0f0; text-shadow: 0 0 8px #0f0; }
+        .warning { color: #ff0; text-shadow: 0 0 8px #ff0; }
+        .error { color: #f00; text-shadow: 0 0 8px #f00; }
+        .access { color: #f0f; text-shadow: 0 0 8px #f0f; }
+        .scan { color: #ffa500; text-shadow: 0 0 8px #ffa500; }
 
-        .error {
-            color: #f00;
-            text-shadow: 0 0 5px #f00;
-        }
-
-        .success {
-            color: #0f0;
-            text-shadow: 0 0 5px #0f0;
-        }
-
-        .command-line {
-            color: #0f0;
-            margin-top: 10px;
-        }
-
-        .cursor {
-            animation: blink 1s infinite;
-            font-weight: bold;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
+        /* Input Area */
         .input-area {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(0, 20, 0, 0.5);
-            border: 1px solid #0f0;
-            border-radius: 5px;
-            padding: 8px 12px;
-            margin-bottom: 10px;
+            gap: 12px;
+            background: rgba(0, 20, 0, 0.7);
+            border: 2px solid #0f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .input-area:focus-within {
+            border-color: #ff0;
+            box-shadow: 0 0 25px #ff0;
         }
 
         .prompt {
             color: #0f0;
             font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: 0 0 5px #0f0;
+            font-size: 1.3rem;
+            text-shadow: 0 0 8px #0f0;
         }
 
         #commandInput {
@@ -152,130 +213,225 @@
             border: none;
             color: #0f0;
             font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             outline: none;
         }
 
         #commandInput::placeholder {
             color: #0f0;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
+        /* Progress Area */
         .progress-area {
-            background: rgba(0, 20, 0, 0.7);
-            border: 1px solid #0f0;
-            border-radius: 5px;
-            padding: 12px;
-            margin-bottom: 10px;
+            background: rgba(20, 0, 0, 0.7);
+            border: 2px solid #f00;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            animation: glow 2s infinite;
         }
 
         .progress-label {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: #ff0;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #f00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 20px;
-            background: #111;
-            border: 1px solid #0f0;
-            border-radius: 3px;
+            height: 25px;
+            background: #1a0000;
+            border: 2px solid #f00;
+            border-radius: 5px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: #0f0;
-            box-shadow: 0 0 15px #0f0;
+            background: linear-gradient(90deg, #f00, #ff0, #f00);
+            box-shadow: 0 0 25px #f00;
             transition: width 0.3s;
+            animation: progressPulse 1s infinite;
         }
 
         .progress-percent {
             text-align: right;
-            margin-top: 5px;
-            font-size: 0.9rem;
-            color: #0f0;
+            margin-top: 8px;
+            font-size: 1rem;
+            color: #f00;
         }
 
+        /* Status Bar */
         .status-bar {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            padding: 12px 16px;
+            background: rgba(0, 10, 0, 0.9);
+            border: 2px solid #0f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .status-item {
             display: flex;
-            justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(0, 20, 0, 0.7);
-            border: 1px solid #0f0;
-            border-radius: 5px;
-            font-size: 0.9rem;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .status-label {
             color: #0f0;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .status-value {
+            color: #0f0;
+            font-weight: bold;
+            font-size: 1.1rem;
             text-shadow: 0 0 5px #0f0;
         }
 
-        .status-bar span {
-            letter-spacing: 1px;
+        /* Alert Popup */
+        .alert-popup {
+            position: fixed;
+            top: 20px;
+            right: -300px;
+            background: rgba(255, 0, 0, 0.9);
+            border: 2px solid #ff0;
+            border-radius: 8px;
+            padding: 15px 25px;
+            color: #fff;
+            font-weight: bold;
+            z-index: 1000;
+            transition: right 0.5s;
+            box-shadow: 0 0 30px #f00;
         }
 
-        .glitch {
-            animation: glitch 3s infinite;
+        .alert-popup.show {
+            right: 20px;
+        }
+
+        /* Animations */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            95% { opacity: 0.8; }
+            96% { opacity: 0.4; }
+            97% { opacity: 0.8; }
+            98% { opacity: 0.2; }
+            99% { opacity: 0.9; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 50px #0f0, inset 0 0 30px rgba(0,255,0,0.3); }
+            50% { box-shadow: 0 0 70px #0f0, inset 0 0 50px rgba(0,255,0,0.5); }
+        }
+
+        @keyframes textPulse {
+            0%, 100% { text-shadow: 0 0 30px #0f0; }
+            50% { text-shadow: 0 0 60px #0f0; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes glitch {
-            0%, 100% { opacity: 1; }
-            7% { opacity: 0.75; }
-            10% { opacity: 1; }
-            13% { opacity: 0.8; }
-            15% { opacity: 1; }
-            92% { opacity: 1; }
-            95% { opacity: 0.9; }
-            97% { opacity: 1; }
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
 
-        /* Scrollbar styling */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px #f00; }
+            50% { box-shadow: 0 0 40px #f00; }
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Scrollbar */
         .terminal::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         .terminal::-webkit-scrollbar-track {
-            background: #111;
-            border: 1px solid #0f0;
+            background: #000;
+            border: 2px solid #0f0;
         }
 
         .terminal::-webkit-scrollbar-thumb {
             background: #0f0;
-            border-radius: 3px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0f0;
         }
     </style>
 </head>
 <body>
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-text">ACCESSING DARK WEB</div>
+        <div class="warning-text">⚠️ ENCRYPTED CONNECTION DETECTED ⚠️</div>
+        <div class="danger-text">💀 ENTERING RESTRICTED ZONE 💀</div>
+    </div>
+
+    <!-- Glitch Overlay -->
+    <div class="glitch-overlay"></div>
+
+    <!-- Canvases -->
     <canvas id="matrixCanvas"></canvas>
-    
+    <canvas id="binaryCanvas"></canvas>
+
+    <!-- Alert Popup -->
+    <div class="alert-popup" id="alertPopup">
+        ⚠️ INTRUSION DETECTED ⚠️
+    </div>
+
+    <!-- Main Container -->
     <div class="terminal-container">
         <div class="terminal-header">
-            <span class="status red blink"></span> 
-            <span class="status yellow"></span> 
+            <span class="status red"></span>
+            <span class="status yellow"></span>
             <span class="status green"></span>
-            <span class="title">ROOT@KALI:~/#</span>
+            <span class="title">DARK WEB TERMINAL // ROOT ACCESS</span>
         </div>
-        
+
         <div class="terminal" id="terminal">
-            <div class="output" id="output">
-                <div class="success">>> SECURE BOOT SEQUENCE INITIALIZED...</div>
-                <div class="success">>> KERNEL 5.10.0-kali7-amd64 LOADED</div>
-                <div class="warning">>> FIREWALL BYPASS MODULE: ACTIVE</div>
-                <div class="success">>> TARGET ACQUIRED: 192.168.45.129</div>
-                <div class="error">>> INTRUSION DETECTION SYSTEM: DETECTED</div>
-                <div class="warning">>> IDS EVASION PROTOCOL: ENGAGED</div>
-                <div class="command-line">root@kali:~# <span class="cursor">█</span></div>
-            </div>
+            <div class="output" id="output"></div>
         </div>
 
         <div class="input-area">
-            <span class="prompt">$</span>
-            <input type="text" id="commandInput" placeholder="Enter command (type 'help')..." autofocus>
+            <span class="prompt">#</span>
+            <input type="text" id="commandInput" placeholder="Enter command... (type 'help' or 'hack')" autofocus>
         </div>
 
         <div class="progress-area" id="progressArea" style="display: none;">
-            <div class="progress-label" id="progressLabel">BYPASSING FIREWALL...</div>
+            <div class="progress-label" id="progressLabel">EXECUTING HACK SEQUENCE</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
@@ -283,15 +439,49 @@
         </div>
 
         <div class="status-bar">
-            <span>CONN: SECURE</span>
-            <span>LAT: 32ms</span>
-            <span>PKTS: 1,433</span>
-            <span>UID: 0 (ROOT)</span>
-            <span>TOR: ENABLED</span>
+            <div class="status-item">
+                <span class="status-label">IP ADDRESS</span>
+                <span class="status-value" id="ipAddress">***.***.***.***</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">CONNECTION</span>
+                <span class="status-value" id="connectionStatus">TOR</span>
+                /div>
+            <div class="status-item">
+                <span class="status-label">ENCRYPTION</span>
+                <span class="status-value" id="encryption">AES-256</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">ACCESS</span>
+                <span class="status-value" id="accessLevel">ROOT</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">THREAT LEVEL</span>
+                <span class="status-value" id="threatLevel">98%</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">ANONYMITY</span>
+                <span class="status-value" id="anonymity">MAX</span>
+            </div>
         </div>
     </div>
 
     <script>
+        // Welcome Screen Fade
+        setTimeout(() => {
+            document.getElementById('welcomeScreen').style.display = 'none';
+        }, 5000);
+
+        // Initialize outputs
+        const output = document.getElementById('output');
+        const terminal = document.getElementById('terminal');
+        const commandInput = document.getElementById('commandInput');
+        const progressArea = document.getElementById('progressArea');
+        const progressFill = document.getElementById('progressFill');
+        const progressLabel = document.getElementById('progressLabel');
+        const progressPercent = document.getElementById('progressPercent');
+        const alertPopup = document.getElementById('alertPopup');
+
         // Matrix Rain Effect
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -299,8 +489,8 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
-        const charArray = chars.split("");
+        const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+{}:<>?";
+        const matrixArray = matrixChars.split("");
         const fontSize = 14;
         const columns = canvas.width / fontSize;
         const drops = [];
@@ -317,7 +507,7 @@
             ctx.font = fontSize + 'px monospace';
 
             for(let i = 0; i < drops.length; i++) {
-                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
                 if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
@@ -329,202 +519,333 @@
 
         setInterval(drawMatrix, 40);
 
-        // Terminal Functionality
-        const output = document.getElementById('output');
-        const terminal = document.getElementById('terminal');
-        const commandInput = document.getElementById('commandInput');
-        const progressArea = document.getElementById('progressArea');
-        const progressFill = document.getElementById('progressFill');
-        const progressLabel = document.getElementById('progressLabel');
-        const progressPercent = document.getElementById('progressPercent');
+        // Binary Rain Effect
+        const binaryCanvas = document.getElementById('binaryCanvas');
+        const binaryCtx = binaryCanvas.getContext('2d');
 
-        let progressInterval;
-        let isHacking = false;
-        let currentProgress = 0;
+        binaryCanvas.width = window.innerWidth;
+        binaryCanvas.height = window.innerHeight;
+
+        const binaryChars = "01";
+        const binaryArray = binaryChars.split("");
+        const binaryDrops = [];
+
+        for(let x = 0; x < columns; x++) {
+            binaryDrops[x] = Math.floor(Math.random() * canvas.height);
+        }
+
+        function drawBinary() {
+            binaryCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            binaryCtx.fillRect(0, 0, binaryCanvas.width, binaryCanvas.height);
+
+            binaryCtx.fillStyle = '#f00';
+            binaryCtx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < binaryDrops.length; i++) {
+                const text = binaryArray[Math.floor(Math.random() * binaryArray.length)];
+                binaryCtx.fillText(text, i * fontSize, binaryDrops[i] * fontSize);
+
+                if(binaryDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    binaryDrops[i] = 0;
+                }
+                binaryDrops[i]++;
+            }
+        }
+
+        setInterval(drawBinary, 50);
+
+        // System Messages
+        const systemMessages = [
+            "> SYSTEM BOOT SEQUENCE INITIALIZED",
+            "> KERNEL LOADED: DARKWEB v3.7.1",
+            "> ENCRYPTION MODULES: ACTIVE",
+            "> TOR NETWORK: CONNECTED",
+            "> ANONYMITY LEVEL: MAXIMUM",
+            "> FIREWALL BYPASS: ENABLED",
+            "> INTRUSION DETECTION: ACTIVE",
+            "> 3 BACKDOORS DETECTED",
+            "> PATCHING VULNERABILITIES...",
+            "> SYSTEM HARDENED"
+        ];
 
         // Initial boot sequence
-        setTimeout(() => {
-            addOutput("> INITIALIZING NETWORK INTERFACES...", "success");
-        }, 1000);
+        let msgIndex = 0;
+        const bootInterval = setInterval(() => {
+            if (msgIndex < systemMessages.length) {
+                addOutput(systemMessages[msgIndex], "system");
+                msgIndex++;
+            } else {
+                clearInterval(bootInterval);
+                addOutput("> SYSTEM READY // DARK WEB ACCESS GRANTED", "success");
+                addOutput("> TYPE 'help' FOR COMMANDS OR 'hack' TO BEGIN", "warning");
+            }
+        }, 400);
 
-        setTimeout(() => {
-            addOutput("> DETECTING TARGET SYSTEMS...", "warning");
-        }, 2000);
-
-        setTimeout(() => {
-            addOutput("> 3 ACTIVE HOSTS FOUND", "success");
-            addOutput("> TARGET: 192.168.45.129 [LINUX 5.4.0]", "success");
-        }, 3000);
-
-        function addOutput(text, type = "success") {
+        function addOutput(text, type = "system") {
             const div = document.createElement('div');
             div.className = type;
             div.textContent = text;
-            output.insertBefore(div, output.lastElementChild);
+            output.appendChild(div);
             terminal.scrollTop = terminal.scrollHeight;
         }
 
+        function showAlert(message) {
+            alertPopup.textContent = `⚠️ ${message} ⚠️`;
+            alertPopup.classList.add('show');
+            setTimeout(() => {
+                alertPopup.classList.remove('show');
+            }, 3000);
+        }
+
+        // Progress functions
         function startProgress(action, duration = 5000) {
             progressArea.style.display = 'block';
-            currentProgress = 0;
+            let progress = 0;
             progressFill.style.width = '0%';
             progressPercent.textContent = '0%';
             progressLabel.textContent = action;
 
-            progressInterval = setInterval(() => {
-                if (currentProgress >= 100) {
-                    clearInterval(progressInterval);
-                    return;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
                 }
-                currentProgress += Math.random() * 15;
-                if (currentProgress > 100) currentProgress = 100;
-                progressFill.style.width = currentProgress + '%';
-                progressPercent.textContent = Math.floor(currentProgress) + '%';
-            }, 300);
+                progressFill.style.width = progress + '%';
+                progressPercent.textContent = Math.floor(progress) + '%';
+            }, duration / 10);
+
+            return interval;
         }
-        function completeProgress() {
-            clearInterval(progressInterval);
+
+        function completeProgress(interval) {
+            clearInterval(interval);
+            progressFill.style.width = '100%';
+            progressPercent.textContent = '100%';
             setTimeout(() => {
                 progressArea.style.display = 'none';
-                progressFill.style.width = '0%';
-                currentProgress = 0;
             }, 1000);
         }
 
-        // Command processing
+        // Command Processing
         commandInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                const command = commandInput.value.trim();
+                const command = commandInput.value.trim().toLowerCase();
                 if (command === '') return;
 
-                addOutput(`root@kali:~# ${command}`, "success");
-                
-                // Process commands
-                switch(command.toLowerCase()) {
+                addOutput(`root@darkweb:~# ${command}`, "system");
+
+                // Random alert on commands
+                if (Math.random() > 0.7) {
+                    showAlert("INTRUSION DETECTION SYSTEM TRIGGERED");
+                }
+
+                switch(command) {
                     case 'help':
-                        addOutput("Available commands:", "success");
-                        addOutput("  hack     - Start attack sequence", "success");
-                        addOutput("  scan     - Network scan", "success");
-                        addOutput("  crack    - Brute force attack", "success");
-                        addOutput("  exploit  - Run exploit", "success");
-                        addOutput("  clear    - Clear screen", "success");
-                        addOutput("  status   - Show system status", "success");
-                        addOutput("  exit     - Close connection", "warning");
+                        addOutput("╔════════════════════════════════════╗", "success");
+                        addOutput("║        AVAILABLE COMMANDS          ║", "success");
+                        addOutput("╠════════════════════════════════════╣", "success");
+                        addOutput("║ hack     - Start dark web attack   ║", "success");
+                        addOutput("║ scan     - Network reconnaissance  ║", "success");
+                        addOutput("║ crack    - Password cracking       ║", "success");
+                        addOutput("║ exploit  - Run exploit             ║", "success");
+                        addOutput("║ decrypt  - Decrypt files           ║", "success");
+                        addOutput("║ trace    - Trace target            ║", "success");
+                        addOutput("║ wipe     - Wipe logs               ║", "warning");
+                        addOutput("║ status   - System status           ║", "success");
+                        addOutput("║ clear    - Clear screen            ║", "success");
+                        addOutput("╚════════════════════════════════════╝", "success");
                         break;
 
                     case 'hack':
-                        addOutput("> INITIATING ATTACK SEQUENCE...", "warning");
-                        startProgress("ESTABLISHING CONNECTION TO TARGET", 4000);
+                        addOutput("> INITIATING DARK WEB PENETRATION...", "error");
+                        const hackInterval = startProgress("BYPASSING SECURE LAYERS", 8000);
+                        
                         setTimeout(() => {
-                            addOutput("> CONNECTION ESTABLISHED", "success");
-                            addOutput("> BYPASSING AUTHENTICATION...", "warning");
+                            addOutput("> LAYER 1 BYPASSED: FIREWALL", "success");
+                            addOutput("> LAYER 2 BYPASSED: IDS", "success");
+                            addOutput("> LAYER 3 BYPASSED: ENCRYPTION", "success");
+                            addOutput("> LAYER 4 BYPASSED: AUTHENTICATION", "success");
                         }, 2000);
+
                         setTimeout(() => {
-                            addOutput("> ACCESS GRANTED", "success");
-                            addOutput("> ROOT SHELL OBTAINED", "success");
-                            completeProgress();
-                        }, 5000);
+                            addOutput("> ACCESSING DARK WEB DATABASE...", "warning");
+                            addOutput("> DATABASE: DARKWEB_MARKET", "access");
+                            addOutput("> RECORDS FOUND: 1,433,921", "access");
+                        }, 4000);
+
+                        setTimeout(() => {
+                            addOutput("> EXTRACTING DATA...", "warning");
+                            addOutput("> DATA EXTRACTED: 2.4GB", "success");
+                            addOutput("> HACK COMPLETE // ALL DATA ACQUIRED", "success");
+                            completeProgress(hackInterval);
+                            showAlert("DATA BREACH SUCCESSFUL");
+                        }, 8000);
                         break;
 
                     case 'scan':
-                        startProgress("SCANNING NETWORK", 3000);
+                        addOutput("> INITIATING NETWORK SCAN...", "scan");
+                        const scanInterval = startProgress("SCANNING DARK WEB NODES", 5000);
+                        
                         setTimeout(() => {
-                            addOutput("> HOSTS FOUND:", "success");
-                            addOutput("  192.168.45.1   [ROUTER]", "success");
-                            addOutput("  192.168.45.100 [WINDOWS 10]", "success");
-                            addOutput("  192.168.45.129 [LINUX SERVER]", "success");
-                            addOutput("  192.168.45.200 [ANDROID]", "success");
-                            completeProgress();
-                        }, 3000);
+                            addOutput("╔════════════════════════════════════╗", "scan");
+                            addOutput("║        DARK WEB NODES FOUND       ║", "scan");
+                            addOutput("╠════════════════════════════════════╣", "scan");
+                            addOutput("║ 45.133.89.22   [ONION NODE]      ║", "scan");
+                            addOutput("║ 67.205.149.123 [MARKETPLACE]     ║", "scan");
+                            addOutput("║ 89.45.23.167   [FORUM]           ║", "scan");
+                            addOutput("║ 134.56.78.234  [MAIL SERVER]     ║", "scan");
+                            addOutput("║ 192.168.45.12  [HIDDEN SERVICE]  ║", "scan");
+                            addOutput("╚════════════════════════════════════╝", "scan");
+                            completeProgress(scanInterval);
+                        }, 5000);
                         break;
 
                     case 'crack':
-                        addOutput("> INITIATING BRUTE FORCE ATTACK...", "error");
-                        startProgress("CRACKING PASSWORD", 6000);
+                        addOutput("> LOADING PASSWORD DATABASE...", "warning");
+                        addOutput("> TARGET HASH: 5f4dcc3b5aa765d61d8327deb882cf99", "error");
+                        
+                        const crackInterval = startProgress("CRACKING PASSWORD HASH", 6000);
+                        
                         setTimeout(() => {
-                            addOutput("> PASSWORD FOUND: root@dm1n123", "success");
-                            addOutput("> HASH: 5f4dcc3b5aa765d61d8327deb882cf99", "success");
-                            completeProgress();
+                            addOutput("> DICTIONARY ATTACK: 1,433,921 WORDS", "success");
+                            addOutput("> BRUTE FORCE: 256 COMBINATIONS/SEC", "success");
+                        }, 2000);
+
+                        setTimeout(() => {
+                            addOutput("> PASSWORD CRACKED: darkweb@2024", "success");
+                            addOutput("> HASH TYPE: MD5", "success");
+                            addOutput("> PLAINTEXT FOUND", "access");
+                            completeProgress(crackInterval);
                         }, 6000);
                         break;
 
                     case 'exploit':
-                        addOutput("> LOADING EXPLOIT MODULE...", "warning");
-                        startProgress("EXECUTING CVE-2024-1234", 5000);
+                        addOutput("> SEARCHING FOR VULNERABILITIES...", "warning");
+                        const exploitInterval = startProgress("EXPLOITING CVE-2024-1234", 7000);
+                        
+                        setTimeout(() => {
+                            addOutput("> VULNERABILITY: RCE IN APACHE 2.4.49", "error");
+                            addOutput("> EXPLOIT CODE: python3 exploit.py --target 192.168.45.12", "success");
+                        }, 2000);
+
                         setTimeout(() => {
                             addOutput("> EXPLOIT SUCCESSFUL", "success");
-                            addOutput("> SHELL CODE INJECTED", "success");
-                            addOutput("> BACKDOOR INSTALLED", "warning");
-                            completeProgress();
+                            addOutput("> SHELL OBTAINED: 192.168.45.12:4444", "access");
+                            addOutput("> BACKDOOR INSTALLED // PERSISTENCE ACHIEVED", "warning");
+                            completeProgress(exploitInterval);
+                        }, 7000);
+                        break;
+
+                    case 'decrypt':
+                        addOutput("> LOCATING ENCRYPTED FILES...", "system");
+                        const decryptInterval = startProgress("DECRYPTING AES-256", 5000);
+                        
+                        setTimeout(() => {
+                            addOutput("> FILES FOUND: encrypted_data.bin", "success");
+                            addOutput("> KEY FOUND: 0x7E3F9A2B8C4D1E5F", "success");
+                        }, 2000);
+
+                        setTimeout(() => {
+                            addOutput("> DECRYPTION COMPLETE", "success");
+                            addOutput("> DATA: 'DARK_WEB_ACCESS_GRANTED'", "access");
+                            completeProgress(decryptInterval);
                         }, 5000);
                         break;
 
-                    case 'status':
-                        addOutput("> SYSTEM STATUS:", "success");
-                        addOutput("  CPU: 43%", "success");
-                        addOutput("  MEM: 2.4GB/8GB", "success");
-                        addOutput("  NET: 1.2MB/s ↑ 3.4MB/s ↓", "success");
-                        addOutput("  CONNECTIONS: 4 ACTIVE", "success");
-                        break;
-
-                    case 'clear':
-                        output.innerHTML = `<div class="command-line">root@kali:~# <span class="cursor">█</span></div>`;
-                        break;
-
-                    case 'exit':
-                        addOutput("> CLOSING CONNECTION...", "error");
-                        startProgress("TERMINATING SESSION", 2000);
+                    case 'trace':
+                        addOutput("> TRACING TARGET CONNECTION...", "warning");
+                        addOutput("> TARGET IP: 192.168.45.129", "error");
+                        
                         setTimeout(() => {
-                            addOutput("> CONNECTION TERMINATED", "error");
-                            completeProgress();
+                            addOutput("> HOP 1: 10.0.0.1 [LOCAL GATEWAY]", "system");
+                            addOutput("> HOP 2: 172.16.1.45 [ISP NODE]", "system");
+                            addOutput("> HOP 3: 89.34.12.67 [TOR ENTRY]", "system");
+                            addOutput("> HOP 4: 45.133.89.22 [TOR MIDDLE]", "system");
+                            addOutput("> HOP 5: 67.205.149.123 [TOR EXIT]", "system");
+                            addOutput("> HOP 6: ***.***.***.*** [HIDDEN]", "access");
+                            addOutput("> TRACE COMPLETE // TARGET LOCATED", "success");
                         }, 2000);
                         break;
 
+                    case 'wipe':
+                        addOutput("> WARNING: THIS WILL WIPE ALL LOGS", "error");
+                        const wipeInterval = startProgress("WIPING SYSTEM LOGS", 4000);
+                        
+                        setTimeout(() => {
+                            addOutput("> LOGS DELETED: /var/log/syslog", "success");
+                            addOutput("> LOGS DELETED: /var/log/auth.log", "success");
+                            addOutput("> LOGS DELETED: /var/log/kern.log", "success");
+                            addOutput("> ALL TRACES REMOVED", "success");
+                            completeProgress(wipeInterval);
+                        }, 4000);
+                        break;
+
+                    case 'status':
+                       addOutput("╔════════════════════════════════════╗", "success");
+                        addOutput("║        SYSTEM STATUS               ║", "success");
+                        addOutput("╠════════════════════════════════════╣", "success");
+                        addOutput("║ CPU: ████████░░ 78%                ║", "system");
+                        addOutput("║ RAM: ███████░░░ 3.4GB/8GB          ║", "system");
+                        addOutput("║ NET: ↑ 2.3MB/s ↓ 5.6MB/s           ║", "system");
+                        addOutput("║ CONNECTIONS: 7 ACTIVE              ║", "system");
+                        addOutput("║ FIREWALL: ACTIVE                    ║", "success");
+                        addOutput("║ IDS: TRIGGERED (3)                  ║", "warning");
+                        addOutput("║ BACKDOORS: 2 INSTALLED              ║", "error");
+                        addOutput("╚════════════════════════════════════╝", "success");
+                        break;
+
+                    case 'clear':
+                        output.innerHTML = '';
+                        addOutput("> SCREEN CLEARED", "system");
+                        break;
+
                     default:
-                        addOutput(`Command not found: ${command}`, "error");
-                        addOutput("Type 'help' for available commands", "warning");
+                        addOutput(`COMMAND NOT FOUND: ${command}`, "error");
+                        addOutput("> TYPE 'help' FOR AVAILABLE COMMANDS", "warning");
                 }
 
                 commandInput.value = '';
             }
         });
 
-        // Random system messages
+        // Random Alerts
         setInterval(() => {
-            if (!isHacking && Math.random() > 0.7) {
-                const messages = [
-                    "> IDS ALERT: SUSPICIOUS TRAFFIC DETECTED",
-                    "> FIREWALL: BLOCKING 192.168.1.45",
-                    "> NEW CONNECTION FROM 45.133.89.22",
-                    "> PACKET SNIFFING: TCP DUMP ACTIVE",
-                    "> DNS SPOOFING DETECTED",
-                    "> ARP CACHE POISONED",
-                    "> BACKDOOR CONNECTION ESTABLISHED"
+            if (Math.random() > 0.8) {
+                const alerts = [
+                    "IDS ALERT: PORT SCAN DETECTED",
+                    "FIREWALL: BLOCKING 45.133.89.22",
+                    "BACKDOOR CONNECTION ESTABLISHED",
+                    "PACKET SNIFFING: ACTIVE",
+                    "DNS SPOOFING DETECTED",
+                    "ARP CACHE POISONED"
                 ];
-                const types = ["warning", "error", "success", "warning", "error", "warning", "success"];
-                const index = Math.floor(Math.random() * messages.length);
-                addOutput(messages[index], types[index]);
+                showAlert(alerts[Math.floor(Math.random() * alerts.length)]);
             }
         }, 8000);
 
-        // Fake typing effect for cursor
+        // Update status bar randomly
         setInterval(() => {
-            const cursor = document.querySelector('.cursor');
-            if (cursor) {
-                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
-            }
-        }, 500);
+            document.getElementById('threatLevel').textContent = Math.floor(90 + Math.random() * 10) + '%';
+            document.getElementById('ipAddress').textContent = 
+                Math.floor(Math.random() * 255) + '.' +
+                Math.floor(Math.random() * 255) + '.' +
+                Math.floor(Math.random() * 255) + '.' +
+                Math.floor(Math.random() * 255);
+        }, 5000);
 
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Focus input on any key
+        // Focus input
         document.addEventListener('keydown', () => {
             commandInput.focus();
         });
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            binaryCanvas.width = window.innerWidth;
+            binaryCanvas.height = window.innerHeight;
+        });
     </script>
 </body>
-</html>
+</html> 
