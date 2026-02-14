@@ -118,26 +118,46 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin: 30px 0 15px;
-            letter-spacing: -0.5px;
         }
 
-        .intro-quote {
+        /* ANIMASI TYPING */
+        .typing-container {
             background: #162940;
-            border-left: 8px solid #ff99cc;
-            padding: 28px;
             border-radius: 35px;
-            margin: 30px 0;
-            font-size: 1.2rem;
+            padding: 30px 25px;
+            margin: 25px 0 20px;
+            border-left: 8px solid #ff99cc;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #typing-text {
+            font-size: 1.5rem;
             font-style: italic;
             color: #f0e0ff;
-            box-shadow: 0 15px 35px #00000070;
+            text-align: center;
+            line-height: 1.5;
+            min-height: 4.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .intro-quote .author {
-            text-align: right;
-            color: #ffb0d0;
-            margin-top: 15px;
-            font-size: 1rem;
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.8rem;
+            background-color: #ff99cc;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .form-group {
@@ -213,7 +233,6 @@
             margin: 0 auto;
         }
 
-        /* Header dengan name tag keii 🥀 */
         .header-card {
             margin-bottom: 25px;
             padding: 15px 0;
@@ -244,7 +263,7 @@
             margin: 10px 0 5px;
         }
 
-        /* MUSIK SECTION - TETAP DI ATAS */
+        /* MUSIK */
         .music-panel {
             background: #14273fe6;
             backdrop-filter: blur(12px);
@@ -339,10 +358,11 @@
             cursor: pointer;
         }
 
-        /* QUOTES SECTION - BAHASA YANG MENGALIR */
+        /* QUOTES UNTUK STORY */
         .quotes-wrapper {
             margin: 40px 0 30px;
         }
+
         .quotes-head {
             font-size: 1.5rem;
             color: #ffb0d0;
@@ -355,30 +375,30 @@
         .quotes-grid {
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 18px;
         }
 
-        .quote-block {
+        .story-quote {
             background: #142438;
-            border-radius: 35px;
-            padding: 28px 25px;
-            border-left: 8px solid #ff88b8;
+            border-radius: 30px;
+            padding: 22px 22px;
+            border-left: 6px solid #ff88b8;
             border-bottom: 2px solid #aa77cc;
+            transition: 0.2s;
         }
 
-        .quote-block p {
-            font-size: 1.2rem;
-            line-height: 1.7;
+        .story-quote p {
+            font-size: 1.1rem;
+            line-height: 1.6;
             color: #f2e6ff;
             font-style: normal;
-            font-weight: 400;
         }
 
-        .quote-block .quote-author {
+        .story-quote .quote-author {
             text-align: right;
             color: #ffaacc;
-            margin-top: 18px;
-            font-size: 1rem;
+            margin-top: 12px;
+            font-size: 0.95rem;
         }
 
         /* CATATAN */
@@ -440,7 +460,6 @@
             font-style: italic;
         }
 
-        /* FOOTER */
         .footer-credit {
             text-align: center;
             margin-top: 60px;
@@ -461,7 +480,7 @@
 </head>
 <body>
 
-<!-- LOADING SCREEN (PERTAMA) -->
+<!-- LOADING SCREEN -->
 <div id="loading-screen">
     <div class="loading-content">
         <div class="loading-spinner"></div>
@@ -474,14 +493,15 @@
     </div>
 </div>
 
-<!-- HALAMAN INTRO (INPUT NAMA) -->
+<!-- HALAMAN INTRO (dengan animasi typing) -->
 <div id="intro-page" style="opacity:0; visibility:hidden;">
     <div class="intro-container">
         <div class="intro-header">🌧️ ruang galau</div>
         
-        <div class="intro-quote">
-            “Aku mencintaimu dengan tulus, tapi aku juga mencintai diriku dengan meninggalkanmu.”
-            <div class="author">— keii 🥀</div>
+        <!-- ANIMASI TYPING -->
+        <div class="typing-container">
+            <div id="typing-text"></div>
+            <span class="typing-cursor"></span>
         </div>
         
         <div class="form-group">
@@ -501,14 +521,13 @@
 <!-- HALAMAN UTAMA -->
 <div id="main-page">
     <div class="main-container">
-        <!-- Header dengan name tag keii 🥀 -->
         <div class="header-card">
             <div class="greeting-small">hai,</div>
             <div class="name-big" id="displayName">keii <span>🥀</span></div>
             <div class="mood-icon">💔🌧️</div>
         </div>
 
-        <!-- MUSIK DI ATAS -->
+        <!-- MUSIK -->
         <div class="music-panel">
             <h3>pilih lagu pengiring galau</h3>
             <div class="music-items">
@@ -524,7 +543,7 @@
                     <div class="music-detail">
                         <div class="music-title">Bilang Kalo Bosen</div>
                         <div class="music-sub">— akhir yang tak terhindarkan</div>
-                    </div>
+                        /div>
                 </div>
                 <div class="music-card" id="track3">
                     <span class="music-icon">🕯️</span>
@@ -556,13 +575,13 @@
             </div>
         </div>
 
-        <!-- QUOTES DENGAN BAHASA YANG MENGALIR -->
+        <!-- QUOTES UNTUK STORY (PENDEK PADAT) -->
         <div class="quotes-wrapper">
-            <div class="quotes-head">🥀 kata-kata untukmu</div>
+            <div class="quotes-head">🥀 buat story-mu</div>
             <div class="quotes-grid" id="quotesList"></div>
         </div>
 
-        <!-- CATATAN HATI -->
+        <!-- CATATAN -->
         <div class="diary-card">
             <h4>📝 tulis apa yang kamu rasakan</h4>
             <textarea class="diary-field" id="diaryInput" rows="3" placeholder="misal: hari ini aku merindukan seseorang..."></textarea>
@@ -572,7 +591,6 @@
             </div>
         </div>
 
-        <!-- FOOTER -->
         <div class="footer-credit">
             <div class="dev">Developer Website : Keii Official</div>
             <div style="margin:12px 0;">🥀 kata-kata galau oleh: keii</div>
@@ -583,128 +601,45 @@
 
 <script>
     (function() {
-        // ========== QUOTES BAHASA INDONESIA YANG MENGALIR ==========
+        // ========== QUOTES PENDEK UNTUK STORY ==========
         const quotes = [
-            {
-                text: "Aku hanya ingin didengar, bukan dihakimi. Tapi kamu selalu pergi sebelum aku selesai bicara.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Rasanya seperti kehilangan di tengah keramaian. Semua orang tertawa, tapi aku hancur.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kita bertemu sebagai orang asing, bersama sebagai teman, dan berpisah sebagai dua orang yang saling menyimpan luka.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Janjimu selebar langit, tapi kenyataan setajam sembilu.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kamu adalah rumah yang tak pernah mau kutinggali lagi.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Aku mencoba melupakannya, tapi otakku dengan setia menyimpan ribuan kenangan tentangnya.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Sendiri itu sunyi, tapi bersama yang salah lebih perih rasanya.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Pelukanku hanya untukmu, tapi kamu tak pernah ada.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Aku baik-baik saja. Hanya saja, hatinya sedang hujan dan tak kunjung reda.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Bulan purnama pun akhirnya tenggelam, apalagi aku yang hanya manusia biasa.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Luka lama tak juga kering, karena kamu masih lalu lalang di kepalaku.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Jika hujan bisa menghapus semuanya, aku ingin berdiri di sana sampai lupa caranya sakit.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kita menari di antara dua pilihan: move on atau bertahan dalam luka yang sama.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Apakah kamu bahagia? Semoga. Meski bukan denganku.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Rumah terasa luas sekali tanpa suaramu yang dulu selalu bergema.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kenangan itu seperti racun, perlahan tapi pasti melumpuhkan langkah.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Jika rindu bisa dibakar, aku sudah jadi abu yang bertebaran di angin.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Maaf, aku masih menyimpan pesan lama yang tak pernah kamu balas.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Ada yang salah dengan caraku mencintai, atau memang kamu yang tak ingin dicintai?",
-                author: "keii 🥀"
-            },
-            {
-                text: "Aku hanyalah persinggahan, bukan tujuan. Dan kamu terus melaju tanpa menoleh.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Sampai kapan aku harus kuat, sementara hatiku terus berdarah?",
-                author: "keii 🥀"
-            },
-            {
-                text: "Mencintaimu adalah keputusan terberat yang pernah aku ambil.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kau adalah cerita indah yang berakhir buruk.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kata-katamu dulu sehangat mentari, sekarang setajam pisau.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kita adalah dua insan yang saling menyimpan rindu tapi tak bisa bersatu.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Di dalam sunyi, aku mendengar suaraku sendiri berkata: 'Kamu berharga, meski tak dipilih'.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Aku memaafkanmu, tapi aku juga memaafkan diriku yang dulu terlalu bertahan.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Rasa sakit ini mungkin tidak akan hilang sepenuhnya, tapi aku belajar hidup dengannya.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Kepergianmu mengajarkanku bahwa tidak semua orang ditakdirkan untuk bersama.",
-                author: "keii 🥀"
-            },
-            {
-                text: "Ada kedamaian dalam menerima bahwa beberapa hal memang tidak bisa dipaksakan.",
-                author: "keii 🥀"
-            }
+            { text: "Aku hanya ingin didengar, bukan dihakimi.", author: "keii 🥀" },
+            { text: "Kita bertemu sebagai orang asing, berpisah dengan luka.", author: "keii 🥀" },
+            { text: "Janjimu selebar langit, kenyataan setajam sembilu.", author: "keii 🥀" },
+            { text: "Kamu adalah rumah yang tak pernah mau kutinggali lagi.", author: "keii 🥀" },
+            { text: "Sendiri itu sunyi, tapi bersama yang salah lebih perih.", author: "keii 🥀" },
+            { text: "Pelukanku hanya untukmu, tapi kamu tak pernah ada.", author: "keii 🥀" },
+            { text: "Aku baik-baik saja. Hanya saja, hatinya sedang hujan.", author: "keii 🥀" },
+            { text: "Bulan purnama pun akhirnya tenggelam, apalagi aku.", author: "keii 🥀" },
+            { text: "Luka lama tak juga kering, karena kamu masih di sini.", author: "keii 🥀" },
+            { text: "Jika hujan bisa menghapus, aku ingin lupa caranya sakit.", author: "keii 🥀" },
+            { text: "Apakah kamu bahagia? Semoga. Meski bukan denganku.", author: "keii 🥀" },
+            { text: "Rumah terasa luas tanpa suaramu.", author: "keii 🥀" },
+            { text: "Kenangan itu seperti racun, perlahan melumpuhkan.", author: "keii 🥀" },
+            { text: "Jika rindu bisa dibakar, aku sudah jadi abu.", author: "keii 🥀" },
+            { text: "Maaf, aku masih menyimpan pesan lama yang tak terbalas.", author: "keii 🥀" },
+            { text: "Aku hanyalah persinggahan, bukan tujuan.", author: "keii 🥀" },
+            { text: "Sampai kapan aku harus kuat?", author: "keii 🥀" },
+            { text: "Mencintaimu adalah keputusan terberat.", author: "keii 🥀" },
+            { text: "Kau adalah cerita indah yang berakhir buruk.", author: "keii 🥀" },
+            { text: "Kata-katamu dulu sehangat mentari, sekarang setajam pisau.", author: "keii 🥀" },
+            { text: "Kita saling menyimpan rindu tapi tak bisa bersatu.", author: "keii 🥀" },
+            { text: "Di dalam sunyi, aku mendengar suaraku: 'Kamu berharga'.", author: "keii 🥀" },
+            { text: "Aku memaafkanmu, dan aku memaafkan diriku.", author: "keii 🥀" },
+            { text: "Rasa sakit ini mungkin tak hilang, tapi aku belajar hidup.", author: "keii 🥀" },
+            { text: "Kepergianmu mengajariku, tak semua orang ditakdirkan bersama.", author: "keii 🥀" },
+            { text: "Ada damai dalam menerima yang tak bisa dipaksakan.", author: "keii 🥀" }
+        ];
+
+        // ===== KATA UNTUK TYPING ANIMATION =====
+        const typingWords = [
+            "sedang patah hati?",
+            "merindukan seseorang?",
+            "lelah berpura-pura?",
+            "butuh tempat pulang?",
+            "hatimu hujan?",
+            "kamu tidak sendiri.",
+            "menangislah jika perlu."
         ];
 
         // ===== ELEMEN =====
@@ -713,12 +648,13 @@
         const mainPage = document.getElementById('main-page');
         const loadingProgress = document.getElementById('loadingProgress');
         const loadingPercent = document.getElementById('loadingPercent');
+        const typingText = document.getElementById('typing-text');
         const namaInput = document.getElementById('namaInput');
         const masukBtn = document.getElementById('masukBtn');
         const displayName = document.getElementById('displayName');
         const quotesList = document.getElementById('quotesList');
 
-        // Audio elements
+        // Audio
         const audio1 = document.getElementById('audio1');
         const audio2 = document.getElementById('audio2');
         const audio3 = document.getElementById('audio3');
@@ -744,8 +680,7 @@
         let isPlaying = false;
         let currentAudio = null;
 
-        // ===== FUNGSI =====
-        // Loading simulation
+        // ===== FUNGSI LOADING =====
         function startLoading() {
             let progress = 0;
             const interval = setInterval(() => {
@@ -761,6 +696,7 @@
                         loadingScreen.style.visibility = 'hidden';
                         introPage.style.opacity = '1';
                         introPage.style.visibility = 'visible';
+                        startTyping(); // mulai animasi typing
                     }, 800);
                 }
                 loadingProgress.style.width = progress + '%';
@@ -768,12 +704,42 @@
             }, 150);
         }
 
-        // Render quotes
+        // ===== ANIMASI TYPING =====
+        let typingIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingInterval;
+
+        function startTyping() {
+            typingInterval = setInterval(typingEffect, 120);
+        }
+
+        function typingEffect() {
+            const currentWord = typingWords[typingIndex];
+            
+            if (isDeleting) {
+                typingText.innerText = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.innerText = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                setTimeout(() => {}, 1500); // jeda sebelum hapus
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                typingIndex = (typingIndex + 1) % typingWords.length;
+            }
+        }
+
+        // ===== RENDER QUOTES =====
         function renderQuotes() {
             let html = '';
             quotes.forEach(q => {
                 html += `
-                    <div class="quote-block">
+                    <div class="story-quote">
                         <p>“${q.text}”</p>
                         <div class="quote-author">— ${q.author}</div>
                     </div>
@@ -782,22 +748,23 @@
             quotesList.innerHTML = html;
         }
 
-        // Masuk main page
+        // ===== MASUK HALAMAN UTAMA =====
         function enterMain(name) {
             displayName.innerHTML = (name || 'keii') + ' <span>🥀</span>';
             introPage.style.opacity = '0';
             introPage.style.visibility = 'hidden';
             mainPage.classList.add('visible');
+            clearInterval(typingInterval); // stop animasi typing
         }
 
-        // Musik functions
+        // ===== FUNGSI MUSIK =====
         function resetTracks() {
             track1.classList.remove('playing');
             track2.classList.remove('playing');
             track3.classList.remove('playing');
             track4.classList.remove('playing');
-                        }
-         function stopAll() {
+        }
+    function stopAll() {
             for (let key in audios) {
                 audios[key].pause();
                 audios[key].currentTime = 0;
@@ -838,7 +805,7 @@
             nowPlaying.innerText = `🎵 ${getTrackName(id)}`;
         }
 
-        // Catatan
+        // ===== CATATAN =====
         function renderNotes() {
             if (notes.length === 0) {
                 savedContainer.innerHTML = '<div class="note-entry">✨ catatanmu akan muncul di sini</div>';
