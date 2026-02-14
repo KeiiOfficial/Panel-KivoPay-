@@ -311,8 +311,7 @@
             z-index: 2;
             pointer-events: none;
         }
-
-        .particle {
+          .particle {
             position: absolute;
             width: 4px;
             height: 4px;
@@ -671,8 +670,7 @@
             font-weight: bold;
             font-size: 1rem;
             animation: priceGlow 1s infinite alternate;
-        }
-
+            }
         @keyframes priceGlow {
             from { text-shadow: 0 0 5px #4a9eff; }
             to { text-shadow: 0 0 15px #4a9eff; }
@@ -716,7 +714,7 @@
             border-bottom: 1px solid #4a9eff;
         }
 
-         .produk-header img {
+        .produk-header img {
             width: 45px;
             height: 45px;
             object-fit: contain;
@@ -1005,49 +1003,58 @@
             background: #1a3a6a;
         }
 
-        /* Admin Contacts - Hanya Satu */
+        /* ADMIN CONTACT - SATU BARIS */
         .admin-contact-single {
             background: #0a1a3a;
             border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
+            padding: 20px;
+            margin: 20px 0 10px;
             text-align: center;
             border: 1px solid #4a9eff;
         }
 
         .admin-contact-single p {
             color: #aaccff;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-size: 0.95rem;
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .admin-btn-single {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             background: #25D366;
             color: white;
-            padding: 12px 30px;
+            padding: 12px 25px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
             transition: all 0.3s;
-            margin: 5px;
-            }
-            .admin-btn-single.tele {
-            background: #0088cc;
+            min-width: 180px;
         }
 
+        .admin-btn-single.tele {
+            background: #0088cc;
+            }
         .admin-btn-single:hover {
-            transform: translateY(-2px) scale(1.05);
+            transform: translateY(-3px) scale(1.05);
             filter: brightness(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .respon {
             font-size: 0.8rem;
             opacity: 0.8;
+            margin-left: 5px;
         }
 
         .note {
@@ -1408,20 +1415,20 @@
                             <input type="text" class="format-input" id="inputCatatan" placeholder="Tambahkan catatan (opsional)" value="-">
                         </div>
                     </div>
-                    
                     <div class="format-buttons">
                         <button class="format-btn copy" onclick="copyFormatOrder()">
                             <i class="fas fa-copy"></i> Salin Format Order
                         </button>
                         <button class="format-btn" onclick="sendToWA()">
-                            <i class="fab fa-whatsapp"></i> Kirim ke Supermarket
+                            <i class="fab fa-whatsapp"></i> Kirim ke WhatsApp
                         </button>
                     </div>
                 </div>
-                 <!-- ADMIN CONTACT (SATU) -->
+
+                <!-- ADMIN CONTACT - HANYA SATU (DI BAWAH FORMAT) -->
                 <div class="admin-contact-single">
                     <p><i class="fas fa-info-circle" style="color: #4a9eff;"></i> Hubungi admin untuk mengirim bukti transfer:</p>
-                    <div>
+                    <div class="admin-buttons">
                         <a href="https://wa.me/6285150895395" class="admin-btn-single wa-btn" target="_blank">
                             <i class="fab fa-whatsapp"></i> Admin WhatsApp <span class="respon">(Slow)</span>
                         </a>
@@ -1514,7 +1521,8 @@
               produk: ["100 Pengikut Rp 5.000","300 Pengikut Rp 15.000","400 Pengikut Rp 20.000","500 Pengikut Rp 25.000","1.000 Pengikut Rp 50.000","2.000 Pengikut Rp 99.000"],
               catatan: "Catatan: Sesudah Order Wajib Chat Admin Via Wa/Telegram Dan Sertakan Bukti Transfer !!!" }
         ];
-       document.getElementById('totalApps').textContent = kategoriData.length + ' Kategori';
+
+        document.getElementById('totalApps').textContent = kategoriData.length + ' Kategori';
 
         // Variables untuk payment
         let selectedProduk = '';
@@ -1536,8 +1544,7 @@
             }
         }
         createParticles();
-
-        // Loading percentage
+         // Loading percentage
         const loadingBar = document.getElementById('loadingBar');
         const percentageEl = document.getElementById('percentage');
         let width = 0;
@@ -1784,4 +1791,4 @@
         renderKategori();
     </script>
 </body>
-</html> 
+</html>
