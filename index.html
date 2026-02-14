@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>ruang galau | Keii Official</title>
+    <title>ruang galau | keii</title>
     <style>
         * {
             margin: 0;
@@ -12,95 +12,105 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: #0a0c15;
-            color: #e5e9f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0d18;
+            color: #e6ecf5;
             line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* ===== HALAMAN LOADING (INPUT NAMA) ===== */
+        /* ===== HALAMAN INTRO (LOADING + INPUT NAMA) ===== */
         #intro-page {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             min-height: 100vh;
-            background: #0b0f1a;
+            background: #0a0d18;
             z-index: 2000;
             display: flex;
             flex-direction: column;
             padding: 30px 20px;
             overflow-y: auto;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .intro-content {
+        .intro-container {
             max-width: 500px;
             margin: 0 auto;
             width: 100%;
-            padding: 20px 0 50px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px 0 30px;
         }
 
-        .intro-title {
-            font-size: 2.2rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #b0d0ff, #d9b0ff);
+        .intro-header {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #b0d0ff, #e0b0ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 30px 0 15px;
+            margin: 40px 0 20px;
             letter-spacing: -0.5px;
         }
 
-        .intro-sub {
-            color: #9bb5d9;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            border-left: 4px solid #3f7bcb;
-            padding-left: 20px;
+        .intro-quote {
+            background: #132235;
+            border-left: 8px solid #3f7bcb;
+            padding: 25px;
+            border-radius: 30px;
+            margin: 30px 0;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #c9e0ff;
+            box-shadow: 0 10px 30px #00000050;
+        }
+
+        .quote-author {
+            text-align: right;
+            color: #90b4e0;
+            margin-top: 15px;
+            font-size: 1rem;
         }
 
         .form-group {
-            margin: 30px 0;
+            margin: 30px 0 20px;
         }
 
         .form-label {
-            display: block;
+            font-size: 1.2rem;
+            color: #b8d4ff;
             margin-bottom: 12px;
-            color: #c0d4f0;
-            font-size: 1.1rem;
+            display: block;
         }
 
         .form-input {
             width: 100%;
-            background: rgba(20, 30, 50, 0.7);
-            border: 2px solid #2f5690;
+            background: #1b2a40;
+            border: 2px solid #3466a0;
             border-radius: 50px;
             padding: 18px 25px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: white;
             outline: none;
-            transition: 0.2s;
         }
 
         .form-input:focus {
-            border-color: #3a8cff;
-            box-shadow: 0 0 25px #3a8cff99;
+            border-color: #4a9eff;
+            box-shadow: 0 0 20px #4a9eff99;
         }
 
         .btn-masuk {
             background: #1f3f68;
-            border: none;
-            border-radius: 60px;
-            padding: 18px 30px;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: white;
-            width: 100%;
-            margin: 20px 0 40px;
             border: 2px solid #5f9eff;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 18px 25px;
+            border-radius: 60px;
+            width: 100%;
+            margin: 25px 0 40px;
             transition: 0.2s;
         }
 
@@ -109,178 +119,120 @@
             transform: scale(0.98);
         }
 
-        .intro-quote {
-            background: #131e30;
-            padding: 25px;
-            border-radius: 30px;
-            margin: 40px 0;
-            font-style: italic;
-            color: #b9d4fc;
-            font-size: 1.1rem;
-            border-left: 6px solid #4a8fe0;
-        }
-
         .intro-footer {
             text-align: center;
-            color: #5f7ca5;
-            font-size: 0.95rem;
-            margin-top: 50px;
-            padding: 20px 0;
-            border-top: 1px solid #253a55;
+            color: #6f8fc0;
+            margin-top: auto;
+            padding: 30px 0 20px;
+            border-top: 2px solid #253f60;
         }
 
-        /* ===== HALAMAN UTAMA (SCROLL BEBAS) ===== */
+        .dev-credit {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #c5ddff;
+            margin-bottom: 8px;
+        }
+
+        /* ===== HALAMAN UTAMA (SCROLL QUOTES, MUSIK DI ATAS) ===== */
         #main-page {
             position: relative;
             min-height: 100vh;
-            background: #0a0c15;
-            padding: 20px 16px 30px;
+            background: #0a0d18;
             display: none;
-            flex-direction: column;
         }
 
         #main-page.visible {
             display: block;
         }
 
-        .container {
+        .main-container {
             max-width: 600px;
             margin: 0 auto;
-            width: 100%;
+            padding: 20px 18px 40px;
         }
 
-        /* Header dengan nama user */
-        .header-card {
-            background: #131e30dd;
-            backdrop-filter: blur(8px);
-            border: 2px solid #2d5080;
-            border-radius: 40px;
-            padding: 25px 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px #00000080;
+        /* Header dengan nama (otomatis keii atau sesuai input) */
+        .greeting-section {
+            margin-bottom: 20px;
+            padding: 10px 0;
         }
 
-        .greeting {
+        .greeting-text {
             font-size: 1.3rem;
-            color: #bfdcff;
-            margin-bottom: 8px;
+            color: #b8d4ff;
         }
 
-        .user-name {
-            font-size: 2.2rem;
+        .user-name-display {
+            font-size: 3.5rem;
             font-weight: 700;
             color: white;
-            text-shadow: 0 0 15px #0099ff;
+            text-shadow: 0 0 20px #0099ff, 0 0 40px #0044aa;
+            line-height: 1.2;
+            margin: 5px 0 5px;
             word-break: break-word;
         }
 
-        .user-mood {
-            font-size: 2rem;
-            margin-top: 15px;
-            filter: drop-shadow(0 0 12px cyan);
+        .mood-emoji {
+            font-size: 2.5rem;
+            margin: 10px 0 5px;
+            filter: drop-shadow(0 0 15px cyan);
         }
 
-        /* Quote box */
-        .quote-box {
-            background: #0f1b2b;
-            border-radius: 30px;
-            padding: 30px 25px;
-            margin: 25px 0;
-            border-left: 8px solid #3b82f6;
-            border-right: 3px solid #1e4b8f;
-        }
-
-        .quote-text {
-            font-size: 1.3rem;
-            line-height: 1.7;
-            font-style: italic;
-            color: #e2edff;
-            transition: opacity 0.3s;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-        }
-
-        .quote-source {
-            text-align: right;
-            color: #7aa5d9;
-            margin-top: 20px;
-            font-size: 1rem;
-        }
-
-        /* Tombol */
-        .button-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 30px 0;
-        }
-
-        .btn {
-            background: #152a40;
-            border: 2px solid #2f66a5;
-            color: #d3e6ff;
-            padding: 16px 0;
-            border-radius: 60px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            flex: 1 1 140px;
-            text-align: center;
-            transition: 0.2s;
-        }
-
-        .btn:active {
-            background: #1d3e62;
-            transform: scale(0.97);
-        }
-
-        /* Musik section */
+        /* MUSIK SECTION - DILETAKKAN DI ATAS (PERTAMA) */
         .music-section {
-            background: #0d1a28;
-            border-radius: 40px;
+            background: rgba(18, 32, 50, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid #3060a0;
+            border-radius: 45px;
             padding: 25px 20px;
-            margin: 30px 0;
+            margin: 20px 0 35px;
+            box-shadow: 0 20px 50px #00000080;
         }
 
-        .music-title {
-            font-size: 1.4rem;
-            color: #b3d9ff;
-            margin-bottom: 25px;
+        .music-headline {
+            font-size: 1.6rem;
             text-align: center;
+            color: #cce2ff;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
 
-        .music-grid {
+        .music-list {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        .music-card {
-            background: #11263b;
-            border: 2px solid #2d6090;
+        .music-item {
+            background: #0f2740;
+            border: 2px solid #2d5f9a;
             border-radius: 60px;
-            padding: 18px 25px;
+            padding: 18px 22px;
             display: flex;
             align-items: center;
             gap: 18px;
+            cursor: pointer;
             transition: 0.2s;
         }
 
-        .music-card:active {
-            background: #1b3b5c;
+        .music-item:active {
+            background: #1b3d65;
             transform: scale(0.99);
         }
 
-        .music-card.playing {
-            border-color: #00d0ff;
-            background: #1e4370;
-            box-shadow: 0 0 25px #00a6ff;
+        .music-item.playing {
+            border-color: #00ddff;
+            background: #1f4a78;
+            box-shadow: 0 0 30px #00a6ff;
         }
 
         .music-icon {
-            font-size: 2.2rem;
-            min-width: 50px;
+            font-size: 2.3rem;
+            min-width: 55px;
             text-align: center;
+            filter: drop-shadow(0 0 8px white);
         }
 
         .music-info {
@@ -288,59 +240,114 @@
         }
 
         .music-name {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            color: #c8e1ff;
+            color: #d1e7ff;
+            margin-bottom: 4px;
         }
 
         .music-artist {
-            font-size: 0.9rem;
-            color: #789dc9;
+            font-size: 0.95rem;
+            color: #90b5dd;
         }
 
-        .now-playing-bar {
-            background: #071725;
+        /* Now playing bar */
+        .now-playing {
+            background: #071d30;
             border-radius: 40px;
-            padding: 18px 20px;
-            margin: 20px 0 5px;
+            padding: 16px 22px;
+            margin: 25px 0 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 2px solid #335d8a;
+            border: 2px solid #336bad;
         }
 
         .now-playing-text {
-            font-size: 1rem;
-            color: #b0ceff;
+            font-size: 1.1rem;
+            color: #c5e0ff;
         }
 
-        .player-controls {
+        .control-buttons {
             display: flex;
             gap: 20px;
         }
 
-        .player-controls span {
-            font-size: 2rem;
+        .control-buttons span {
+            font-size: 2.2rem;
+            cursor: pointer;
+            padding: 0 5px;
         }
 
-        /* Catatan */
-        .diary-box {
-            background: #0f1b2b;
+        .control-buttons span:active {
+            opacity: 0.6;
+        }
+
+        /* QUOTES SECTION - LANGSUNG DERETAN QUOTES (TANPA TOMBOL) */
+        .quotes-section {
+            margin: 35px 0 25px;
+        }
+
+        .quotes-title {
+            font-size: 1.4rem;
+            color: #b5d4ff;
+            margin-bottom: 20px;
+            font-weight: 500;
+            border-left: 6px solid #3f7bcb;
+            padding-left: 18px;
+        }
+
+        .quotes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quote-card {
+            background: #0e1e30;
+            border-radius: 30px;
+            padding: 25px 22px;
+            border-left: 6px solid #3b82f6;
+            border-bottom: 2px solid #1e4f8a;
+            transition: 0.2s;
+        }
+
+        .quote-card:hover {
+            background: #13263e;
+        }
+
+        .quote-card p {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #e2edff;
+            line-height: 1.7;
+        }
+
+        .quote-tag {
+            text-align: right;
+            color: #8ab0dd;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        /* CATATAN SECTION */
+        .diary-section {
+            background: #0f1c2c;
             border-radius: 35px;
             padding: 25px;
-            margin: 30px 0;
+            margin: 40px 0 30px;
         }
 
-        .diary-label {
-            font-size: 1.3rem;
+        .diary-title {
+            font-size: 1.4rem;
             margin-bottom: 20px;
-            color: #c5ddff;
+            color: #c9e2ff;
         }
 
         .diary-input {
             width: 100%;
-            background: #1f3147;
-            border: 2px solid #335d96;
+            background: #1e3148;
+            border: 2px solid #3466aa;
             border-radius: 30px;
             padding: 20px;
             font-size: 1.1rem;
@@ -356,46 +363,52 @@
         }
 
         .btn-simpan {
-            background: #1b3a5c;
-            border: 2px solid #4f8fd9;
+            background: #1e3f64;
+            border: 2px solid #5f9eff;
             color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
             padding: 16px 30px;
             border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
             width: 100%;
             margin-bottom: 20px;
         }
 
+        .btn-simpan:active {
+            background: #295787;
+            transform: scale(0.98);
+        }
+
         .saved-notes {
-            background: #11273d;
+            background: #10263d;
             border-radius: 25px;
             padding: 20px;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
         }
 
         .note-item {
-            padding: 15px 10px;
-            border-bottom: 2px solid #244f77;
-            color: #d0e3ff;
+            padding: 15px 12px;
+            border-bottom: 2px solid #2c5282;
+            color: #d0e6ff;
+            font-style: italic;
         }
 
-        /* Footer kredit */
-        .footer-credit {
+        /* FOOTER KREDIT */
+        .footer-bottom {
+            text-align: center;
             margin-top: 50px;
             padding: 30px 0 20px;
-            text-align: center;
-            border-top: 3px solid #203b57;
-            color: #6f96c0;
-            font-size: 1rem;
+            border-top: 3px solid #254a75;
+            color: #7f9fc9;
         }
 
-        .dev-name-credit {
+        .footer-dev {
+            font-size: 1.2rem;
             font-weight: 700;
             color: #b5d6ff;
-            margin-top: 8px;
-            letter-spacing: 2px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
         audio { display: none; }
@@ -403,84 +416,71 @@
 </head>
 <body>
 
-<!-- HALAMAN INTRO: ISI NAMA DULU (bisa di-scroll) -->
+<!-- HALAMAN INTRO (LOADING + ISI NAMA) -->
 <div id="intro-page">
-    <div class="intro-content">
-        <div class="intro-title">🌧️ ruang galau</div>
-        <div class="intro-sub">untuk hati yang lelah, untuk luka yang tersembunyi</div>
+    <div class="intro-container">
+        <div class="intro-header">🌧️ ruang galau</div>
         
         <div class="intro-quote">
             “Aku mencintaimu dengan tulus, tapi aku juga mencintai diriku dengan meninggalkanmu.”
-            <div style="margin-top:15px; color:#88b0dd;">— galau</div>
+            <div class="quote-author">— galau</div>
         </div>
         
         <div class="form-group">
-            <div class="form-label">siapa nama kamu? (boleh nama samaran)</div>
-            <input type="text" class="form-input" id="namaInput" placeholder="cth: hujan, sepi, atau namamu" autocomplete="off">
+            <div class="form-label">masukkan nama kamu</div>
+            <input type="text" class="form-input" id="namaInput" placeholder="cth: keii, hujan, sepi" autocomplete="off" value="keii">
         </div>
         
-        <button class="btn-masuk" id="masukBtn">masuk ke ruang galau</button>
-        
-        <!-- Ini loading teks yang diminta: Developer Website : Keii Official (ada di bawah) -->
+        <button class="btn-masuk" id="masukBtn">masuk</button>
+        <!-- CREDIT SESUAI PERMINTAAN: nama pembuat kata-kata "keii" -->
         <div class="intro-footer">
-            <div>Developer Website : Keii Official</div>
-            <div style="font-size:0.85rem; margin-top: 12px;">© 2026 • ruang aman untuk hatimu</div>
+            <div class="dev-credit">Developer Website : Keii Official</div>
+            <div style="font-size: 1rem;">pembuat kata-kata galau: keii</div>
+            <div style="margin-top: 15px; font-size:0.9rem;">© 2026 untuk hati yang lelah</div>
         </div>
     </div>
 </div>
-<!-- HALAMAN UTAMA (setelah masuk) -->
+
+<!-- HALAMAN UTAMA -->
 <div id="main-page">
-    <div class="container">
-        <!-- Header nama -->
-        <div class="header-card">
-            <div class="greeting">hai,</div>
-            <div class="user-name" id="displayName">...</div>
-            <div class="user-mood">💔🌧️🥀</div>
+    <div class="main-container">
+        <!-- Header dengan nama (otomatis keii) -->
+        <div class="greeting-section">
+            <div class="greeting-text">hai,</div>
+            <div class="user-name-display" id="displayName">keii</div>
+            <div class="mood-emoji">💔🌧️🥀</div>
         </div>
 
-        <!-- Kutipan besar -->
-        <div class="quote-box">
-            <div class="quote-text" id="quoteDisplay">"Kita bertemu untuk saling mengukir luka, lalu pergi tanpa pamit."</div>
-            <div class="quote-source" id="quoteSource">— galau</div>
-        </div>
-
-        <!-- Tombol galau / semangat / dalam -->
-        <div class="button-row">
-            <div class="btn" id="btnGalau">🌧️ galau</div>
-            <div class="btn" id="btnSemangat">🌤️ semangat</div>
-            <div class="btn" id="btnDalam">🌀 dalam</div>
-        </div>
-
-        <!-- MUSIK dengan link dari kakak -->
+        <!-- MUSIK DI ATAS (PERTAMA) -->
         <div class="music-section">
-            <div class="music-title">pilih lagu pengiring galau</div>
-            <div class="music-grid">
-                <!-- Lagu 1 -->
-                <div class="music-card" id="track1">
+            <div class="music-headline">pilih lagu pengiring galau</div>
+            <div class="music-list">
+                <!-- Lagu 1: Hingga Tua Bersama Mu -->
+                <div class="music-item" id="track1">
                     <div class="music-icon">🎧</div>
                     <div class="music-info">
                         <div class="music-name">Hingga Tua Bersama Mu</div>
                         <div class="music-artist">— rindu yang tertunda</div>
                     </div>
                 </div>
-                <!-- Lagu 2 -->
-                <div class="music-card" id="track2">
+                <!-- Lagu 2: Bilang Kalo Bosen -->
+                <div class="music-item" id="track2">
                     <div class="music-icon">💔</div>
                     <div class="music-info">
                         <div class="music-name">Bilang Kalo Bosen</div>
                         <div class="music-artist">— akhir yang lelah</div>
                     </div>
                 </div>
-                <!-- Lagu 3 -->
-                <div class="music-card" id="track3">
+                <!-- Lagu 3: Bilang Pada Tuhanmu -->
+                <div class="music-item" id="track3">
                     <div class="music-icon">🕯️</div>
                     <div class="music-info">
                         <div class="music-name">Bilang Pada Tuhanmu</div>
                         <div class="music-artist">— pasrah</div>
                     </div>
                 </div>
-                <!-- Lagu 4 -->
-                <div class="music-card" id="track4">
+                <!-- Lagu 4: Percayakan Rindu -->
+                <div class="music-item" id="track4">
                     <div class="music-icon">🌊</div>
                     <div class="music-info">
                         <div class="music-name">Percayakan Rindu</div>
@@ -489,124 +489,210 @@
                 </div>
             </div>
 
-            <!-- Audio elements (tersembunyi) -->
+            <!-- Audio elements (link dari kakak) -->
             <audio id="audio1" preload="metadata" src="https://files.catbox.moe/egupev.mp3"></audio>
             <audio id="audio2" preload="metadata" src="https://files.catbox.moe/xjer74.mp3"></audio>
             <audio id="audio3" preload="metadata" src="https://files.catbox.moe/gyjjt4.mp3"></audio>
             <audio id="audio4" preload="metadata" src="https://files.catbox.moe/qxcfnc.mp3"></audio>
 
             <!-- Now playing bar -->
-            <div class="now-playing-bar">
+            <div class="now-playing">
                 <span class="now-playing-text" id="nowPlaying">🔇 pilih lagu</span>
-                <div class="player-controls">
+                <div class="control-buttons">
                     <span id="playPauseBtn">⏯️</span>
                     <span id="stopBtn">⏹️</span>
                 </div>
             </div>
         </div>
 
-        <!-- Catatan galau -->
-        <div class="diary-box">
-            <div class="diary-label">📝 tulis apa yang kamu rasakan</div>
-            <textarea class="diary-input" id="diaryInput" rows="3" placeholder="misal: hari ini aku kangen..."></textarea>
+        <!-- QUOTES SECTION - LANGSUNG DERETAN (TANPA TOMBOL) -->
+        <div class="quotes-section">
+            <div class="quotes-title">🌧️ kata-kata untukmu</div>
+            <div class="quotes-list" id="quotesList">
+                <!-- quotes akan diisi javascript -->
+            </div>
+        </div>
+
+        <!-- CATATAN HATI -->
+        <div class="diary-section">
+            <div class="diary-title">📝 tulis apa yang kamu rasakan</div>
+            <textarea class="diary-input" id="diaryInput" rows="3" placeholder="misal: hari ini aku masih memikirkan dia..."></textarea>
             <button class="btn-simpan" id="simpanBtn">simpan catatan</button>
             <div class="saved-notes" id="savedContainer">
                 <div class="note-item">✨ catatanmu akan muncul di sini</div>
             </div>
         </div>
 
-        <!-- FOOTER dengan tulisan "Developer Website : Keii Official" (di bawah) -->
-        <div class="footer-credit">
-            <div>Developer Website : Keii Official</div>
-            <div class="dev-name-credit">Keii Official</div>
-            <div style="margin-top: 15px; font-size:0.9rem;">🌧️ untuk yang sedang terluka</div>
+        <!-- FOOTER dengan credit keii -->
+        <div class="footer-bottom">
+            <div class="footer-dev">Developer Website : Keii Official</div>
+            <div style="margin-top: 8px;">pembuat kata-kata galau: keii</div>
+            <div style="margin-top: 20px;">🌧️ untuk yang sedang terluka</div>
         </div>
     </div>
 </div>
 
 <script>
     (function() {
-        // KUMPULAN QUOTES
-        const quotesGalau = [
-            "“Aku hanya ingin didengar, bukan dihakimi. Tapi kamu selalu pergi sebelum aku selesai bicara.”",
-            "“Rasanya seperti kehilangan di tengah keramaian. Semua orang tertawa, tapi aku hancur.”",
-            "“Aku merindukanmu, tapi aku juga lelah. Lelah memikirkan kamu yang mungkin tidak memikirkan aku.”",
-            "“Kita bertemu sebagai orang asing, bersama sebagai teman, dan berpisah sebagai dua orang yang saling menyimpan luka.”",
-            "“Janjimu selebar langit, tapi kenyataan setajam sembilu.”",
-            "“Kamu adalah rumah yang tak pernah mau kutinggali lagi.”",
-            "“Aku mencoba melupakannya, tapi otakku dengan setia menyimpan ribuan kenangan tentangnya.”",
-            "“Sendiri itu sunyi, tapi bersama yang salah lebih perih rasanya.”",
-            "“Pelukanku hanya untukmu, tapi kamu tak pernah ada.”",
-            "“Aku baik-baik saja. Hanya saja, hatinya sedang hujan dan tak kunjung reda.”",
-            "“Kita menari di antara dua pilihan: move on atau bertahan dalam luka yang sama.”",
-            "“Kita berpisah bukan karena tidak cinta, tapi karena lelah mempertahankan yang tak pasti.”",
-            "“Ada yang bertahan dengan pergi, ada yang pergi dengan meninggalkan luka menganga.”",
-            "“Apakah kamu bahagia? Semoga. Meski bukan denganku.”",
-            "“Kenangan itu seperti racun, perlahan tapi pasti melumpuhkan langkah.”",
-            "“Jika rindu bisa dibakar, aku sudah jadi abu yang bertebaran di angin.”",
-            "“Maaf, aku masih menyimpan pesan lama yang tak pernah kamu balas.”",
-            "“Ada yang salah dengan caraku mencintai, atau memang kamu yang tak ingin dicintai?”",
-            "“Aku hanyalah persinggahan, bukan tujuan. Dan kamu terus melaju tanpa menoleh.”",
-            "“Sampai kapan aku harus kuat, sementara hatiku terus berdarah?”",
-            "“Mencintaimu adalah keputusan terberat yang pernah aku ambil.”",
-            "“Kau adalah cerita indah yang berakhir buruk.”",
-            "“Kata-katamu dulu sehangat mentari, sekarang setajam pisau.”",
-            "“Kita adalah dua insan yang saling menyimpan rindu tapi tak bisa bersatu.”"
+        // ========== KUMPULAN QUOTES GALAU (LANGSUNG BANYAK) ==========
+        const quotes = [
+            {
+                text: "Kita berpisah bukan karena tidak cinta, tapi karena lelah mempertahankan yang tak pasti.",
+                tag: "galau"
+            },
+            {
+                text: "Aku hanya ingin didengar, bukan dihakimi. Tapi kamu selalu pergi sebelum aku selesai bicara.",
+                tag: "galau"
+            },
+            {
+                text: "Rasanya seperti kehilangan di tengah keramaian. Semua orang tertawa, tapi aku hancur.",
+                tag: "galau"
+            },
+            {
+                text: "Aku merindukanmu, tapi aku juga lelah. Lelah memikirkan kamu yang mungkin tidak memikirkan aku.",
+                tag: "galau"
+            },
+            {
+                text: "Kita bertemu sebagai orang asing, bersama sebagai teman, dan berpisah sebagai dua orang yang saling menyimpan luka.",
+                tag: "galau"
+            },
+            {
+                text: "Janjimu selebar langit, tapi kenyataan setajam sembilu.",
+                tag: "galau"
+            },
+            {
+                text: "Kamu adalah rumah yang tak pernah mau kutinggali lagi.",
+                tag: "galau"
+            },
+            {
+                text: "Aku mencoba melupakannya, tapi otakku dengan setia menyimpan ribuan kenangan tentangnya.",
+                tag: "galau"
+            },
+            {
+                text: "Sendiri itu sunyi, tapi bersama yang salah lebih perih rasanya.",
+                tag: "galau"
+            },
+            {
+                text: "Pelukanku hanya untukmu, tapi kamu tak pernah ada.",
+                tag: "galau"
+            },
+            {
+                text: "Aku baik-baik saja. Hanya saja, hatinya sedang hujan dan tak kunjung reda.",
+                tag: "galau"
+            },
+            {
+                text: "Bulan purnama pun akhirnya tenggelam, apalagi aku yang hanya manusia biasa.",
+                tag: "galau"
+            },
+            {
+                text: "Luka lama tak juga kering, karena kamu masih lalu lalang di kepalaku.",
+                tag: "galau"
+            },
+            {
+                text: "Jika hujan bisa menghapus semuanya, aku ingin berdiri di sana sampai lupa caranya sakit.",
+                tag: "galau"
+            },
+            {
+                text: "Kita menari di antara dua pilihan: move on atau bertahan dalam luka yang sama.",
+                tag: "galau"
+            },
+            {
+                text: "Semesta sepertinya sedang bercanda, mempertemukan lalu memisahkan tanpa alasan.",
+                tag: "galau"
+            },
+            {
+                text: "Apakah kamu bahagia? Semoga. Meski bukan denganku.",
+                tag: "galau"
+            },
+            {
+                text: "Rumah terasa luas sekali tanpa suaramu yang dulu selalu bergema.",
+                tag: "galau"
+            },
+            {
+                text: "Kenangan itu seperti racun, perlahan tapi pasti melumpuhkan langkah.",
+                tag: "galau"
+            },
+            {
+                text: "Jika rindu bisa dibakar, aku sudah jadi abu yang bertebaran di angin.",
+                tag: "galau"
+            },
+            {
+                text: "Maaf, aku masih menyimpan pesan lama yang tak pernah kamu balas.",
+                tag: "galau"
+            },
+            {
+                text: "Ada yang salah dengan caraku mencintai, atau memang kamu yang tak ingin dicintai?",
+                tag: "galau"
+            },
+            {
+                text: "Aku hanyalah persinggahan, bukan tujuan. Dan kamu terus melaju tanpa menoleh.",
+                tag: "galau"
+            },
+            {
+                text: "Sampai kapan aku harus kuat, sementara hatiku terus berdarah?",
+                tag: "galau"
+            },
+            {
+                text: "Mencintaimu adalah keputusan terberat yang pernah aku ambil.",
+                tag: "galau"
+            },
+            {
+                text: "Kau adalah cerita indah yang berakhir buruk.",
+                tag: "galau"
+            },
+            {
+                text: "Aku terus berjalan, tapi bayanganmu tak pernah ketinggalan.",
+                tag: "galau"
+            },
+            {
+                text: "Kata-katamu dulu sehangat mentari, sekarang setajam pisau.",
+                tag: "galau"
+            },
+            {
+                text: "Kita adalah dua insan yang saling menyimpan rindu tapi tak bisa bersatu.",
+                tag: "galau"
+            },
+            {
+                text: "Jangan tanya kabarku, karena kabarku adalah dia yang kini bukan milikku.",
+                tag: "galau"
+            },
+            {
+                text: "Menangislah jika perlu, tapi ingatlah pelangi selalu datang setelah hujan.",
+                tag: "semangat"
+            },
+            {
+                text: "Sakit itu wajar, tapi menyerah bukan pilihan.",
+                tag: "semangat"
+            },
+            {
+                text: "Kamu kuat. Kamu bertahan sampai detik ini. Itu hebat.",
+                tag: "semangat"
+            },
+            {
+                text: "Bersedihlah, tapi jangan tinggal di dalamnya. Dunia masih menunggu senyummu.",
+                tag: "semangat"
+            },
+            {
+                text: "Di dalam sunyi, aku mendengar suaraku sendiri berkata: 'Kamu berharga, meski tak dipilih'.",
+                tag: "dalam"
+            },
+            {
+                text: "Aku memaafkanmu, tapi aku juga memaafkan diriku yang dulu terlalu bertahan.",
+                tag: "dalam"
+            },
+            {
+                text: "Aku mencintaimu dengan tulus, tapi aku juga mencintai diriku dengan meninggalkanmu.",
+                tag: "dalam"
+            }
         ];
 
-        const quotesSemangat = [
-            "“Menangislah jika perlu, tapi ingatlah pelangi selalu datang setelah hujan.”",
-            "“Sakit itu wajar, tapi menyerah bukan pilihan.”",
-            "“Jangan pernah kau nilai dirimu rendah hanya karena seseorang tak bisa melihat nilaimu.”",
-            "“Luka akan sembuh, meski meninggalkan bekas. Tapi bekas itulah yang mengajarkan kita arti hati-hati.”",
-            "“Kamu kuat. Kamu bertahan sampai detik ini. Itu hebat.”",
-            "“Bersedihlah, tapi jangan tinggal di dalamnya. Dunia masih menunggu senyummu.”",
-            "“Tidak semua orang akan tinggal. Tapi percayalah, akan ada yang datang dan memilihmu seutuhnya.”",
-            "“Jangan takut untuk merasa patah, karena dari situlah kita belajar cara bertumbuh.”",
-            "“Hari ini berat, tapi esok pasti ada. Jangan berhenti.”",
-            "“Kamu tidak sendiri. Ada Tuhan, ada kamu, ada masa depan yang menanti.”",
-            "“Apa yang patah bisa diperbaiki. Apa yang retak bisa diperkuat. Termasuk hati.”",
-            "“Kamu berhak untuk bahagia, meski hari ini rasanya mustahil.”",
-            "“Pelan-pelan saja, tidak apa-apa. Yang penting kamu terus berjalan.”",
-            "“Jika capek, istirahat. Tapi jangan berhenti.”",
-            "“Hujan reda, langit cerah. Hatimu juga akan reda.”",
-            "“Jangan biarkan masa lalu menyandera masa depanmu.”",
-            "“Kamu layak dicintai, terutama oleh dirimu sendiri.”",
-            "“Tersenyumlah, meski hati menangis. Tuhan melihat perjuanganmu.”"
-        ];
-
-        const quotesDalam = [
-            "“Di dalam sunyi, aku mendengar suaraku sendiri berkata: 'Kamu berharga, meski tak dipilih'.”",
-            "“Aku memaafkanmu, tapi aku juga memaafkan diriku yang dulu terlalu bertahan.”",
-            "“Rasa sakit ini mungkin tidak akan hilang sepenuhnya, tapi aku belajar hidup dengannya.”",
-            "“Kepergianmu mengajarkanku bahwa tidak semua orang ditakdirkan untuk bersama.”",
-            "“Kadang aku bertanya, apa aku seburuk itu sampai kamu semudah itu pergi?”",
-            "“Tuhan, jika dia bukan milikku, tolong hapus namanya dari doa-doaku.”",
-            "“Aku pasrah, tapi aku juga berharap. Rasanya seperti berjalan di tali tipis.”",
-            "“Mungkin aku memang harus kehilangan, untuk menemukan diriku yang sebenarnya.”",
-            "“Aku mencintaimu dengan tulus, tapi aku juga mencintai diriku dengan meninggalkanmu.”",
-            "“Ada kedamaian dalam menerima bahwa beberapa hal memang tidak bisa dipaksakan.”"
-        ];
-
-        // Gabungan
-        const allGalau = quotesGalau.concat(quotesDalam);
-
-        // State
-        let currentTrack = null;
-        let isPlaying = false;
-        let currentAudio = null;
-
-        // Elemen
+        // ===== ELEMEN =====
         const introPage = document.getElementById('intro-page');
         const mainPage = document.getElementById('main-page');
         const namaInput = document.getElementById('namaInput');
         const masukBtn = document.getElementById('masukBtn');
         const displayName = document.getElementById('displayName');
-        const quoteDisplay = document.getElementById('quoteDisplay');
-        const quoteSource = document.getElementById('quoteSource');
-        const btnGalau = document.getElementById('btnGalau');
-        const btnSemangat = document.getElementById('btnSemangat');
-        const btnDalam = document.getElementById('btnDalam');
+        const quotesList = document.getElementById('quotesList');
 
         // Audio elements
         const audio1 = document.getElementById('audio1');
@@ -630,29 +716,34 @@
         const savedContainer = document.getElementById('savedContainer');
         let notes = JSON.parse(localStorage.getItem('keiiNotes')) || [];
 
-        // ========== FUNGSI ==========
-        function showMainPage(name) {
-            displayName.innerText = name || 'yang tersakiti';
+        // State musik
+        let currentTrack = null;
+        let isPlaying = false;
+        let currentAudio = null;
+
+        // ===== FUNGSI =====
+        // Render quotes ke halaman (langsung semua)
+        function renderQuotes() {
+            let html = '';
+            quotes.forEach(q => {
+                html += `
+                    <div class="quote-card">
+                        <p>“${q.text}”</p>
+                        <div class="quote-tag">— ${q.tag}</div>
+                    </div>
+                `;
+            });
+            quotesList.innerHTML = html;
+        }
+
+        // Masuk ke halaman utama
+        function enterMain(name) {
+            displayName.innerText = name || 'keii';
             introPage.style.opacity = '0';
             setTimeout(() => {
                 introPage.style.visibility = 'hidden';
                 mainPage.classList.add('visible');
             }, 500);
-        }
-        function getRandomQuote(type) {
-            if (type === 'galau') return allGalau[Math.floor(Math.random() * allGalau.length)];
-            if (type === 'semangat') return quotesSemangat[Math.floor(Math.random() * quotesSemangat.length)];
-            if (type === 'dalam') return quotesDalam[Math.floor(Math.random() * quotesDalam.length)];
-            return allGalau[0];
-        }
-
-        function updateQuote(type) {
-            quoteDisplay.style.opacity = '0.3';
-            setTimeout(() => {
-                quoteDisplay.innerText = getRandomQuote(type);
-                quoteSource.innerText = type === 'galau' ? '— galau' : (type === 'semangat' ? '— semangat' : '— dari dalam');
-                quoteDisplay.style.opacity = '1';
-            }, 150);
         }
 
         // Musik
@@ -675,7 +766,12 @@
         }
 
         function getTrackName(id) {
-            const names = { '1': 'Hingga Tua Bersama Mu', '2': 'Bilang Kalo Bosen', '3': 'Bilang Pada Tuhanmu', '4': 'Percayakan Rindu' };
+            const names = {
+                '1': 'Hingga Tua Bersama Mu',
+                '2': 'Bilang Kalo Bosen',
+                '3': 'Bilang Pada Tuhanmu',
+                '4': 'Percayakan Rindu'
+            };
             return names[id];
         }
 
@@ -690,7 +786,9 @@
             }
             stopAllAudio();
             let audio = audioElements[id];
-            audio.play().catch(() => { nowPlaying.innerText = '❌ error'; });
+            audio.play().catch(() => {
+                nowPlaying.innerText = '❌ error play lagu';
+            });
             currentAudio = audio;
             currentTrack = id;
             isPlaying = true;
@@ -718,27 +816,27 @@
             diaryInput.value = '';
         }
 
-        // ===== EVENT =====
+        // ===== EVENT LISTENERS =====
         masukBtn.addEventListener('click', () => {
             const name = namaInput.value.trim();
-            showMainPage(name);
+            enterMain(name || 'keii');
         });
 
         namaInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') masukBtn.click();
         });
 
-        btnGalau.addEventListener('click', () => updateQuote('galau'));
-        btnSemangat.addEventListener('click', () => updateQuote('semangat'));
-        btnDalam.addEventListener('click', () => updateQuote('dalam'));
-
+        // Track clicks
         track1.addEventListener('click', () => playTrack('1'));
         track2.addEventListener('click', () => playTrack('2'));
         track3.addEventListener('click', () => playTrack('3'));
         track4.addEventListener('click', () => playTrack('4'));
 
         playPauseBtn.addEventListener('click', () => {
-            if (!currentAudio) { playTrack('1'); return; }
+            if (!currentAudio) {
+                playTrack('1');
+                return;
+            }
             if (isPlaying) {
                 currentAudio.pause();
                 isPlaying = false;
@@ -757,11 +855,6 @@
 
         simpanBtn.addEventListener('click', saveNote);
 
-        window.addEventListener('load', () => {
-            renderNotes();
-            updateQuote('galau');
-        });
-
         // Saat lagu selesai
         for (let key in audioElements) {
             audioElements[key].addEventListener('ended', () => {
@@ -772,7 +865,13 @@
                 currentAudio = null;
             });
         }
+
+        // Inisialisasi
+        window.addEventListener('load', () => {
+            renderQuotes();
+            renderNotes();
+        });
     })();
 </script>
 </body>
-</html>
+    </html>
