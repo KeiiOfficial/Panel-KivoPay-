@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>untuk kamu • audio archive</title>
-    <!-- Fonts & Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>ROOT ACCESS :: KALI TERMINAL v2.3.1</title>
     <style>
         * {
             margin: 0;
@@ -15,1091 +12,519 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: #030303;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        /* AUDIO VISUALIZER INTRO */
-        .intro-visualizer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            background: black;
+            font-family: 'Courier New', monospace;
+            color: #0f0;
             height: 100vh;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: 1.5s cubic-bezier(0.77, 0, 0.18, 1);
-        }
-
-        .intro-visualizer.hide {
-            transform: translateY(-100%);
-            opacity: 0;
-        }
-
-        .visualizer-container {
-            text-align: center;
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-        }
-
-        .visualizer-title {
-            font-size: 1.2rem;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: #ff3366;
-            margin-bottom: 30px;
-            font-weight: 400;
-            opacity: 0.7;
-            animation: blinkText 2s infinite;
-        }
-
-        @keyframes blinkText {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; text-shadow: 0 0 20px #ff3366; }
-        }
-
-        .waveform {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            height: 200px;
-            margin: 40px 0;
-        }
-
-        .wave-bar {
-            width: 8px;
-            height: 20px;
-            background: linear-gradient(180deg, #ff3366, #ffcc00);
-            border-radius: 10px;
-            animation: waveAnim 1.2s infinite ease-in-out;
-        }
-
-        .wave-bar:nth-child(1) { animation-delay: 0.0s; height: 40px; }
-        .wave-bar:nth-child(2) { animation-delay: 0.1s; height: 70px; }
-        .wave-bar:nth-child(3) { animation-delay: 0.2s; height: 100px; }
-        .wave-bar:nth-child(4) { animation-delay: 0.3s; height: 130px; }
-        .wave-bar:nth-child(5) { animation-delay: 0.4s; height: 150px; }
-        .wave-bar:nth-child(6) { animation-delay: 0.5s; height: 130px; }
-        .wave-bar:nth-child(7) { animation-delay: 0.6s; height: 100px; }
-        .wave-bar:nth-child(8) { animation-delay: 0.7s; height: 70px; }
-        .wave-bar:nth-child(9) { animation-delay: 0.8s; height: 40px; }
-        .wave-bar:nth-child(10) { animation-delay: 0.9s; height: 70px; }
-        .wave-bar:nth-child(11) { animation-delay: 1.0s; height: 100px; }
-        .wave-bar:nth-child(12) { animation-delay: 1.1s; height: 130px; }
-        .wave-bar:nth-child(13) { animation-delay: 1.2s; height: 150px; }
-        .wave-bar:nth-child(14) { animation-delay: 1.3s; height: 130px; }
-        .wave-bar:nth-child(15) { animation-delay: 1.4s; height: 100px; }
-        .wave-bar:nth-child(16) { animation-delay: 1.5s; height: 70px; }
-        .wave-bar:nth-child(17) { animation-delay: 1.6s; height: 40px; }
-        .wave-bar:nth-child(18) { animation-delay: 1.7s; height: 70px; }
-        .wave-bar:nth-child(19) { animation-delay: 1.8s; height: 100px; }
-        .wave-bar:nth-child(20) { animation-delay: 1.9s; height: 130px; }
-        .wave-bar:nth-child(21) { animation-delay: 2.0s; height: 150px; }
-        .wave-bar:nth-child(22) { animation-delay: 2.1s; height: 130px; }
-        .wave-bar:nth-child(23) { animation-delay: 2.2s; height: 100px; }
-        .wave-bar:nth-child(24) { animation-delay: 2.3s; height: 70px; }
-
-        @keyframes waveAnim {
-            0%, 100% { transform: scaleY(0.8); opacity: 0.5; }
-            50% { transform: scaleY(1.5); opacity: 1; filter: brightness(1.5); }
-        }
-
-        .progress-ring {
-            width: 120px;
-            height: 120px;
-            margin: 30px auto;
+            overflow: hidden;
             position: relative;
         }
 
-        .progress-ring svg {
-            width: 120px;
-            height: 120px;
-            transform: rotate(-90deg);
-        }
-
-        .progress-ring circle {
-            fill: transparent;
-            stroke: #ff3366;
-            stroke-width: 4;
-            stroke-dasharray: 377;
-            stroke-dashoffset: 377;
-            transition: stroke-dashoffset 0.1s;
-            filter: drop-shadow(0 0 15px #ff3366);
-        }
-
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 20px #ff3366;
-        }
-
-        .loading-status {
-            margin-top: 20px;
-            font-size: 1.1rem;
-            color: #888;
-            letter-spacing: 2px;
-        }
-
-        .loading-status span {
-            color: #ff3366;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* MAIN WEBSITE */
-        .main-website {
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            min-height: 100vh;
-            background: #030303;
-            position: relative;
-        }
-
-        .main-website.show {
-            opacity: 1;
-        }
-
-        /* Background effects */
-        .noise-bg {
+        #matrixCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 51, 102, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 70%, rgba(255, 204, 0, 0.1) 0%, transparent 50%),
-                        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 8px);
-            z-index: -2;
+            z-index: 0;
+            opacity: 0.3;
             pointer-events: none;
         }
 
-        .floating-glow {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%23ff3366" stroke-width="0.5" opacity="0.1"/><circle cx="50" cy="50" r="60" fill="none" stroke="%23ffcc00" stroke-width="0.5" opacity="0.1"/></svg>');
-            background-size: 200px 200px;
-            animation: moveGrid 30s linear infinite;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        @keyframes moveGrid {
-            from { transform: translate(0, 0); }
-            to { transform: translate(100px, 100px); }
-        }
-
-        /* Container */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 30px;
+        .terminal-container {
             position: relative;
             z-index: 10;
-        }
-
-        /* Audio Player Bar (fixed) */
-        .audio-bar {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 51, 102, 0.3);
-            border-radius: 100px;
-            padding: 12px 25px;
+            width: 95%;
+            max-width: 1200px;
+            height: 90vh;
+            margin: 20px auto;
+            background: rgba(0, 8, 0, 0.92);
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 40px #0f0;
+            backdrop-filter: blur(3px);
+            padding: 15px;
             display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 1000;
-            box-shadow: 0 10px 40px rgba(255, 51, 102, 0.2);
-            animation: slideInRight 1s 2.5s forwards;
-            opacity: 0;
-            transform: translateX(50px);
+            flex-direction: column;
         }
 
-        @keyframes slideInRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .audio-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .audio-wave-mini {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            height: 30px;
-        }
-
-        .mini-bar {
-            width: 3px;
-            height: 15px;
-            background: #ff3366;
-            border-radius: 3px;
-            animation: miniWave 1s infinite;
-        }
-
-        .mini-bar:nth-child(1) { animation-delay: 0.0s; height: 20px; }
-        .mini-bar:nth-child(2) { animation-delay: 0.1s; height: 30px; }
-        .mini-bar:nth-child(3) { animation-delay: 0.2s; height: 25px; }
-        .mini-bar:nth-child(4) { animation-delay: 0.3s; height: 15px; }
-        .mini-bar:nth-child(5) { animation-delay: 0.4s; height: 25px; }
-        .mini-bar:nth-child(6) { animation-delay: 0.5s; height: 30px; }
-        .mini-bar:nth-child(7) { animation-delay: 0.6s; height: 20px; }
-
-        @keyframes miniWave {
-            0%, 100% { transform: scaleY(0.8); opacity: 0.5; }
-            50% { transform: scaleY(1.2); opacity: 1; }
-        }
-
-        .audio-text {
-            color: #fff;
-            font-weight: 500;
-        }
-
-        .audio-text small {
-            color: #888;
-            font-size: 0.8rem;
-        }
-
-        .play-pause-btn {
-            background: #ff3366;
-            border: none;
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: 0.3s;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .play-pause-btn:hover {
-            transform: scale(1.1);
-            background: #ff1a4f;
-            box-shadow: 0 0 30px #ff3366;
-        }
-
-        /* Nav Header */
-        .nav-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            margin-bottom: 60px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            opacity: 0;
-            animation: fadeInUp 1s 2.2s forwards;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #fff, #ff99cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .nav-links a {
-            color: #888;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ff3366;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-bottom: 80px;
-            opacity: 0;
-            animation: fadeInUp 1s 2.4s forwards;
-        }
-
-        .hero h2 {
-            font-size: 1.2rem;
-            color: #ff3366;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .hero h1 {
-            font-size: 5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #fff, #b3b3b3 60%, #ff99cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #ff3366, #ffcc00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero h1 span::before {
-            content: '☺️';
-            position: absolute;
-            top: -30px;
-            right: -50px;
-            font-size: 3rem;
-            filter: drop-shadow(0 0 20px #ff3366);
-        }
-
-        .hero p {
-            color: #888;
-            font-size: 1.3rem;
-            max-width: 600px;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        /* Message Card */
-        .message-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 40px;
-            padding: 60px;
-            margin-bottom: 80px;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeInUp 1s 2.6s forwards;
-        }
-
-        .message-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,51,102,0.1), transparent);
-            animation: shine 4s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        .message-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .quote-icon {
-            font-size: 4rem;
-            color: #ff3366;
-            opacity: 0.3;
-            margin-bottom: 20px;
-        }
-
-        .message-content p {
-            font-size: 2rem;
-            line-height: 1.7;
-            font-weight: 400;
-            color: #fff;
-        }
-
-        .message-content p .highlight {
-            color: #ff3366;
-            font-weight: 600;
-            position: relative;
-            display: inline-block;
-        }
-
-        .message-content p .highlight::after {
-            content: '✨';
-            font-size: 1.2rem;
-            position: absolute;
-            top: -15px;
-            right: -20px;
-        }
-
-        .message-footer {
-            margin-top: 40px;
-            display: flex;
-            justify-content: flex-end;
-            color: #666;
-            font-size: 1rem;
-            font-style: italic;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-bottom: 80px;
-        }
-          .stat-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 30px;
-            padding: 30px;
-            text-align: center;
-            transition: 0.3s;
-            opacity: 0;
-            animation: fadeInUp 1s forwards;
-        }
-
-        .stat-item:nth-child(1) { animation-delay: 2.8s; }
-        .stat-item:nth-child(2) { animation-delay: 3.0s; }
-        .stat-item:nth-child(3) { animation-delay: 3.2s; }
-        .stat-item:nth-child(4) { animation-delay: 3.4s; }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 51, 102, 0.1);
-            border-color: rgba(255, 51, 102, 0.3);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #ff3366;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: #888;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Timeline */
-        .timeline {
-            margin-bottom: 80px;
-        }
-
-        .timeline-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            color: #fff;
-            opacity: 0;
-            animation: fadeInUp 1s 3.6s forwards;
-        }
-
-        .timeline-grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        .timeline-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            opacity: 0;
-            animation: fadeInUp 1s forwards;
-        }
-
-        .timeline-item:nth-child(1) { animation-delay: 3.8s; }
-        .timeline-item:nth-child(2) { animation-delay: 4.0s; }
-        .timeline-item:nth-child(3) { animation-delay: 4.2s; }
-
-        .timeline-time {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ff3366;
-            min-width: 80px;
-        }
-
-        .timeline-desc {
-            color: #fff;
-            font-size: 1.1rem;
-        }
-
-        .timeline-desc small {
-            color: #888;
-            font-size: 0.9rem;
-            display: block;
-            margin-top: 5px;
-        }
-
-        /* Message Input */
-        .message-section {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 40px;
-            padding: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            margin-bottom: 60px;
-            opacity: 0;
-            animation: fadeInUp 1s 4.4s forwards;
-        }
-
-        .message-section h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: #fff;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .input-group input {
-            flex: 1;
-            padding: 20px 25px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            font-size: 1rem;
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #ff3366;
-            box-shadow: 0 0 30px rgba(255, 51, 102, 0.3);
-        }
-
-        .input-group button {
-            padding: 0 50px;
-            background: #ff3366;
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
+        .terminal-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #0f0;
+            margin-bottom: 10px;
         }
 
-        .input-group button:hover {
-            background: #ff1a4f;
-            transform: scale(1.05);
-            box-shadow: 0 0 40px #ff3366;
+        .status {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
         }
 
-        #responseMessage {
-            color: #ff3366;
+        .red { background: #ff5f56; box-shadow: 0 0 10px #ff5f56; }
+        .yellow { background: #ffbd2e; box-shadow: 0 0 10px #ffbd2e; }
+        .green { background: #27c93f; box-shadow: 0 0 10px #27c93f; }
+
+        .title {
+            margin-left: auto;
+            color: #0f0;
             font-size: 1.1rem;
-            margin-top: 20px;
-            min-height: 30px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #0f0;
         }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            opacity: 0;
-            animation: fadeInUp 1s 4.6s forwards;
+        .terminal {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-y: auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            box-shadow: inset 0 0 20px rgba(0,255,0,0.2);
+            margin-bottom: 10px;
         }
 
-        .footer p {
-            color: #666;
+        .output {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output div {
+            margin: 3px 0;
+        }
+
+        .warning {
+            color: #ff0;
+            text-shadow: 0 0 5px #ff0;
+        }
+
+        .error {
+            color: #f00;
+            text-shadow: 0 0 5px #f00;
+        }
+
+        .success {
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .command-line {
+            color: #0f0;
+            margin-top: 10px;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 20, 0, 0.5);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+        }
+
+        .prompt {
+            color: #0f0;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        #commandInput {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        #commandInput::placeholder {
+            color: #0f0;
+            opacity: 0.3;
+        }
+
+        .progress-area {
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        .progress-label {
+            margin-bottom: 8px;
             font-size: 0.9rem;
+            color: #ff0;
         }
 
-        .footer i {
-            color: #ff3366;
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #111;
+            border: 1px solid #0f0;
+            border-radius: 3px;
+            overflow: hidden;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #0f0;
+            box-shadow: 0 0 15px #0f0;
+            transition: width 0.3s;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
+        .progress-percent {
+            text-align: right;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #0f0;
+        }
 
-            .hero h1 span::before {
-                font-size: 2rem;
-                top: -20px;
-                right: -30px;
-            }
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: rgba(0, 20, 0, 0.7);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+        }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .status-bar span {
+            letter-spacing: 1px;
+        }
 
-            .message-content p {
-                font-size: 1.5rem;
-            }
+        .glitch {
+            animation: glitch 3s infinite;
+        }
 
-            .input-group {
-                flex-direction: column;
-            }
+        @keyframes glitch {
+            0%, 100% { opacity: 1; }
+            7% { opacity: 0.75; }
+            10% { opacity: 1; }
+            13% { opacity: 0.8; }
+            15% { opacity: 1; }
+            92% { opacity: 1; }
+            95% { opacity: 0.9; }
+            97% { opacity: 1; }
+        }
 
-            .nav-header {
-                flex-direction: column;
-                gap: 20px;
-            }
+        /* Scrollbar styling */
+        .terminal::-webkit-scrollbar {
+            width: 8px;
+        }
 
-            .audio-bar {
-                bottom: 20px;
-                right: 20px;
-                left: 20px;
-                width: auto;
-            }
+        .terminal::-webkit-scrollbar-track {
+            background: #111;
+            border: 1px solid #0f0;
+        }
+
+        .terminal::-webkit-scrollbar-thumb {
+            background: #0f0;
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
-    <!-- AUDIO VISUALIZER INTRO -->
-    <div class="intro-visualizer" id="introVisualizer">
-        <div class="visualizer-container">
-            <div class="visualizer-title">
-                ♪ NOW PLAYING ♪
-            </div>
-            
-            <!-- Waveform Visualizer -->
-            <div class="waveform" id="waveform">
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-                <div class="wave-bar"></div>
-            </div>
-
-            <!-- Progress Ring -->
-            <div class="progress-ring">
-                <svg>
-                    <circle cx="60" cy="60" r="56"></circle>
-                </svg>
-                <div class="progress-text" id="progressText">0%</div>
-            </div>
-
-            <div class="loading-status">
-                <span id="statusText">loading</span> <span id="loadingDots">...</span>
+    <canvas id="matrixCanvas"></canvas>
+    
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span class="status red blink"></span> 
+            <span class="status yellow"></span> 
+            <span class="status green"></span>
+            <span class="title">ROOT@KALI:~/#</span>
+        </div>
+        
+        <div class="terminal" id="terminal">
+            <div class="output" id="output">
+                <div class="success">>> SECURE BOOT SEQUENCE INITIALIZED...</div>
+                <div class="success">>> KERNEL 5.10.0-kali7-amd64 LOADED</div>
+                <div class="warning">>> FIREWALL BYPASS MODULE: ACTIVE</div>
+                <div class="success">>> TARGET ACQUIRED: 192.168.45.129</div>
+                <div class="error">>> INTRUSION DETECTION SYSTEM: DETECTED</div>
+                <div class="warning">>> IDS EVASION PROTOCOL: ENGAGED</div>
+                <div class="command-line">root@kali:~# <span class="cursor">█</span></div>
             </div>
         </div>
-    </div>
 
-    <!-- AUDIO ELEMENT (hidden) -->
-    <audio id="bgAudio" loop preload="auto">
-        <source src="https://files.catbox.moe/rnyy1x.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- MAIN WEBSITE -->
-    <div class="main-website" id="mainWebsite">
-        <div class="noise-bg"></div>
-        <div class="floating-glow"></div>
-
-        <!-- Fixed Audio Bar -->
-        <div class="audio-bar" id="audioBar">
-            <div class="audio-info">
-                <div class="audio-wave-mini">
-                    <div class="mini-bar"></div>
-                    <div class="mini-bar"></div>
-                    <div class="mini-bar"></div>
-                    <div class="mini-bar"></div>
-                    <div class="mini-bar"></div>
-                    <div class="mini-bar"></div>
-                    <div class="mini-bar"></div>
-                </div>
-                <div class="audio-text">
-                    <div>special audio</div>
-                    <small>for you</small>
-                </div>
-            </div>
-            <button class="play-pause-btn" id="playPauseBtn" onclick="toggleAudio()">
-                <i class="fas fa-play" id="playPauseIcon"></i>
-            </button>
+        <div class="input-area">
+            <span class="prompt">$</span>
+            <input type="text" id="commandInput" placeholder="Enter command (type 'help')..." autofocus>
         </div>
 
-        <div class="container">
-            <!-- Nav -->
-            <div class="nav-header">
-                <div class="logo">✦ for u ✦</div>
-                <div class="nav-links">
-                    <a href="#">home</a>
-                    <a href="#">story</a>
-                    <a href="#">vibes</a>
-                    <a href="#">notes</a>
-                </div>
+        <div class="progress-area" id="progressArea" style="display: none;">
+            <div class="progress-label" id="progressLabel">BYPASSING FIREWALL...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
+            <div class="progress-percent" id="progressPercent">0%</div>
+        </div>
 
-            <!-- Hero -->
-            <div class="hero">
-                <h2>— special delivery</h2>
-                <h1>
-                    selamat datang <br>
-                    <span>sayang</span>
-                </h1>
-                <p>a little space that's just for you. with sounds, words, and everything in between.</p>
-            </div>
-
-            <!-- Message Card -->
-            <div class="message-card">
-                <div class="message-content">
-                    <div class="quote-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <p>
-                        <span class="highlight">terimakasih yaaa</span> udah buat aku senang setiap hari, <br>
-                        udah buat aku jadi semangat setiap hari, <br>
-                        dan bisa buat aku senyum <span class="highlight">setiap hari</span>. <br><br>
-                        
-                        makasih udah jadi <span class="highlight">reason</span> aku buat terus maju, <br>
-                        jadi <span class="highlight">mood booster</span> di tengah hari-hari yang exhausting. <br>
-                        kamu tuh <span class="highlight">random banget</span> tapi always on point. <br><br>
-                        
-                        every single day with you in it <br>
-                        feels like a <span class="highlight">blessing in disguise</span>. <br>
-                        thanks for being you, for being here, <br>
-                        for being <span class="highlight">my person</span>. <br><br>
-                        
-                        i don't say it enough, but <br>
-                        <span class="highlight">i appreciate you more than you know.</span>
-                    </p>
-                    <div class="message-footer">
-                        — always, me
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">in my mind</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">∞</div>
-                    <div class="stat-label">smiles</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">real</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">❤️</div>
-                    <div class="stat-label">pure love</div>
-                </div>
-            </div>
-
-            <!-- Timeline -->
-            <div class="timeline">
-                <div class="timeline-title">little things that matter</div>
-                <div class="timeline-grid">
-                    <div class="timeline-item">
-                        <div class="timeline-time">everyday</div>
-                        <div class="timeline-desc">
-                            you make me smile
-                            <small>literally every single day</small>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">always</div>
-                        <div class="timeline-desc">
-                            you're my energy boost
-                            <small>better than coffee</small>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">24/7</div>
-                        <div class="timeline-desc">
-                            you're in my thoughts
-                            <small>can't help it</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Message Input -->
-            <div class="message-section">
-                <h3>send a little note ✨</h3>
-                <div class="input-group">
-                    <input type="text" id="messageInput" placeholder="tulis something here...">
-                    <button onclick="sendMessage()">
-                        <i class="fas fa-paper-plane"></i> send
-                    </button>
-                </div>
-                <div id="responseMessage"></div>
-            </div>
-
-            <!-- Footer -->
-            <div class="footer">
-                <p>made with <i class="fas fa-heart"></i> for the one who means the most</p>
-                <p style="margin-top: 10px;">✦ always and forever ✦</p>
-            </div>
+        <div class="status-bar">
+            <span>CONN: SECURE</span>
+            <span>LAT: 32ms</span>
+            <span>PKTS: 1,433</span>
+            <span>UID: 0 (ROOT)</span>
+            <span>TOR: ENABLED</span>
         </div>
     </div>
 
     <script>
-        // AUDIO SETUP
-        const audio = document.getElementById('bgAudio');
-        const playPauseIcon = document.getElementById('playPauseIcon');
-        let isPlaying = false;
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
 
-        // INTRO LOADING & AUDIO AUTO-PLAY
-        const introVisualizer = document.getElementById('introVisualizer');
-        const mainWebsite = document.getElementById('mainWebsite');
-        const progressText = document.getElementById('progressText');
-        const statusText = document.getElementById('statusText');
-        const loadingDots = document.getElementById('loadingDots');
-        const progressCircle = document.querySelector('.progress-ring circle');
-        
-        let progress = 0;
-        const circumference = 2 * Math.PI * 56; // 2 * pi * r
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        // Set progress ring
-        function setProgress(percent) {
-            const offset = circumference - (percent / 100) * circumference;
-            progressCircle.style.strokeDashoffset = offset;
-            progressText.textContent = percent + '%';
+        const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+        const charArray = chars.split("");
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for(let x = 0; x < columns; x++) {
+            drops[x] = Math.floor(Math.random() * canvas.height);
         }
 
-        // Animate loading dots
-        function animateDots() {
-            let dots = 1;
-            setInterval(() => {
-                if (introVisualizer.classList.contains('hide')) return;
-                dots = (dots % 3) + 1;
-                loadingDots.textContent = '.'.repeat(dots);
-            }, 400);
-        }
-        animateDots();
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Try to auto-play audio (must be triggered by user interaction due to browser policies)
-        // We'll use the intro click to start audio
-        function startAudio() {
-            audio.play()
-                .then(() => {
-                    isPlaying = true;
-                    playPauseIcon.className = 'fas fa-pause';
-                    console.log('Audio started');
-                })
-                .catch(error => {
-                    console.log('Auto-play failed:', error);
-                    // Fallback: show play button
-                    playPauseIcon.className = 'fas fa-play';
-                });
-        }
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
 
-        // Toggle play/pause
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                playPauseIcon.className = 'fas fa-pause';
-                isPlaying = true;
-            } else {
-                audio.pause();
-                playPauseIcon.className = 'fas fa-play';
-                isPlaying = false;
+            for(let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
             }
         }
 
-        // Simulate loading progress (2.5 seconds)
-        const loadingInterval = setInterval(() => {
-            progress += 1;
-            setProgress(progress);
-            
-            // Change status text occasionally
-            if (progress === 30) statusText.textContent = 'loading audio';
-            if (progress === 60) statusText.textContent = 'almost there';
-            if (progress === 80) statusText.textContent = 'finalizing';
-            
-            if (progress >= 100) {
-                clearInterval(loadingInterval);
-                statusText.textContent = 'ready';
-                loadingDots.textContent = '!';
+        setInterval(drawMatrix, 40);
+
+        // Terminal Functionality
+        const output = document.getElementById('output');
+        const terminal = document.getElementById('terminal');
+        const commandInput = document.getElementById('commandInput');
+        const progressArea = document.getElementById('progressArea');
+        const progressFill = document.getElementById('progressFill');
+        const progressLabel = document.getElementById('progressLabel');
+        const progressPercent = document.getElementById('progressPercent');
+
+        let progressInterval;
+        let isHacking = false;
+        let currentProgress = 0;
+
+        // Initial boot sequence
+        setTimeout(() => {
+            addOutput("> INITIALIZING NETWORK INTERFACES...", "success");
+        }, 1000);
+
+        setTimeout(() => {
+            addOutput("> DETECTING TARGET SYSTEMS...", "warning");
+        }, 2000);
+
+        setTimeout(() => {
+            addOutput("> 3 ACTIVE HOSTS FOUND", "success");
+            addOutput("> TARGET: 192.168.45.129 [LINUX 5.4.0]", "success");
+        }, 3000);
+
+        function addOutput(text, type = "success") {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = text;
+            output.insertBefore(div, output.lastElementChild);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function startProgress(action, duration = 5000) {
+            progressArea.style.display = 'block';
+            currentProgress = 0;
+            progressFill.style.width = '0%';
+            progressPercent.textContent = '0%';
+            progressLabel.textContent = action;
+
+            progressInterval = setInterval(() => {
+                if (currentProgress >= 100) {
+                    clearInterval(progressInterval);
+                    return;
+                }
+                currentProgress += Math.random() * 15;
+                if (currentProgress > 100) currentProgress = 100;
+                progressFill.style.width = currentProgress + '%';
+                progressPercent.textContent = Math.floor(currentProgress) + '%';
+            }, 300);
+        }
+        function completeProgress() {
+            clearInterval(progressInterval);
+            setTimeout(() => {
+                progressArea.style.display = 'none';
+                progressFill.style.width = '0%';
+                currentProgress = 0;
+            }, 1000);
+        }
+
+        // Command processing
+        commandInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = commandInput.value.trim();
+                if (command === '') return;
+
+                addOutput(`root@kali:~# ${command}`, "success");
                 
-                // Hide intro after a moment
-                setTimeout(() => {
-                    introVisualizer.classList.add('hide');
-                    
-                    // Show main website
-                    setTimeout(() => {
-                        mainWebsite.classList.add('show');
-                        
-                        // Try to start audio
-                        startAudio();
-                        
-                        // Create initial hearts
-                        createFloatingHearts(20);
-                    }, 1500);
-                }, 800);
-            }
-        }, 25); // 2.5 seconds total
+                // Process commands
+                switch(command.toLowerCase()) {
+                    case 'help':
+                        addOutput("Available commands:", "success");
+                        addOutput("  hack     - Start attack sequence", "success");
+                        addOutput("  scan     - Network scan", "success");
+                        addOutput("  crack    - Brute force attack", "success");
+                        addOutput("  exploit  - Run exploit", "success");
+                        addOutput("  clear    - Clear screen", "success");
+                        addOutput("  status   - Show system status", "success");
+                        addOutput("  exit     - Close connection", "warning");
+                        break;
 
-        // Send message function
-        function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const message = input.value.trim();
-            const responseDiv = document.getElementById('responseMessage');
+                    case 'hack':
+                        addOutput("> INITIATING ATTACK SEQUENCE...", "warning");
+                        startProgress("ESTABLISHING CONNECTION TO TARGET", 4000);
+                        setTimeout(() => {
+                            addOutput("> CONNECTION ESTABLISHED", "success");
+                            addOutput("> BYPASSING AUTHENTICATION...", "warning");
+                        }, 2000);
+                        setTimeout(() => {
+                            addOutput("> ACCESS GRANTED", "success");
+                            addOutput("> ROOT SHELL OBTAINED", "success");
+                            completeProgress();
+                        }, 5000);
+                        break;
 
-            if (message === '') {
-                responseDiv.innerHTML = '❌ isi dulu ya...';
-                return;
-            }
+                    case 'scan':
+                        startProgress("SCANNING NETWORK", 3000);
+                        setTimeout(() => {
+                            addOutput("> HOSTS FOUND:", "success");
+                            addOutput("  192.168.45.1   [ROUTER]", "success");
+                            addOutput("  192.168.45.100 [WINDOWS 10]", "success");
+                            addOutput("  192.168.45.129 [LINUX SERVER]", "success");
+                            addOutput("  192.168.45.200 [ANDROID]", "success");
+                            completeProgress();
+                        }, 3000);
+                        break;
 
-            const responses = [
-                `✨ "${message}" — sampe kok!`,
-                `💬 pesan diterima: "${message}"`,
-                `📨 "${message}" \n❤️ baper mode: on`,
-                `✅ sukses! "${message}" udah dikirim`,
-                `🎵 "${message}" ~ lagu baru buat hari ini`
-            ];
-            const random = Math.floor(Math.random() * responses.length);
-            responseDiv.innerHTML = responses[random];
-            input.value = '';
+                    case 'crack':
+                        addOutput("> INITIATING BRUTE FORCE ATTACK...", "error");
+                        startProgress("CRACKING PASSWORD", 6000);
+                        setTimeout(() => {
+                            addOutput("> PASSWORD FOUND: root@dm1n123", "success");
+                            addOutput("> HASH: 5f4dcc3b5aa765d61d8327deb882cf99", "success");
+                            completeProgress();
+                        }, 6000);
+                        break;
 
-            // Add hearts
-            createFloatingHearts(10);
-        }
+                    case 'exploit':
+                        addOutput("> LOADING EXPLOIT MODULE...", "warning");
+                        startProgress("EXECUTING CVE-2024-1234", 5000);
+                        setTimeout(() => {
+                            addOutput("> EXPLOIT SUCCESSFUL", "success");
+                            addOutput("> SHELL CODE INJECTED", "success");
+                            addOutput("> BACKDOOR INSTALLED", "warning");
+                            completeProgress();
+                        }, 5000);
+                        break;
 
-        // Floating hearts
-        function createFloatingHearts(count) {
-            for (let i = 0; i < count; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('i');
-                    heart.className = 'fas fa-heart';
-                    heart.style.position = 'fixed';
-                    heart.style.color = '#ff3366';
-                    heart.style.left = Math.random() * 100 + '%';
-                    heart.style.bottom = '-50px';
-                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
-                    heart.style.zIndex = '9999';
-                    heart.style.pointerEvents = 'none';
-                    heart.style.opacity = '0.7';
-                    heart.style.filter = 'drop-shadow(0 0 20px #ff3366)';
-                    heart.style.animation = `floatUp ${Math.random() * 3 + 3}s ease-out forwards`;
-                    document.body.appendChild(heart);
+                    case 'status':
+                        addOutput("> SYSTEM STATUS:", "success");
+                        addOutput("  CPU: 43%", "success");
+                        addOutput("  MEM: 2.4GB/8GB", "success");
+                        addOutput("  NET: 1.2MB/s ↑ 3.4MB/s ↓", "success");
+                        addOutput("  CONNECTIONS: 4 ACTIVE", "success");
+                        break;
 
-                    setTimeout(() => {
-                        heart.remove();
-                    }, 6000);
-                }, i * 80);
-            }
-        }
+                    case 'clear':
+                        output.innerHTML = `<div class="command-line">root@kali:~# <span class="cursor">█</span></div>`;
+                        break;
 
-        // Add float animation style
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes floatUp {
-                0% {
-                    transform: translateY(0) rotate(0deg);
-                    opacity: 0.7;
+                    case 'exit':
+                        addOutput("> CLOSING CONNECTION...", "error");
+                        startProgress("TERMINATING SESSION", 2000);
+                        setTimeout(() => {
+                            addOutput("> CONNECTION TERMINATED", "error");
+                            completeProgress();
+                        }, 2000);
+                        break;
+
+                    default:
+                        addOutput(`Command not found: ${command}`, "error");
+                        addOutput("Type 'help' for available commands", "warning");
                 }
-                100% {
-                    transform: translateY(-100vh) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
 
-        // Click anywhere to create hearts
-        document.addEventListener('click', function() {
-            createFloatingHearts(5);
+                commandInput.value = '';
+            }
         });
 
-        // Prevent audio context suspension
-        document.body.addEventListener('touchstart', function() {
-            if (audio.paused && !introVisualizer.classList.contains('hide')) {
-                // Try to resume if needed
+        // Random system messages
+        setInterval(() => {
+            if (!isHacking && Math.random() > 0.7) {
+                const messages = [
+                    "> IDS ALERT: SUSPICIOUS TRAFFIC DETECTED",
+                    "> FIREWALL: BLOCKING 192.168.1.45",
+                    "> NEW CONNECTION FROM 45.133.89.22",
+                    "> PACKET SNIFFING: TCP DUMP ACTIVE",
+                    "> DNS SPOOFING DETECTED",
+                    "> ARP CACHE POISONED",
+                    "> BACKDOOR CONNECTION ESTABLISHED"
+                ];
+                const types = ["warning", "error", "success", "warning", "error", "warning", "success"];
+                const index = Math.floor(Math.random() * messages.length);
+                addOutput(messages[index], types[index]);
             }
-        }, false);
+        }, 8000);
 
-        console.log('%c❤️ AUDIO ARCHIVE READY ❤️', 'color: #ff3366; font-size: 20px; font-weight: bold;');
+        // Fake typing effect for cursor
+        setInterval(() => {
+            const cursor = document.querySelector('.cursor');
+            if (cursor) {
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }
+        }, 500);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Focus input on any key
+        document.addEventListener('keydown', () => {
+            commandInput.focus();
+        });
     </script>
 </body>
 </html>
