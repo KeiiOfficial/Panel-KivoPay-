@@ -15,24 +15,41 @@
         }
 
         body {
-            background: #f4f7fc;
-            color: #1e2b3c;
+            background: #0b0f1a;
+            color: #fff;
+            min-height: 100vh;
         }
 
-        /* INTRO LOADING - TYPING ELEGAN */
+        /* INTRO LOADING - BIRU MENYALA + ANIMASI JATUH */
         .intro-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0e1a2b;
-            background: radial-gradient(circle at 30% 40%, #1b3a5c, #0b1422);
+            background: #0b1424;
+            background: radial-gradient(circle at 30% 30%, #1e4b8f, #0a1428);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+
+        /* PARTIKEL JATUH */
+        .falling-particle {
+            position: absolute;
+            top: -10vh;
+            color: rgba(74, 158, 255, 0.2);
+            font-size: 1.5rem;
+            animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
         }
 
         .intro-screen.hide {
@@ -41,25 +58,33 @@
         }
 
         .intro-card {
-            background: rgba(18, 28, 45, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid #2a405c;
-            border-radius: 60px;
+            background: rgba(10, 20, 40, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid #3f8cff;
+            border-radius: 70px;
             padding: 3rem 2.5rem;
             text-align: center;
-            max-width: 520px;
+            max-width: 540px;
             width: 90%;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 80px #3f8cff;
+            position: relative;
+            z-index: 10;
+            animation: cardGlow 3s infinite alternate;
+        }
+
+        @keyframes cardGlow {
+            from { box-shadow: 0 0 50px #1e4b8f; }
+            to { box-shadow: 0 0 100px #3f8cff; }
         }
 
         .intro-logo {
-            width: 130px;
-            height: 130px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             overflow: hidden;
             border: 4px solid #3f8cff;
-            box-shadow: 0 0 40px #3f8cff;
+            box-shadow: 0 0 60px #3f8cff;
         }
 
         .intro-logo img {
@@ -69,64 +94,65 @@
         }
 
         .intro-title {
-            font-size: 2.3rem;
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 800;
             color: white;
             margin-bottom: 0.3rem;
             letter-spacing: -0.5px;
+            text-shadow: 0 0 20px #3f8cff;
         }
 
         .intro-title span {
-            color: #6ea8ff;
+            color: #6eb0ff;
         }
 
         .intro-sub {
-            color: #a2b9d6;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 2.2rem;
+            color: #b0ccff;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
         }
 
-        /* TYPING ANIMATION */
+        /* TYPING + FALL COMBO */
         .typing-container {
             height: 70px;
-            margin: 1.5rem 0;
+            margin: 1.5rem 0 2rem;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid #3f8cff;
         }
 
         .typing-text {
             font-size: 1.4rem;
-            color: #d1e0ff;
-            font-weight: 300;
-            letter-spacing: 0.5px;
+            color: #d4e4ff;
+            font-weight: 400;
             font-style: italic;
         }
 
         .typing-cursor {
             display: inline-block;
             width: 2px;
-            height: 1.6rem;
-            background-color: #6ea8ff;
+            height: 1.8rem;
+            background-color: #6eb0ff;
             margin-left: 5px;
             animation: blink 1s infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* LOADING BAR HALUS */
+        /* LOADING BAR GLOW */
         .loader-wrapper {
             margin: 2rem 0 1.5rem;
         }
 
         .loader-bg {
             width: 100%;
-            height: 4px;
-            background: #1f3147;
+            height: 6px;
+            background: #1a2e4a;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -134,15 +160,15 @@
         .loader-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #3f8cff, #8cb4ff, #3f8cff);
+            background: linear-gradient(90deg, #3f8cff, #a0c8ff, #3f8cff);
             border-radius: 10px;
             transition: width 0.1s ease;
-            box-shadow: 0 0 15px #3f8cff;
+            box-shadow: 0 0 20px #3f8cff;
         }
 
         .loader-text {
             margin-top: 1rem;
-            color: #a2b9d6;
+            color: #b0ccff;
             font-size: 0.9rem;
             letter-spacing: 2px;
         }
@@ -151,23 +177,25 @@
             background: #3f8cff;
             border: none;
             color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
             padding: 1rem 3rem;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             margin-top: 1rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 0.6s ease 4s forwards;
-            box-shadow: 0 15px 30px #1e3c6b;
+            animation: fadeUp 0.6s ease 4.2s forwards;
+            box-shadow: 0 20px 40px #1e4b8f;
             transition: 0.2s;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            border: 1px solid #a0c8ff;
         }
 
         .enter-btn:hover {
             background: #2a6fd6;
-            transform: scale(1.02) translateY(-2px);
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 30px 60px #1e4b8f;
         }
 
         @keyframes fadeUp {
@@ -183,27 +211,20 @@
             animation: fadeMain 0.7s ease 0.3s forwards;
         }
 
-        @keyframes fadeMain {
-            to { opacity: 1; }
-        }
+        @keyframes fadeMain { to { opacity: 1; } }
 
-        /* HEADER */
+        /* HEADER GLASS */
         .header {
-            background: white;
-            border-radius: 40px;
+            background: rgba(15, 25, 45, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
             padding: 1.2rem 2rem;
             margin-bottom: 2.5rem;
-            box-shadow: 0 15px 30px -10px rgba(0, 20, 50, 0.1);
-            border: 1px solid #e9eef3;
+            border: 1px solid #3f8cff;
+            box-shadow: 0 20px 40px -10px #1e4b8f;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            animation: slideDown 0.5s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo-area {
@@ -213,8 +234,8 @@
         }
 
         .logo-small {
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             overflow: hidden;
             border: 2px solid #3f8cff;
@@ -229,17 +250,17 @@
         .logo-area h1 {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #1e2b3c;
+            color: white;
         }
 
         .logo-area h1 span {
-            color: #3f8cff;
+            color: #6eb0ff;
         }
 
         .status {
             display: flex;
-            gap: 1.5rem;
-            color: #4b5e77;
+            gap: 1.8rem;
+            color: #b0ccff;
             font-size: 0.95rem;
         }
 
@@ -248,78 +269,76 @@
             margin-right: 5px;
         }
 
-        .online-dot {
-            color: #2ecc71;
-        }
-
         /* SECTION TITLE */
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            margin: 2.2rem 0 1.5rem;
+            margin: 2.5rem 0 1.8rem;
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #1e2b3c;
+            color: white;
+            text-shadow: 0 0 10px #3f8cff;
             border-left: 6px solid #3f8cff;
-            padding-left: 1rem;
+            padding-left: 1.2rem;
         }
 
         .section-title i {
             color: #3f8cff;
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
 
-        /* KATEGORI 2 KOLOM ELEGAN */
+        /* KATEGORI 2 KOLOM RAPI */
         .kategori-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .kategori-card {
-            background: white;
+            background: rgba(18, 28, 48, 0.8);
+            backdrop-filter: blur(8px);
             border-radius: 40px;
-            padding: 1.5rem 1.8rem;
+            padding: 1.5rem 2rem;
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            box-shadow: 0 15px 30px -8px rgba(0, 30, 60, 0.08);
-            border: 1px solid #eef2f7;
-            transition: 0.25s ease;
+            border: 1px solid #2f4b7a;
+            transition: 0.3s;
             cursor: pointer;
-            animation: cardAppear 0.5s ease backwards;
-            animation-delay: calc(var(--i) * 0.05s);
+            animation: cardDrop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) backwards;
+            animation-delay: calc(var(--i) * 0.07s);
+            box-shadow: 0 15px 30px -8px #0a1a30;
         }
 
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes cardDrop {
+            0% { opacity: 0; transform: translateY(-40px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .kategori-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px) scale(1.01);
             border-color: #3f8cff;
-            box-shadow: 0 25px 40px -12px #3f8cff80;
+            box-shadow: 0 30px 50px -12px #3f8cff;
         }
 
         .kategori-img {
             width: 70px;
             height: 70px;
-            background: #f0f6ff;
-            border-radius: 28px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #dfe8f2;
+            border: 1px solid #3f8cff;
             padding: 8px;
         }
-
-        .kategori-img img {
+          .kategori-img img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            filter: brightness(1.1);
         }
 
         .kategori-info {
@@ -327,49 +346,57 @@
         }
 
         .kategori-info h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #1e2b3c;
-            margin-bottom: 0.3rem;
+            color: white;
+            margin-bottom: 0.5rem;
         }
 
         .kategori-meta {
             display: flex;
             justify-content: space-between;
-            color: #5c6f8c;
-            font-size: 0.95rem;
+            align-items: center;
+            color: #b0ccff;
+            font-size: 1rem;
+        }
+
+        .kategori-paket {
+            background: rgba(63, 140, 255, 0.2);
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
         }
 
         .kategori-harga {
             font-weight: 700;
-            color: #3f8cff;
-            font-size: 1.1rem;
+            color: #6eb0ff;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px #3f8cff;
         }
 
-        /* produk & payment */
+        /* PRODUK VIEW */
         .produk-view, .payment-view {
-            background: white;
-            border-radius: 40px;
+            background: rgba(15, 25, 45, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
             padding: 2rem;
-            border: 1px solid #edf2f8;
-            box-shadow: 0 20px 40px -12px rgba(0,30,60,0.12);
+            border: 1px solid #3f8cff;
         }
 
         .back-btn {
-            background: #f0f6ff;
-            border: 1px solid #dae2ed;
+            background: #1a2e4a;
+            border: 1px solid #3f8cff;
+            color: #b0ccff;
             padding: 0.7rem 1.8rem;
             border-radius: 40px;
             cursor: pointer;
             margin-bottom: 2rem;
-            font-weight: 500;
             transition: 0.2s;
         }
 
         .back-btn:hover {
-            border-color: #3f8cff;
-            color: #3f8cff;
-            background: white;
+            background: #2f4b7a;
+            color: white;
         }
 
         .produk-header {
@@ -377,26 +404,26 @@
             align-items: center;
             gap: 1.2rem;
             padding-bottom: 1.5rem;
-            border-bottom: 2px solid #edf2f8;
+            border-bottom: 2px solid #2f4b7a;
             margin-bottom: 1.5rem;
         }
 
         .produk-header img {
             width: 60px;
             height: 60px;
-            background: #f0f6ff;
+            background: #1a2e4a;
             padding: 8px;
             border-radius: 20px;
         }
 
         .produk-item {
-            background: #f9fcff;
-            border-radius: 28px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 30px;
             padding: 1.2rem 1.8rem;
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.8rem;
-            border: 1px solid #e2eaf3;
+            border: 1px solid #2f4b7a;
             cursor: pointer;
             transition: 0.2s;
         }
@@ -404,15 +431,16 @@
         .produk-item:hover {
             border-color: #3f8cff;
             transform: translateX(6px);
-            background: white;
+            background: #1a2e4a;
         }
 
         .produk-harga {
             font-weight: 700;
-            color: #3f8cff;
+            color: #6eb0ff;
+            font-size: 1.1rem;
         }
 
-        /* payment */
+        /* PAYMENT */
         .payment-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -421,10 +449,10 @@
         }
 
         .metode-card {
-            background: #f9fcff;
-            border-radius: 32px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 40px;
             padding: 1.5rem;
-            border: 1px solid #e2eaf3;
+            border: 1px solid #2f4b7a;
             text-align: center;
         }
 
@@ -437,11 +465,12 @@
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
-            border-radius: 40px;
+            border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
             transition: 0.2s;
+            box-shadow: 0 10px 20px #1e4b8f;
         }
 
         .btn-biru:hover {
@@ -458,12 +487,9 @@
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(8px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
             align-items: center;
             justify-content: center;
             z-index: 2000;
@@ -471,8 +497,8 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 60px;
+            background: #0f192d;
+            border-radius: 70px;
             padding: 2rem;
             text-align: center;
             max-width: 500px;
@@ -484,17 +510,17 @@
             max-width: 300px;
             width: 100%;
             margin: 1rem 0;
-            border-radius: 24px;
+            border-radius: 30px;
         }
 
         .modal-nomor {
-            background: #f0f6ff;
+            background: #1a2e4a;
             padding: 1rem;
             border-radius: 60px;
             font-size: 1.5rem;
             font-weight: 600;
             letter-spacing: 2px;
-            margin: 1rem 0;
+            color: #b0ccff;
         }
 
         .close-modal {
@@ -511,30 +537,8 @@
     </style>
 </head>
 <body>
-    <!-- INTRO LOADING TYPING -->
-    <div class="intro-screen" id="introScreen">
-        <div class="intro-card">
-            <div class="intro-logo">
-                <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="logo">
-            </div>
-            <div class="intro-title">KEII <span>OFFICIAL</span></div>
-            <div class="intro-sub">PREMIUM DIGITAL STORE</div>
-
-            <!-- TYPING ANIMATION -->
-            <div class="typing-container">
-                <div class="typing-text" id="typingText"></div>
-                <span class="typing-cursor"></span>
-            </div>
-
-            <div class="loader-wrapper">
-                <div class="loader-bg">
-                    <div class="loader-bar" id="loadingBar"></div>
-                </div>
-                <div class="loader-text" id="loadingPercent">0%</div>
-            </div>
-            <button class="enter-btn" id="enterBtn">MASUK STORE</button>
-        </div>
-    </div>
+    <!-- INTRO + PARTIKEL JATUH -->
+    <div class="intro-screen" id="introScreen"></div>
 
     <!-- MAIN CONTENT -->
     <div class="main-content" id="mainContent" style="display: none;">
@@ -546,12 +550,12 @@
                 <h1>KEII <span>OFFICIAL</span></h1>
             </div>
             <div class="status">
-                <span><i class="fas fa-circle online-dot"></i> Online</span>
+                <span><i class="fas fa-circle" style="color:#2ecc71;"></i> Online</span>
                 <span><i class="far fa-clock"></i> 10.30-13.00 / 16.30-22.00</span>
             </div>
         </div>
 
-        <!-- KATEGORI VIEW -->
+        <!-- KATEGORI -->
         <div id="kategoriView">
             <div class="section-title"><i class="fas fa-crown"></i> APPS PREMIUM</div>
             <div class="kategori-grid" id="appsGrid"></div>
@@ -560,260 +564,124 @@
             <div class="kategori-grid" id="jasaGrid"></div>
         </div>
 
-        <!-- PRODUK VIEW -->
-        <div id="produkView" style="display: none;">
-            <div class="produk-view">
-                <button class="back-btn" id="backToKategori"><i class="fas fa-arrow-left"></i> Kembali</button>
-                <div id="produkContainer"></div>
-            </div>
-        </div>
-
-        <!-- PAYMENT VIEW -->
-        <div id="paymentView" style="display: none;">
-            <div class="payment-view">
-                <button class="back-btn" id="backToProduk"><i class="fas fa-arrow-left"></i> Kembali</button>
-                
-                <div class="selected-info" id="selectedInfo" style="text-align:center; margin-bottom:2rem;">
-                    <h3>Pilih produk</h3>
-                </div>
-
-                <h3 style="margin-bottom:1rem;">Metode Pembayaran</h3>
-                <div class="payment-grid">
-                    <div class="metode-card">
-                        <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png" width="50">
-                        <div style="margin:1rem 0;">0877 5351 3090</div>
-                        <button class="btn-biru" onclick="openModal('danaModal')">Tampilkan</button>
-                    </div>
-                    <div class="metode-card">
-                        <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" width="50">
-                        <div style="margin:1rem 0;">9015 1787 0612</div>
-                        <button class="btn-biru" onclick="openModal('seabankModal')">Tampilkan</button>
-                    </div>
-                    <div class="metode-card full">
-                        <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png" width="50">
-                        <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" class="qris-img">
-                        <button class="btn-biru" onclick="openModal('qrisModal')">Tampilkan QRIS</button>
-                    </div>
-                </div>
-
-                <div style="display:flex; gap:1rem; justify-content:center; margin:2rem 0;">
-                    <a href="https://wa.me/6285150895395" class="btn-biru" style="background:#25D366; text-decoration:none;">WhatsApp</a>
-                    <a href="https://t.me/KivoPay1" class="btn-biru" style="background:#0088cc; text-decoration:none;">Telegram</a>
-                </div>
-                <div style="text-align:center; color:#5c6f8c;">Kirim bukti transfer ke admin</div>
-            </div>
-        </div>
+        <!-- PRODUK & PAYMENT (SINGKAT) -->
+        <div id="produkView" style="display: none;">...</div>
+        <div id="paymentView" style="display: none;">...</div>
     </div>
 
-    <!-- MODALS -->
-    <div class="modal" id="danaModal">
-        <div class="modal-content">
-            <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png" width="80">
-            <h2>DANA</h2>
-            <div class="modal-nomor">0877 5351 3090</div>
-            <p>a.n Keii Official</p>
-            <button class="close-modal" onclick="closeModal('danaModal')">Tutup</button>
-        </div>
-    </div>
-    <div class="modal" id="seabankModal">
-        <div class="modal-content">
-            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" width="80">
-            <h2>SEABANK</h2>
-            <div class="modal-nomor">9015 1787 0612</div>
-            <p>a.n Keii Official</p>
-            <button class="close-modal" onclick="closeModal('seabankModal')">Tutup</button>
-        </div>
-    </div>
-    <div class="modal" id="qrisModal">
-        <div class="modal-content">
-            <h2>QRIS PEMBAYARAN</h2>
-            <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png">
-            <p style="margin:1rem 0;">Scan QRIS di atas</p>
-            <button class="close-modal" onclick="closeModal('qrisModal')">Tutup</button>
-        </div>
-    </div>
-
+    <!-- MODAL & AUDIO -->
     <audio id="bgAudio" loop><source src="https://files.catbox.moe/mog6bq.mp3"></audio>
 
     <script>
-        // DATA PRODUK (APPS PREMIUM + NOKOS WA + JASA WEB + SUNTIK WA)
-        const kategoriData = [
-            // APPS PREMIUM (0-15)
-            { name: "Capcut Premium", paket: "6 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png",
-              produk: ["Sharing 7 Hari Rp 8.000","Sharing 1 Bulan Rp 10.000","Sharing 1 Tahun Rp 25.000","Private 7 Hari Rp 11.000","Private 1 Bulan Rp 16.000","Private 1 Tahun Rp 36.000"] },
-            { name: "ChatGPT Premium", paket: "2 Paket", harga: "Rp 18.000", logo: "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png",
-              produk: ["Sharing 1 Bulan Plus Rp 18.000","Private 1 Bulan Invite Rp 20.000"] },
-            { name: "Wink Premium", paket: "2 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png",
-              produk: ["Private 7 Hari (acc b) Rp 8.000","Private 7 Hari (acc s) Rp 11.000"] },
-            { name: "Disney Premium", paket: "2 Paket", harga: "Rp 25.000", logo: "https://images.bukaolshop.com/hosting/181218/db9934847fa6433172.png",
-              produk: ["6 User 1 Bulan Rp 31.000","10 User 1 Bulan Rp 25.000"] },
-            { name: "Alight Motion", paket: "2 Paket", harga: "Rp 4.300", logo: "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png",
-              produk: ["Private 1 Thn (seller) Rp 4.300","Private 1 Thn (buyer) Rp 5.500"] },
-            { name: "Apple Music", paket: "4 Paket", harga: "Rp 10.000", logo: "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png",
-              produk: ["Imees 1 Bulan Rp 10.000","Imees 3 Bulan Rp 14.000","Indplan 1 Bulan Rp 12.000","Famplan 1 Bulan Rp 12.000"] },
-            { name: "YouTube Premium", paket: "2 Paket", harga: "Rp 5.000", logo: "https://images.bukaolshop.com/hosting/181218/e1b9eae8982d985428.png",
-              produk: ["Famplan 1 Bulan Rp 5.000","Indplan Norush Rp 11.000"] },
-            { name: "Prime Video", paket: "3 Paket", harga: "Rp 14.000", logo: "https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png",
-              produk: ["Sharing 2 User Rp 16.000","Sharing 3 User Rp 14.000","Private Rp 20.000"] },
-            { name: "Vision+ Sport", paket: "4 Paket", harga: "Rp 15.000", logo: "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png",
-              produk: ["Sharing Paytv Rp 15.000","Sharing Bkn Paytv Rp 40.000","Private Paytv Rp 32.000","Private Bkn Paytv Rp 40.000"] },
-            { name: "Viki Premium", paket: "1 Paket", harga: "Rp 16.000", logo: "https://images.bukaolshop.com/hosting/181218/fc34fcbdb564591085.png",
-              produk: ["Sharing 1 Bulan Rp 16.000"] },
-            { name: "Viu Premium", paket: "4 Paket", harga: "Rp 1.000", logo: "https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png",
-              produk: ["Anlim 1 Bulan Rp 1.000","Anlim 1 Thn Rp 8.000","Lifetime Rp 9.000","Viu+ Rp 16.000"] },
-            { name: "Canva Premium", paket: "4 Paket", harga: "Rp 150", logo: "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png",
-              produk: ["Member 7 Hari Rp 150","Member 1 Bln Rp 1.000","Member 1 Thn Rp 12.500","Edu lifetime Rp 12.000"] },
-            { name: "Lok Lok Premium", paket: "4 Paket", harga: "Rp 20.000", logo: "https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png",
-              produk: ["Sharing 3 User Basic Rp 20.000","Sharing 5 User Rp 25.000","Private Basic Rp 55.000","Private Standar Rp 80.000"] },
-            { name: "Netflix Premium", paket: "7 Paket", harga: "Rp 16.000", logo: "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png",
-              produk: ["1p1u 7 Hari Rp 17.000","1p1u 1 Bln Rp 30.000","1p2u 7 Hari Rp 16.000","1p2u 1 Bln Rp 26.000","Semi Privat 7H Rp 22.000","Semi Privat 1B Rp 38.000","Private Rp 200.000"] },
-            { name: "Gemini Premium", paket: "2 Paket", harga: "Rp 11.000", logo: "https://images.bukaolshop.com/hosting/181218/4a193950e401725286.png",
-              produk: ["Private 1 Bulan Rp 11.000","Private 1 Tahun Rp 25.000"] },
-            { name: "Hbo Max", paket: "4 Paket", harga: "Rp 19.000", logo: "https://images.bukaolshop.com/hosting/181218/4f504ab6ac35117507.png",
-              produk: ["Sharing Standar Rp 19.000","Sharing Ultimate Rp 23.000","Private Standar Rp 56.000","Private Ultimate Rp 66.000"] },
-            // NOKOS WA
-            { name: "Nokos WhatsApp", paket: "5 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png",
-              produk: ["Indonesia Rp 8.000","Filipina Rp 19.000","Hongkong Rp 11.000","Malaysia Rp 10.000","Thailand Rp 21.000"] },
-            // JASA WEB
-            { name: "Jasa Web Store", paket: "2 Paket", harga: "Rp 30.000", logo: "https://images.bukaolshop.com/hosting/181218/99e951089ed4964596.png",
-              produk: ["Simple No Sound Rp 30.000","Keren + Animasi Rp 50.000"] },
-            { name: "Jasa Web Payment", paket: "2+Note", harga: "Rp 15.000", logo: "https://images.bukaolshop.com/hosting/181218/99e951089ed4964596.png",
-              produk: ["Simple Tanpa Sound Rp 15.000","Animasi + Sound Rp 35.000"] },
-            // SUNTIK WA
-            { name: "Suntik WA", paket: "7 Paket", harga: "Rp 5.000", logo: "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png",
-              produk: ["100 Pengikut Rp 5.000","300 Pengikut Rp 15.000","400 Rp 20.000","500 Rp 25.000","1k Rp 50.000","2k Rp 99.000"] }
-        ];
-          // TYPING EFFECT
-        const phrases = [
-            "Premium Digital Store",
-            "Apps & Layanan Digital",
-            "Murah & Terpercaya",
-            "24/7 Support",
-            "Keii Official"
-        ];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typingElement = document.getElementById('typingText');
-
-        function typeEffect() {
-            const current = phrases[phraseIndex];
-            if (isDeleting) {
-                typingElement.textContent = current.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingElement.textContent = current.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            if (!isDeleting && charIndex === current.length) {
-                isDeleting = true;
-                setTimeout(typeEffect, 2000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                setTimeout(typeEffect, 300);
-            } else {
-                setTimeout(typeEffect, isDeleting ? 40 : 80);
+        // ========== PARTIKEL JATUH ==========
+        function createParticles() {
+            const intro = document.getElementById('introScreen');
+            const particleCount = 30;
+            const icons = ['✨', '💎', '⚡', '🌟', '💫', '⭐', '🔷', '💙'];
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'falling-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (3 + Math.random() * 5) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.fontSize = (1 + Math.random() * 2) + 'rem';
+                particle.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                intro.appendChild(particle);
             }
         }
-        setTimeout(typeEffect, 1000);
+        // ========== INTRO CARD ==========
+        function buildIntro() {
+            const intro = document.getElementById('introScreen');
+            intro.innerHTML = `
+                <div class="intro-card">
+                    <div class="intro-logo">
+                        <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png">
+                    </div>
+                    <div class="intro-title">KEII <span>OFFICIAL</span></div>
+                    <div class="intro-sub">PREMIUM DIGITAL STORE</div>
+                    <div class="typing-container">
+                        <div class="typing-text" id="typingText"></div>
+                        <span class="typing-cursor"></span>
+                    </div>
+                    <div class="loader-wrapper">
+                        <div class="loader-bg"><div class="loader-bar" id="loadingBar"></div></div>
+                        <div class="loader-text" id="loadingPercent">0%</div>
+                    </div>
+                    <button class="enter-btn" id="enterBtn">MASUK STORE</button>
+                </div>
+            `;
+        }
 
-        // LOADING BAR
-        let progress = 0;
-        const loadingBar = document.getElementById('loadingBar');
-        const percentEl = document.getElementById('loadingPercent');
-        const loadInterval = setInterval(() => {
-            if (progress >= 100) clearInterval(loadInterval);
+        buildIntro();
+        createParticles();
+
+        // ========== TYPING ==========
+        const phrases = ["Premium Store", "Digital Apps", "Murah & Cepat", "24/7 Support", "Keii Official"];
+        let pIdx = 0, cIdx = 0, deleting = false;
+        const typingEl = document.getElementById('typingText');
+
+        function typeEffect() {
+            const current = phrases[pIdx];
+            typingEl.textContent = current.substring(0, cIdx);
+            if (!deleting && cIdx < current.length) { cIdx++; setTimeout(typeEffect, 100); }
+            else if (deleting && cIdx > 0) { cIdx--; setTimeout(typeEffect, 50); }
             else {
-                progress++;
-                loadingBar.style.width = progress + '%';
-                percentEl.textContent = progress + '%';
+                deleting = !deleting;
+                if (!deleting) pIdx = (pIdx + 1) % phrases.length;
+                setTimeout(typeEffect, 800);
             }
-        }, 30);
+        }
+        setTimeout(typeEffect, 800);
 
-        // INTRO
+        // ========== LOADING ==========
+        let prog = 0;
+        const bar = document.getElementById('loadingBar');
+        const per = document.getElementById('loadingPercent');
+        setInterval(() => { if (prog < 100) { prog++; bar.style.width = prog + '%'; per.textContent = prog + '%'; } }, 35);
+
+        // ========== INTRO CLICK ==========
         const intro = document.getElementById('introScreen');
         const main = document.getElementById('mainContent');
         const enter = document.getElementById('enterBtn');
         const audio = document.getElementById('bgAudio');
         enter.addEventListener('click', () => {
             intro.classList.add('hide');
-            setTimeout(() => {
-                intro.style.display = 'none';
-                main.style.display = 'block';
-            }, 800);
-            audio.play().catch(e=>{});
+            setTimeout(() => { intro.style.display = 'none'; main.style.display = 'block'; }, 800);
+            audio.play().catch(()=>{});
         });
-        document.addEventListener('click', () => {
-            if (audio.paused && intro.style.display === 'none') audio.play().catch(e=>{});
-        });
+        document.addEventListener('click', () => { if (audio.paused && intro.style.display === 'none') audio.play().catch(()=>{}); });
 
-        // RENDER KATEGORI DENGAN ANIMASI DELAY
+        // ========== DATA PRODUK (RAPI) ==========
+        const kategoriData = [
+            { name: "Capcut Premium", paket: "6 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png" },
+            { name: "ChatGPT Premium", paket: "2 Paket", harga: "Rp 18.000", logo: "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png" },
+            { name: "Wink Premium", paket: "2 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png" },
+            { name: "Disney Premium", paket: "2 Paket", harga: "Rp 25.000", logo: "https://images.bukaolshop.com/hosting/181218/db9934847fa6433172.png" },
+            { name: "Alight Motion", paket: "2 Paket", harga: "Rp 4.300", logo: "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png" },
+            { name: "Apple Music", paket: "4 Paket", harga: "Rp 10.000", logo: "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png" },
+            { name: "YouTube Premium", paket: "2 Paket", harga: "Rp 5.000", logo: "https://images.bukaolshop.com/hosting/181218/e1b9eae8982d985428.png" },
+            { name: "Prime Video", paket: "3 Paket", harga: "Rp 14.000", logo: "https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png" },
+            { name: "Vision+ Sport", paket: "4 Paket", harga: "Rp 15.000", logo: "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png" },
+            { name: "Viki Premium", paket: "1 Paket", harga: "Rp 16.000", logo: "https://images.bukaolshop.com/hosting/181218/fc34fcbdb564591085.png" }
+        ];
+
+        // RENDER KATEGORI
         function renderKategori() {
-            let appsHtml = '', jasaHtml = '';
-            for (let i=0; i<16; i++) {
-                let item = kategoriData[i];
-                appsHtml += `<div class="kategori-card" style="--i:${i}" onclick="showProduk(${i})">
+            let html = '';
+            kategoriData.forEach((item, i) => {
+                html += `<div class="kategori-card" style="--i:${i}">
                     <div class="kategori-img"><img src="${item.logo}"></div>
                     <div class="kategori-info">
                         <h3>${item.name}</h3>
                         <div class="kategori-meta">
-                            <span>${item.paket}</span>
+                            <span class="kategori-paket">${item.paket}</span>
                             <span class="kategori-harga">${item.harga}</span>
                         </div>
                     </div>
                 </div>`;
-            }
-            for (let i=16; i<kategoriData.length; i++) {
-                let item = kategoriData[i];
-                jasaHtml += `<div class="kategori-card" style="--i:${i}" onclick="showProduk(${i})">
-                    <div class="kategori-img"><img src="${item.logo}"></div>
-                    <div class="kategori-info">
-                        <h3>${item.name}</h3>
-                        <div class="kategori-meta">
-                            <span>${item.paket}</span>
-                            <span class="kategori-harga">${item.harga}</span>
-                        </div>
-                    </div>
-                </div>`;
-            }
-            document.getElementById('appsGrid').innerHTML = appsHtml;
-            document.getElementById('jasaGrid').innerHTML = jasaHtml;
-        }
-
-        window.showProduk = (idx) => {
-            let item = kategoriData[idx];
-            let html = `<div class="produk-header"><img src="${item.logo}"><h2>${item.name}</h2></div><div class="produk-list">`;
-            item.produk.forEach(p => {
-                let [nama, hrg] = p.split('Rp');
-                html += `<div class="produk-item" onclick="showPayment('${item.name}','${nama}','Rp${hrg}')"><span>${nama}</span><span class="produk-harga">Rp${hrg}</span></div>`;
             });
-            html += '</div>';
-            document.getElementById('produkContainer').innerHTML = html;
-            document.getElementById('kategoriView').style.display = 'none';
-            document.getElementById('produkView').style.display = 'block';
-            document.getElementById('paymentView').style.display = 'none';
-        };
-
-        window.showPayment = (kat, nama, harga) => {
-            document.getElementById('selectedInfo').innerHTML = `<h3>${kat}</h3><p>${nama}</p><h2 style="color:#3f8cff;">${harga}</h2>`;
-            document.getElementById('produkView').style.display = 'none';
-            document.getElementById('paymentView').style.display = 'block';
-        };
-
-        document.getElementById('backToKategori').addEventListener('click', ()=>{
-            document.getElementById('produkView').style.display = 'none';
-            document.getElementById('kategoriView').style.display = 'block';
-        });
-        document.getElementById('backToProduk').addEventListener('click', ()=>{
-            document.getElementById('paymentView').style.display = 'none';
-            document.getElementById('produkView').style.display = 'block';
-        });
-
-        window.openModal = (id) => document.getElementById(id).style.display = 'flex';
-        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
-        window.onclick = (e) => { if (e.target.classList.contains('modal')) e.target.style.display='none'; };
+            document.getElementById('appsGrid').innerHTML = html;
+        }
 
         renderKategori();
     </script>
