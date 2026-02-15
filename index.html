@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monolog · Ruang Hening</title>
+    <title>KEII · OFFICIAL</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -11,30 +11,27 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background: #0b0b0b;
-            color: #c0c0c0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-weight: 300;
-            line-height: 1.6;
+            background: #f5f5f5;
+            color: #1e1e1e;
         }
 
-        /* INTRO - monokrom elegan */
+        /* INTRO LOADING — VERSI BARU (CARD STYLE) */
         .intro-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0a0a0a;
-            background-image: radial-gradient(circle at 30% 40%, #1e1e1e 0%, #0a0a0a 60%);
+            background: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: opacity 1s ease;
+            transition: opacity 0.6s ease;
         }
 
         .intro-screen.hide {
@@ -42,482 +39,718 @@
             pointer-events: none;
         }
 
-        .intro-content {
+        .intro-card {
+            background: #1a1a1a;
+            padding: 3rem 2.5rem;
+            border-radius: 48px;
             text-align: center;
-            max-width: 700px;
-            padding: 2rem;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            border: 1px solid #333;
         }
 
-        .intro-label {
-            font-size: 0.8rem;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: #5a5a5a;
-            margin-bottom: 3rem;
-            font-weight: 400;
+        .intro-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ff6b6b;
+            box-shadow: 0 0 40px rgba(255, 107, 107, 0.3);
         }
 
-        .typing-container {
-            margin-bottom: 3rem;
-            min-height: 120px;
-        }
-
-        .dynamic-text {
-            font-size: 2.2rem;
-            font-weight: 300;
-            color: #f0f0f0;
-            line-height: 1.4;
-            font-family: 'Georgia', 'Times New Roman', serif;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 2.2rem;
-            background-color: #7a7a7a;
-            margin-left: 6px;
-            vertical-align: middle;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .loading-container {
-            width: 280px;
-            margin: 2rem auto;
-        }
-
-        .loading-bar-bg {
+        .intro-logo img {
             width: 100%;
-            height: 1px;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .intro-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.2rem;
+        }
+
+        .intro-title span {
+            color: #ff8a8a;
+        }
+
+        .loader-wrapper {
+            margin: 2rem 0 1rem;
+        }
+
+        .loader {
+            width: 200px;
+            height: 4px;
             background: #2a2a2a;
+            border-radius: 10px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
         }
 
-        .loading-bar {
+        .loader-bar {
+            height: 100%;
             width: 0%;
-            height: 1px;
-            background: #b0b0b0;
-            transition: width 0.1s linear;
+            background: linear-gradient(90deg, #ff6b6b, #ff8a8a, #ff6b6b);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: gradientMove 1.5s infinite linear;
+            transition: width 0.1s ease;
         }
 
-        .loading-percent {
-            font-size: 0.7rem;
-            color: #5a5a5a;
-            margin-top: 0.8rem;
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .loading-text {
+            color: #aaa;
+            font-size: 0.9rem;
             letter-spacing: 2px;
+            margin-top: 1rem;
         }
 
         .enter-btn {
-            background: none;
-            border: 1px solid #3a3a3a;
-            color: #c0c0c0;
-            padding: 0.8rem 2.8rem;
-            font-size: 0.8rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
             cursor: pointer;
-            transition: 0.25s;
             margin-top: 2rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 0.6s ease 3.5s forwards;
-            font-weight: 300;
+            animation: fadeUp 0.5s ease 3.5s forwards;
+            transition: all 0.2s;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
         }
 
         .enter-btn:hover {
-            border-color: #7a7a7a;
-            color: #ffffff;
-            background: #151515;
+            background: #ff8a8a;
+            transform: scale(1.02) translateY(-2px);
         }
 
         @keyframes fadeUp {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* MAIN CONTENT - minimalis */
+        /* MAIN CONTENT — VERSI BARU (ELEGAN, MINIMALIS) */
         .main-content {
-            max-width: 900px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 2.5rem 2rem;
             opacity: 0;
-            animation: contentFade 1s ease 0.2s forwards;
+            animation: contentFade 0.8s ease 0.2s forwards;
         }
 
         @keyframes contentFade {
             to { opacity: 1; }
         }
 
-        /* header sederhana */
-        .page-header {
-            margin-bottom: 5rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 300;
-            color: #eaeaea;
-            letter-spacing: -0.5px;
-            font-family: 'Georgia', serif;
-        }
-
-        .page-header h2 {
-            font-size: 1rem;
-            font-weight: 300;
-            color: #5f5f5f;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-top: 1.5rem;
-        }
-
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: #3a3a3a;
-            margin: 3rem auto;
-        }
-
-        /* grid quote */
-        .quote-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
-            margin: 4rem 0;
-        }
-
-        .quote-card {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #242424;
-        }
-
-        .quote-card p {
-            font-size: 1.15rem;
-            color: #d0d0d0;
-            font-family: 'Georgia', serif;
-            font-style: italic;
-            line-height: 1.7;
-        }
-
-        .quote-author {
-            font-size: 0.8rem;
-            color: #6a6a6a;
-            margin-top: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* daftar panjang */
-        .list-container {
-            margin: 5rem 0;
-        }
-
-        .list-item {
-            display: flex;
-            align-items: baseline;
-            gap: 1.5rem;
-            padding: 1.2rem 0;
-            border-bottom: 1px dashed #262626;
-        }
-
-        .list-num {
-            font-size: 0.9rem;
-            color: #6a6a6a;
-            min-width: 40px;
-            font-weight: 300;
-        }
-
-        .list-text {
-            font-size: 1.1rem;
-            color: #bcbcbc;
-        }
-
-        /* footer / watermark */
-        .footer {
-            margin-top: 6rem;
-            padding-top: 3rem;
-            border-top: 1px solid #202020;
+        /* header */
+        .store-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.8rem;
-            color: #5f5f5f;
+            margin-bottom: 3.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid #eee;
         }
 
-        .footer-left {
-            letter-spacing: 2px;
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .footer-right {
-            font-size: 0.75rem;
+        .logo-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #ff6b6b;
         }
 
-        .footer-right i {
-            margin: 0 4px;
-            color: #7a7a7a;
+        .logo-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        a {
-            color: #9a9a9a;
+        .logo-area h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-area h1 span {
+            color: #ff6b6b;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 2rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* kategori grid — versi baru (bordered) */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title i {
+            color: #ff6b6b;
+            margin-right: 10px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.02);
+            border: 1px solid #f0f0f0;
+            transition: 0.25s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-6px);
+            border-color: #ffd6d6;
+            box-shadow: 0 20px 35px rgba(255, 107, 107, 0.08);
+        }
+
+        .category-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 18px;
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+            border: 1px solid #eee;
+        }
+
+        .category-icon img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .category-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+
+        .category-price {
+            font-weight: 700;
+            color: #ff6b6b;
+            font-size: 1.1rem;
+        }
+
+        /* produk view */
+        .produk-view, .payment-view {
+            background: white;
+            border-radius: 36px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+            border: 1px solid #f0f0f0;
+            margin-top: 1rem;
+        }
+
+        .back-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .produk-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f5f5f5;
+            margin-bottom: 1.5rem;
+        }
+
+        .produk-header img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 18px;
+        }
+
+        .produk-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .produk-item {
+            background: #f9f9f9;
+            border-radius: 18px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .produk-item:hover {
+            border-color: #ffd6d6;
+            background: white;
+        }
+
+        .produk-harga {
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        /* payment view — fresh */
+        .selected-info {
+            background: #f9f9f9;
+            border-radius: 28px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .selected-info h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e1e1e;
+        }
+
+        .selected-harga {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin: 1rem 0;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .metode-card {
+            background: #f9f9f9;
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+
+        .metode-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .metode-header img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nomor {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 50px;
+            font-family: monospace;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+        }
+
+        .btn-pilih {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 50px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-pilih:hover {
+            background: #ff8a8a;
+        }
+
+        .qris-img {
+            max-width: 140px;
+            margin: 1rem auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .admin-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0 1rem;
+        }
+
+        .admin-btn {
+            background: #1e1e1e;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
             text-decoration: none;
-            border-bottom: 1px dotted #3a3a3a;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
-        a:hover {
-            color: #ffffff;
+        .admin-btn.wa {
+            background: #25D366;
         }
 
-        @media (max-width: 600px) {
-            .dynamic-text { font-size: 1.6rem; }
-            .page-header h1 { font-size: 2.2rem; }
-            .list-item { flex-direction: column; gap: 0.3rem; }
-            .footer { flex-direction: column; gap: 1rem; text-align: center; }
+        .admin-btn.tele {
+            background: #0088cc;
         }
+
+        .footer-note {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 40px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .modal-content img {
+            max-width: 250px;
+            border-radius: 16px;
+            margin: 1rem 0;
+        }
+
+        .close-modal {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        audio { display: none; }
     </style>
 </head>
 <body>
-    <!-- INTRO -->
+    <!-- INTRO LOADING (VERSI CARD) -->
     <div class="intro-screen" id="introScreen">
-        <div class="intro-content">
-            <div class="intro-label">//  silence  //</div>
-            
-            <div class="typing-container">
-                <div class="dynamic-text" id="dynamicText"></div>
-                <span class="cursor" id="cursor"></span>
+        <div class="intro-card">
+            <div class="intro-logo">
+                <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="logo">
             </div>
-
-            <div class="loading-container">
-                <div class="loading-bar-bg">
-                    <div class="loading-bar" id="loadingBar"></div>
+            <div class="intro-title">KEII <span>OFFICIAL</span></div>
+            <div class="loader-wrapper">
+                <div class="loader">
+                    <div class="loader-bar" id="loadingBar"></div>
                 </div>
-                <div class="loading-percent" id="loadingPercent">0%</div>
+                <div class="loading-text" id="loadingPercent">0%</div>
             </div>
-               <button class="enter-btn" id="enterBtn">masuk</button>
+            <button class="enter-btn" id="enterBtn">MASUK STORE</button>
         </div>
     </div>
-
-    <!-- MAIN -->
-    <div class="main-content" id="mainContent">
-        <div class="page-header">
-            <h1>hening</h1>
-            <h2>— ruang tanpa suara —</h2>
-        </div>
-
-        <!-- QUOTE GRID 3 -->
-        <div class="quote-grid">
-            <div class="quote-card">
-                <p>“Orang yang paling tenang biasanya menyimpan kegelisahan paling dalam. Itu bukan kelemahan, itu kanvas kosong.”</p>
-                <div class="quote-author">—  Soe Hok Gie</div>
+    <!-- MAIN CONTENT (VERSI BARU) -->
+    <div class="main-content" id="mainContent" style="display: none;">
+        <!-- header -->
+        <div class="store-header">
+            <div class="logo-area">
+                <div class="logo-small">
+                    <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="logo">
+                </div>
+                <h1>KEII <span>OFFICIAL</span></h1>
             </div>
-            <div class="quote-card">
-                <p>“Aku tidak pernah merasa sendiri. Sepi adalah teman paling setia, ia tak pernah berbohong.”</p>
-                <div class="quote-author">—  Sapardi Djoko Damono</div>
-            </div>
-            <div class="quote-card">
-                <p>“Kita terlalu banyak bicara, padahal diam bisa menjadi jawaban paling tajam.”</p>
-                <div class="quote-author">—  Pramoedya Ananta Toer</div>
+            <div class="header-right">
+                <span><i class="fas fa-circle" style="color: #4caf50; font-size: 0.6rem;"></i> Online</span>
+                <span><i class="far fa-clock"></i> 10.30-13.00 / 16.30-22.00</span>
             </div>
         </div>
 
-        <div class="divider"></div>
+        <!-- kategori view -->
+        <div id="kategoriView">
+            <div class="section-title"><i class="fas fa-crown"></i> APPS PREMIUM</div>
+            <div class="category-grid" id="appsGrid"></div>
 
-        <!-- 20+ KATA-KATA BERKELAS (LIST) -->
-        <div class="list-container">
-            <div class="list-item">
-                <span class="list-num">01</span>
-                <span class="list-text">Kau tidak akan pernah menjadi orang bebas jika hanya hidup untuk menyenangkan semua orang.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">02</span>
-                <span class="list-text">Biarkan mereka yang tak percaya padamu pergi. Yang tinggal adalah yang pantas menemanimu tumbuh.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">03</span>
-                <span class="list-text">Tidak semua ketidakhadiran adalah kehilangan. Kadang ia adalah hadiah dalam bentuk lain.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">04</span>
-                <span class="list-text">Ketenangan bukan tentang tidak ada badai, tapi tentang bagaimana kau tetap duduk tenang di tengahnya.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">05</span>
-                <span class="list-text">Jangan pernah membenci orang yang menyakitimu. Mereka adalah guru paling efektif.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">06</span>
-                <span class="list-text">Memaafkan bukan untuk mereka, tapi untuk membebaskan dirimu sendiri.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">07</span>
-                <span class="list-text">Jika hatimu lelah, diamlah. Dunia tak akan runtuh hanya karena kau berhenti sejenak.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">08</span>
-                <span class="list-text">Kesendirian bukan berarti sepi. Ia adalah ruang paling jujur untuk berdamai dengan diri sendiri.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">09</span>
-                <span class="list-text">Orang dewasa adalah mereka yang bisa menangis di dalam hati sambil tersenyum di luar.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">10</span>
-                <span class="list-text">Kau tidak perlu menjadi luar biasa untuk berharga. Kau cukup nyata.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">11</span>
-                <span class="list-text">Terkadang kita terlalu sibuk mengejar yang jauh, lupa menikmati yang sudah dekat.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">12</span>
-                <span class="list-text">Kepergian bukan akhir selama kau masih mengingatnya dengan damai.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">13</span>
-                <span class="list-text">Menyerah bukan berarti kalah, kadang itu adalah langkah paling bijak.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">14</span>
-                <span class="list-text">Tak ada yang abadi kecuali kenangan yang kau pilih untuk disimpan.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">15</span>
-                <span class="list-text">Kau boleh lelah. Kau boleh menangis. Tapi jangan berhenti.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">16</span>
-                <span class="list-text">Luka yang kau rawat akan menjadi kekuatan yang tak terduga.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">17</span>
-                <span class="list-text">Jangan bandingkan prosesmu dengan proses orang lain. Setiap orang punya waktunya sendiri.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">18</span>
-                <span class="list-text">Kebahagiaan bukan tentang memiliki lebih, tapi tentang merasa cukup.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">19</span>
-                <span class="list-text">Jika kau lelah dengan semua topeng, lepaskan. Keaslian adalah magnet paling kuat.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">20</span>
-                <span class="list-text">Hidup bukan tentang menunggu badai berlalu, tapi belajar menari di tengah hujan.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">21</span>
-                <span class="list-text">Tak apa berjalan lambat asal kau tidak berhenti.</span>
-            </div>
-            <div class="list-item">
-                <span class="list-num">22</span>
-                <span class="list-text">Hening adalah bahasa paling tajam untuk menjawab kebisingan.</span>
+            <div class="section-title"><i class="fas fa-sim-card"></i> NOKOS & LAINNYA</div>
+            <div class="category-grid" id="nokosGrid"></div>
+        </div>
+
+        <!-- produk view -->
+        <div id="produkView" style="display: none;">
+            <div class="produk-view">
+                <button class="back-btn" id="backToKategori"><i class="fas fa-arrow-left"></i> Kembali</button>
+                <div id="produkContainer"></div>
             </div>
         </div>
 
-        <div class="divider"></div>
+        <!-- payment view -->
+        <div id="paymentView" style="display: none;">
+            <div class="payment-view">
+                <button class="back-btn" id="backToProduk"><i class="fas fa-arrow-left"></i> Kembali</button>
+                
+                <div class="selected-info" id="selectedInfo">
+                    <h3>Pilih produk dulu</h3>
+                </div>
 
-        <!-- 3 QUOTE PENUTUP -->
-        <div class="quote-grid">
-            <div class="quote-card">
-                <p>“Kau tidak harus menjadi pahlawan untuk berarti. Cukup jadi manusia yang tak sengaja melukai hati orang lain.”</p>
-                <div class="quote-author">—  Andrea Hirata</div>
-            </div>
-            <div class="quote-card">
-                <p>“Sering kali yang paling kita butuhkan bukan jawaban, melainkan ruang untuk sekadar didengar.”</p>
-                <div class="quote-author">—  Dee Lestari</div>
-            </div>
-            <div class="quote-card">
-                <p>“Jika kau ingin mengenal seseorang, jangan dengar apa yang ia bicarakan, tapi perhatikan apa yang ia diamkan.”</p>
-                <div class="quote-author">—  Seno Gumira Ajidarma</div>
-            </div>
-        </div>
+                <h3 style="margin-bottom: 1rem;">Metode Pembayaran</h3>
+                <div class="payment-grid">
+                    <!-- DANA -->
+                    <div class="metode-card">
+                        <div class="metode-header">
+                            <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png">
+                            <span>DANA</span>
+                        </div>
+                        <div class="nomor">0877 5351 3090</div>
+                        <button class="btn-pilih" onclick="showDana()">Tampilkan</button>
+                    </div>
+                    <!-- SEABANK -->
+                    <div class="metode-card">
+                        <div class="metode-header">
+                            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png">
+                            <span>SEABANK</span>
+                        </div>
+                        <div class="nomor">9015 1787 0612</div>
+                        <button class="btn-pilih" onclick="openModal('seabankModal')">Pop Up</button>
+                    </div>
+                    <!-- QRIS -->
+                    <div style="grid-column: span 2;" class="metode-card">
+                        <div class="metode-header">
+                            <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png">
+                            <span>QRIS</span>
+                        </div>
+                        <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" class="qris-img">
+                        <button class="btn-pilih" onclick="openModal('qrisModal')">QR Pop Up</button>
+                    </div>
+                </div>
 
-        <!-- FOOTER / WATERMARK DEVELOPER -->
-        <div class="footer">
-            <div class="footer-left">
-                <i class="far fa-circle" style="font-size: 0.5rem; margin-right: 6px;"></i>  monolog  <i class="far fa-circle" style="font-size: 0.5rem; margin-left: 6px;"></i>
-            </div>
-            <div class="footer-right">
-                <span>dev by <a href="#">keii</a></span>
-                <i class="fas fa-asterisk"></i>
-                <span>2026</span>
+                <!-- admin contact -->
+                <div class="admin-row">
+                    <a href="https://wa.me/6285150895395" class="admin-btn wa"><i class="fab fa-whatsapp"></i> WhatsApp (Slow)</a>
+                    <a href="https://t.me/KivoPay1" class="admin-btn tele"><i class="fab fa-telegram"></i> Telegram (Fast)</a>
+                </div>
+
+                <div class="footer-note">
+                    <i class="fas fa-info-circle"></i> Kirim bukti transfer ke admin setelah bayar
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- MODAL -->
+    <div class="modal" id="seabankModal">
+        <div class="modal-content">
+            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png">
+            <h3>SEABANK</h3>
+            <div style="background:#f0f0f0; padding:0.8rem; border-radius:30px; margin:1rem 0;">9015 1787 0612</div>
+            <p>a.n Keii Official</p>
+            <button class="close-modal" onclick="closeModal('seabankModal')">Tutup</button>
+        </div>
+    </div>
+    <div class="modal" id="qrisModal">
+        <div class="modal-content">
+            <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png">
+            <h3>QRIS</h3>
+            <button class="close-modal" onclick="closeModal('qrisModal')">Tutup</button>
+        </div>
+    </div>
+
+    <audio id="bgAudio" loop><source src="https://files.catbox.moe/mog6bq.mp3"></audio>
     <script>
-        (function() {
-            const intro = document.getElementById('introScreen');
-            const main = document.getElementById('mainContent');
-            const enterBtn = document.getElementById('enterBtn');
-            const dynamicEl = document.getElementById('dynamicText');
-            const loadingBar = document.getElementById('loadingBar');
-            const percentEl = document.getElementById('loadingPercent');
+        // DATA PRODUK LENGKAP (sama persis kayak kemarin)
+        const kategoriData = [
+            // APPS PREMIUM (0-4)
+            { name: "Capcut Premium", paket: "6 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png",
+              produk: ["Sharing 7 Hari Rp 8.000","Sharing 1 Bulan Rp 10.000","Sharing 1 Tahun Rp 25.000","Private 7 Hari Rp 11.000","Private 1 Bulan Rp 16.000","Private 1 Tahun Rp 36.000"] },
+            { name: "ChatGPT Premium", paket: "2 Paket", harga: "Rp 18.000", logo: "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png",
+              produk: ["Sharing 1 Bulan Plus Rp 18.000","Private 1 Bulan Invite Rp 20.000"] },
+            { name: "Wink Premium", paket: "2 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png",
+              produk: ["Private 7 Hari (acc b) Rp 8.000","Private 7 Hari (acc s) Rp 11.000"] },
+            { name: "Disney Premium", paket: "2 Paket", harga: "Rp 25.000", logo: "https://images.bukaolshop.com/hosting/181218/db9934847fa6433172.png",
+              produk: ["6 User 1 Bulan Rp 31.000","10 User 1 Bulan Rp 25.000"] },
+            { name: "Alight Motion", paket: "2 Paket", harga: "Rp 4.300", logo: "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png",
+              produk: ["Private 1 Thn (seller) Rp 4.300","Private 1 Thn (buyer) Rp 5.500"] },
+            // NOKOS & LAINNYA (5-...)
+            { name: "Nokos WhatsApp", paket: "5 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png",
+              produk: ["Indonesia Rp 8.000","Filipina Rp 19.000","Hongkong Rp 11.000","Malaysia Rp 10.000","Thailand Rp 21.000"] },
+            { name: "Nokos Telegram", paket: "4 Paket", harga: "Rp 7.000", logo: "https://images.bukaolshop.com/hosting/181218/450cb4fcb88a174062.png",
+              produk: ["Indonesia Rp 7.000","Filipina Rp 9.000","Hongkong Rp 11.000","Thailand Rp 36.000"] },
+            { name: "Bug XCVI V9", paket: "4 Paket", harga: "Rp 20.000", logo: "https://images.bukaolshop.com/hosting/181218/16aea1c112a5636278.png",
+              produk: ["1 Bulan Rp 20.000","2 Bulan Rp 30.000","Permanen Rp 50.000","Reseller Rp 85.000"] },
+            { name: "Nika V26", paket: "4 Paket", harga: "Rp 25.000", logo: "https://images.bukaolshop.com/hosting/181218/14d64071e23b494337.png",
+              produk: ["Akses 1 Minggu Rp 25.000","Akses 1 Bulan Rp 35.000","Akses 2 Bulan Rp 40.000","Akses Permanen Rp 50.000"] },
+            { name: "Jasa Web Store", paket: "2 Paket", harga: "Rp 30.000", logo: "https://images.bukaolshop.com/hosting/181218/99e951089ed4964596.png",
+              produk: ["Simple No Sound Rp 30.000","Keren + Animasi Rp 50.000"] },
+            { name: "Jasa Web Payment", paket: "2+Note", harga: "Rp 15.000", logo: "https://images.bukaolshop.com/hosting/181218/99e951089ed4964596.png",
+              produk: ["Simple Tanpa Sound Rp 15.000","Animasi + Sound Rp 35.000"] },
+            { name: "Suntik WA", paket: "7 Paket", harga: "Rp 5.000", logo: "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png",
+              produk: ["100 Pengikut Rp 5.000","300 Pengikut Rp 15.000","400 Rp 20.000","500 Rp 25.000","1k Rp 50.000","2k Rp 99.000"] }
+        ];
 
-            // 7 Frasa berkelas (monokrom)
-            const lines = [
-                "Diam bukan berarti kalah.",
-                "Kadang jawaban terbaik adalah keheningan.",
-                "Tak semua yang hilang layak disesali.",
-                "Tenang adalah perlawanan paling halus.",
-                "Kau tak perlu menjadi segalanya.",
-                "Luka juga bisa menjadi guru.",
-                "Pulanglah ke dirimu sendiri."
-            ];
-
-            let idx = 0;
-            let charPos = 0;
-            let deleting = false;
-            let pause = false;
-
-            function typeEffect() {
-                const current = lines[idx];
-
-                if (!deleting && charPos <= current.length) {
-                    dynamicEl.textContent = current.substring(0, charPos);
-                    charPos++;
-                    setTimeout(typeEffect, 90);
-                } else if (deleting && charPos >= 0) {
-                    dynamicEl.textContent = current.substring(0, charPos);
-                    charPos--;
-                    setTimeout(typeEffect, 40);
-                } else {
-                    if (!deleting && charPos > current.length) {
-                        // selesai ngetik, tunggu 2 detik
-                        deleting = true;
-                        charPos = current.length;
-                        setTimeout(typeEffect, 1800);
-                    } else if (deleting && charPos < 0) {
-                        deleting = false;
-                        idx = (idx + 1) % lines.length;
-                        charPos = 0;
-                        setTimeout(typeEffect, 200);
-                    }
-                }
+        // LOADING
+        let progress = 0;
+        const loadingBar = document.getElementById('loadingBar');
+        const percentEl = document.getElementById('loadingPercent');
+        const interval = setInterval(() => {
+            if (progress >= 100) clearInterval(interval);
+            else {
+                progress++;
+                loadingBar.style.width = progress + '%';
+                percentEl.textContent = progress + '%';
             }
+        }, 30);
 
-            setTimeout(typeEffect, 600);
+        // INTRO
+        const intro = document.getElementById('introScreen');
+        const main = document.getElementById('mainContent');
+        const enter = document.getElementById('enterBtn');
+        const audio = document.getElementById('bgAudio');
+        enter.addEventListener('click', () => {
+            intro.classList.add('hide');
+            setTimeout(() => {
+                intro.style.display = 'none';
+                main.style.display = 'block';
+            }, 600);
+            audio.play().catch(e=>{});
+        });
+        document.addEventListener('click', () => {
+            if (audio.paused && intro.style.display === 'none') audio.play().catch(e=>{});
+        });
 
-            // loading 0–100%
-            let progress = 0;
-            const loadInterval = setInterval(() => {
-                if (progress >= 100) {
-                    clearInterval(loadInterval);
-                } else {
-                    progress++;
-                    loadingBar.style.width = progress + '%';
-                    percentEl.textContent = progress + '%';
-                }
-            }, 30);
-            // tombol masuk
-            enterBtn.addEventListener('click', () => {
-                intro.classList.add('hide');
-                setTimeout(() => {
-                    intro.style.display = 'none';
-                }, 1000);
+        // RENDER KATEGORI
+        function renderKategori() {
+            let apps = '', nokos = '';
+            for (let i=0; i<5; i++) {
+                let item = kategoriData[i];
+                apps += `<div class="category-card" onclick="showProduk(${i})">
+                    <div class="category-icon"><img src="${item.logo}"></div>
+                    <div class="category-name">${item.name}</div>
+                    <div class="category-meta"><span>${item.paket}</span><span class="category-price">${item.harga}</span></div>
+                </div>`;
+            }
+            for (let i=5; i<kategoriData.length; i++) {
+                let item = kategoriData[i];
+                nokos += `<div class="category-card" onclick="showProduk(${i})">
+                    <div class="category-icon"><img src="${item.logo}"></div>
+                    <div class="category-name">${item.name}</div>
+                    <div class="category-meta"><span>${item.paket}</span><span class="category-price">${item.harga}</span></div>
+                </div>`;
+            }
+            document.getElementById('appsGrid').innerHTML = apps;
+            document.getElementById('nokosGrid').innerHTML = nokos;
+        }
+
+        // VARIABEL
+        let selectedProduk = '', selectedHarga = '';
+
+        window.showProduk = (idx) => {
+            let item = kategoriData[idx];
+            let html = `<div class="produk-header"><img src="${item.logo}"><h2>${item.name}</h2></div><div class="produk-list">`;
+            item.produk.forEach(p => {
+                let [nama, hrg] = p.split('Rp');
+                html += `<div class="produk-item" onclick="showPayment('${item.name}','${nama}','Rp${hrg}')">
+                    <span>${nama}</span><span class="produk-harga">Rp${hrg}</span>
+                </div>`;
             });
-        })();
+            html += '</div>';
+            document.getElementById('produkContainer').innerHTML = html;
+            document.getElementById('kategoriView').style.display = 'none';
+            document.getElementById('produkView').style.display = 'block';
+            document.getElementById('paymentView').style.display = 'none';
+        };
+
+        window.showPayment = (kat, nama, harga) => {
+            selectedProduk = kat + ' - ' + nama;
+            selectedHarga = harga;
+            document.getElementById('selectedInfo').innerHTML = `<h3>${kat}</h3><p>${nama}</p><div class="selected-harga">${harga}</div>`;
+            document.getElementById('produkView').style.display = 'none';
+            document.getElementById('paymentView').style.display = 'block';
+        };
+             // BACK
+        document.getElementById('backToKategori').addEventListener('click', ()=>{
+            document.getElementById('produkView').style.display = 'none';
+            document.getElementById('kategoriView').style.display = 'block';
+        });
+        document.getElementById('backToProduk').addEventListener('click', ()=>{
+            document.getElementById('paymentView').style.display = 'none';
+            document.getElementById('produkView').style.display = 'block';
+        });
+
+        // MODAL
+        window.openModal = (id) => document.getElementById(id).style.display = 'flex';
+        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+        window.showDana = () => alert('Nomor DANA: 087753513090');
+        window.onclick = (e) => { if (e.target.classList.contains('modal')) e.target.style.display='none'; };
+
+        renderKategori();
     </script>
 </body>
 </html>
