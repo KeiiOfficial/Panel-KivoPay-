@@ -1,583 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Standar | Mode Nyindir</title>
-  <style>
-    :root{
-      --bg:#060712;
-      --card:rgba(255,255,255,.06);
-      --line:rgba(255,255,255,.12);
-      --text:#eef1ff;
-      --muted:#aab2da;
-      --a:#ff2a55;
-      --b:#6ea8fe;
-      --c:#7dffb4;
-      --shadow:0 20px 70px rgba(0,0,0,.6);
-      --r:20px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1100px 520px at 12% 12%, rgba(110,168,254,.18), transparent 60%),
-        radial-gradient(1000px 520px at 88% 18%, rgba(255,42,85,.14), transparent 62%),
-        radial-gradient(900px 520px at 50% 92%, rgba(125,255,180,.08), transparent 60%),
-        var(--bg);
-      overflow-x:hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Locked</title>
+<style>
+body{
+  margin:0;
+  background:black;
+  color:#00ff66;
+  font-family:monospace;
+  overflow:hidden;
+}
 
-    /* ====== LOADING CINEMATIC ====== */
-    .intro{
-      position:fixed; inset:0; z-index:9999;
-      display:grid; place-items:center;
-      background: radial-gradient(800px 400px at 50% 40%, rgba(255,42,85,.10), transparent 65%),
-                  radial-gradient(800px 400px at 50% 70%, rgba(110,168,254,.12), transparent 65%),
-                  #040510;
-      transition: opacity .7s ease, transform .7s ease;
-      overflow:hidden;
-    }
-    .intro.hide{
-      opacity:0;
-      transform:scale(1.02);
-      pointer-events:none;
-    }
-    canvas#fx{
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      opacity:.65;
-      filter: blur(.2px);
-    }
-    .introBox{
-      width:min(760px, 92vw);
-      border-radius:26px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(14px);
-      padding:26px 22px;
-      position:relative;
-      overflow:hidden;
-    }
-    .sheen{
-      position:absolute; inset:-40% -30%;
-      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.08), transparent 65%);
-      transform: rotate(10deg);
-      animation: sheen 2.4s linear infinite;
-      opacity:.7;
-      pointer-events:none;
-    }
-    @keyframes sheen{
-      0%{transform:translateX(-30%) rotate(10deg)}
-      100%{transform:translateX(30%) rotate(10deg)}
-    }
-    .topRow{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
-      margin-bottom:14px;
-    }
-    .title{
-      font-weight:950;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      font-size:22px;
-      line-height:1.1;
-      position:relative;
-    }
-    .title small{
-      display:block;
-      margin-top:6px;
-      font-size:12px;
-      letter-spacing:1.2px;
-      color:var(--muted);
-      text-transform:none;
-      font-weight:700;
-    }
-    .tag{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.25);
-      padding:6px 10px;
-      border-radius:999px;
-      white-space:nowrap;
-    }
+.screen{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  flex-direction:column;
+  text-align:center;
+}
 
-    .ringRow{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      margin:10px 0 16px;
-    }
-    .ring{
-      width:64px; height:64px; border-radius:999px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 55%),
-        conic-gradient(from 120deg, var(--a), var(--b), var(--c), var(--a));
-      filter:saturate(1.1);
-      box-shadow:0 0 40px rgba(255,42,85,.20);
-      position:relative;
-      animation: spin 1.2s linear infinite;
-    }
-    .ring:after{
-      content:"";
-      position:absolute; inset:7px;
-      border-radius:999px;
-      background:rgba(4,5,16,.92);
-      border:1px solid rgba(255,255,255,.10);
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
+h1{
+  font-size:28px;
+  animation:blink 1s infinite;
+}
 
-    .type{
-      flex:1;
-      min-height:40px;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.55;
-    }
-    .type b{color:var(--text)}
-    .progress{
-      height:12px;
-      border-radius:999px;
-      background:rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.12);
-      overflow:hidden;
-    }
-    .bar{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, var(--a), var(--b), var(--c));
-      box-shadow:0 0 26px rgba(110,168,254,.18);
-      transition: width .10s linear;
-    }
-    .meta{
-      display:flex; justify-content:space-between; align-items:center;
-      margin-top:10px;
-      font-size:12px;
-      color:var(--muted);
-    }
-    .meta .pct{color:var(--text); font-weight:900}
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:0}
+  100%{opacity:1}
+}
 
-    /* ====== APP ====== */
-    .app{
-      opacity:0;
-      transform: translateY(10px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .app.ready{opacity:1; transform:translateY(0)}
-    header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter: blur(12px);
-      background:rgba(4,5,16,.55);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .nav{
-      max-width:980px; margin:0 auto;
-      padding:12px 16px;
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:950; letter-spacing:1px;
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background:var(--a);
-      box-shadow:0 0 18px rgba(255,42,85,.55);
-    }
-    .pills{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
-    .pills span{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.22);
-      padding:6px 10px;
-      border-radius:999px;
-    }
-    main{
-      max-width:980px; margin:0 auto;
-      padding:18px 16px 64px;
-    }
-    .hero{
-      margin-top:14px;
-      padding:22px;
-      border-radius:26px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(520px 220px at 12% 20%, rgba(255,42,85,.18), transparent 62%),
-        radial-gradient(520px 220px at 84% 40%, rgba(110,168,254,.16), transparent 62%);
-      opacity:.95; pointer-events:none;
-    }
-    .hero > *{position:relative}
-    h1{
-      margin:0 0 8px;
-      font-size:34px;
-      font-weight:1000;
-      letter-spacing:.4px;
-    }
-    .sub{
-      margin:0 0 14px;
-      color:var(--muted);
-      line-height:1.6;
-      max-width:72ch;
-    }
-    .actions{display:flex; gap:10px; flex-wrap:wrap}
-    .btn{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.28);
-      color:var(--text);
-      padding:10px 14px;
-      border-radius:14px;
-      cursor:pointer;
-      transition:.2s;
-      font-weight:850;
-    }
-    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.22)}
-    .btn.primary{
-      border-color:transparent;
-      background:linear-gradient(90deg, rgba(255,42,85,.88), rgba(110,168,254,.74));
-    }
+.warning{
+  color:red;
+  font-size:14px;
+  margin-top:10px;
+}
 
-    .grid{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:12px;
-    }
-    .card{
-      grid-column: span 6;
-      padding:16px 16px 14px;
-      border-radius:var(--r);
-      background:var(--card);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transition:.22s;
-      position:relative;
-      overflow:hidden;
-      cursor:pointer;
-    }
-    .card:hover{transform:translateY(-2px); border-color:rgba(255,255,255,.18)}
-    .card:before{
-      content:"";
-      position:absolute; inset:-1px;
-      background:radial-gradient(420px 160px at 15% 10%, rgba(255,42,85,.12), transparent 62%);
-      opacity:.9; pointer-events:none;
-    }
-    .card > *{position:relative}
-    .kicker{
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:1.8px;
-      text-transform:uppercase;
-      margin-bottom:10px;
-      display:flex; justify-content:space-between; gap:10px;
-    }
-    .badge{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.22);
-      white-space:nowrap;
-    }
-    .quote{
-      margin:0;
-      font-size:16px;
-      line-height:1.65;
-    }
-    .meta{
-      margin-top:12px;
-      display:flex; justify-content:space-between; align-items:center;
-      font-size:12px;
-      color:var(--muted);
-    }
-    .panel{
-      margin-top:12px;
-      padding:14px;
-      border-radius:var(--r);
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.18);
-      color:var(--muted);
-      line-height:1.55;
-    }
-
-    .modalBack{
-      position:fixed; inset:0;
-      background:rgba(0,0,0,.62);
-      display:none; place-items:center;
-      z-index:50;
-      padding:18px;
-    }
-    .modalBack.show{display:grid}
-    .modal{
-      width:min(720px, 92vw);
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(10,12,24,.92);
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(12px);
-      padding:18px;
-    }
-    .modalTop{
-      display:flex; justify-content:space-between; align-items:center;
-      gap:10px;
-      margin-bottom:10px;
-    }
-    .modalTitle{
-      margin:0;
-      font-weight:950;
-      letter-spacing:.3px;
-    }
-    .close{
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.22);
-      color:var(--text);
-      border-radius:12px;
-      padding:8px 10px;
-      cursor:pointer;
-      font-weight:900;
-    }
-    .modalBody{color:var(--muted); line-height:1.65}
-
-    @media (max-width:820px){
-      .card{grid-column: span 12;}
-      h1{font-size:28px}
-    }
-  </style>
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  background:#00ff66;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
 </head>
-
 <body>
 
-  <!-- INTRO LOADER -->
-  <div class="intro" id="intro">
-    <canvas id="fx"></canvas>
-    <div class="introBox">
-      <div class="sheen"></div>
-      <div class="topRow">
-        <div class="title">
-          STANDAR
-          <small>Nyindir kelakuan, bukan gender. Biar nggak norak.</small>
-        </div>
-        <div class="tag" id="tag">Booting attitude...</div>
-      </div>
-
-      <div class="ringRow">
-        <div class="ring" aria-hidden="true"></div>
-        <div class="type" id="type"></div>
-      </div>
-
-      <div class="progress" aria-label="progress"><div class="bar" id="bar"></div></div>
-      <div class="meta">
-        <span id="status">Ngecek kualitas mental...</span>
-        <span class="pct"><span id="pct">0</span>%</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- APP -->
-  <div class="app" id="app">
-    <header>
-      <div class="nav">
-        <div class="brand"><span class="dot"></span> STANDAR</div>
-        <div class="pills">
-          <span>Nyindir = rapi</span>
-          <span>Baper = urusanmu</span>
-          <span>Standar = wajib</span>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero">
-        <h1>Kalau nyindirnya “nggak kerasa”…</h1>
-        <p class="sub">
-          Berarti kamu kebal karena keseringan hidup tanpa batas. Ini versi yang lebih nusuk,
-          tapi targetnya <b>perilaku</b>: yang hobi validasi, yang murah akses, yang bangga jadi hiburan.
-        </p>
-        <div class="actions">
-          <button class="btn primary" id="randomBtn">Acak yang Paling Ngena</button>
-          <button class="btn" id="openBtn">Baca “Kena Pas”</button>
-        </div>
-      </section>
-
-      <section class="grid" id="grid"></section>
-
-      <div class="panel">
-        Catatan: kalau kamu marah karena “kok kaya ngomongin aku”, berarti web ini kerja dengan benar.
-        Kalau kamu santai, berarti kamu punya standar. Simple.
-      </div>
-    </main>
-  </div>
-
-  <!-- MODAL -->
-  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true">
-    <div class="modal">
-      <div class="modalTop">
-        <h3 class="modalTitle" id="modalTitle">Kena Banget</h3>
-        <button class="close" id="closeBtn">Tutup</button>
-      </div>
-      <div class="modalBody" id="modalBody"></div>
-    </div>
-  </div>
+<div class="screen">
+  <h1>⚠ DEVICE LOCKED ⚠</h1>
+  <p>System breach detected...</p>
+  <p>Encrypting data...</p>
+  <div class="warning">Do not close this window.</div>
+  <button onclick="unlock()">UNLOCK</button>
+</div>
 
 <script>
-  /* ====== Particle FX (simple, light) ====== */
-  const cvs = document.getElementById('fx');
-  const ctx = cvs.getContext('2d');
-  let W,H,parts=[];
-  function resize(){
-    W = cvs.width = Math.floor(window.innerWidth * devicePixelRatio);
-    H = cvs.height = Math.floor(window.innerHeight * devicePixelRatio);
-    parts = Array.from({length: 90}, () => ({
-      x: Math.random()*W, y: Math.random()*H,
-      vy: (0.25+Math.random()*0.8)*devicePixelRatio,
-      r: (0.7+Math.random()*1.6)*devicePixelRatio,
-      a: 0.15+Math.random()*0.25
-    }));
+let textList = [
+  "Accessing private files...",
+  "Uploading contacts...",
+  "Sending data to server...",
+  "Tracking location...",
+  "Finalizing encryption..."
+];
+
+let i = 0;
+setInterval(()=>{
+  if(i < textList.length){
+    document.querySelector(".screen p").innerText = textList[i];
+    i++;
   }
-  window.addEventListener('resize', resize);
-  resize();
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    for(const p of parts){
-      p.y += p.vy;
-      if(p.y > H+20) { p.y = -20; p.x = Math.random()*W; }
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle = `rgba(255,255,255,${p.a})`;
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
+}, 1500);
 
-  /* ====== Loader text + progress ====== */
-  const intro = document.getElementById('intro');
-  const app = document.getElementById('app');
-  const bar = document.getElementById('bar');
-  const pct = document.getElementById('pct');
-  const status = document.getElementById('status');
-  const tag = document.getElementById('tag');
-  const type = document.getElementById('type');
-
-  const lines = [
-    "Ngescan standar minimum. <b>Yang murah-murah di-skip.</b>",
-    "Ngecek ego. Kalau gampang tersinggung, berarti ada yang kena.",
-    "Ngerapihin kata biar tajem tapi nggak receh.",
-    "Ngunci pintu buat yang hidupnya cuma cari validasi.",
-    "Finalisasi. Masuk dan jangan pura-pura kuat."
-  ];
-  let idx = 0;
-  type.innerHTML = lines[0];
-
-  const tags = ["Booting attitude...", "Loading boundaries...", "Calibrating standards...", "Filtering nonsense..."];
-  let pt = 0;
-  const timer = setInterval(() => {
-    pt += Math.floor(Math.random()*8)+6; // 6..13
-    if(pt > 100) pt = 100;
-    bar.style.width = pt + "%";
-    pct.textContent = pt;
-
-    if(pt % 20 < 10){
-      tag.textContent = tags[Math.floor(Math.random()*tags.length)];
-    }
-    if(pt >= (idx+1)*20 && idx < lines.length-1){
-      idx++;
-      type.innerHTML = lines[idx];
-      status.textContent = ["Ngecek kualitas mental...","Ngilangin kebiasaan murahan...","Ngerakit kalimat nusuk...","Ngatur aura dingin...","Selesai."][idx];
-    }
-
-    if(pt === 100){
-      clearInterval(timer);
-      status.textContent = "Selesai. Kalau panas, berarti tepat sasaran.";
-      setTimeout(() => {
-        intro.classList.add('hide');
-        setTimeout(() => {
-          intro.style.display = "none";
-          app.classList.add('ready');
-        }, 650);
-      }, 450);
-    }
-  }, 120);
-
-  /* ====== Quotes (lebih pedes, tetap target perilaku) ====== */
-  const quotes = [
-    {title:"VALIDASI", tag:"tajam", text:"Kalau kamu butuh banyak yang muji supaya merasa berharga, itu bukan percaya diri. Itu miskin nilai diri."},
-    {title:"AKSES", tag:"dingin", text:"Kalau semua orang bisa masuk ke hidupmu tanpa syarat, jangan kaget kalau kamu diperlakukan kayak tempat singgah, bukan tujuan."},
-    {title:"PRINSIP", tag:"real",  text:"Gaya boleh mahal. Tapi kalau prinsip bisa dibeli sama perhatian receh, ya tetap murahan. Cuma bungkusnya doang yang mewah."},
-    {title:"BATAS", tag:"keras", text:"Orang yang punya standar itu tenang. Yang nggak punya standar biasanya ribut, tapi isinya cuma minta dipilih."},
-    {title:"KONSISTEN", tag:"nusuk", text:"Kalau kamu berubah-ubah cuma biar disukai, kamu bukan fleksibel. Kamu cuma nggak punya pendirian."},
-    {title:"HARGA DIRI", tag:"tegas", text:"Kalau kamu bangga jadi rebutan, itu bukan prestasi. Itu tanda kamu nyaman dijadiin hiburan."},
-  ];
-
-  const grid = document.getElementById('grid');
-  function render(){
-    grid.innerHTML = quotes.map((q,i)=>`
-      <article class="card" data-i="${i}">
-        <div class="kicker">
-          <span>${q.title}</span>
-          <span class="badge">tag: ${q.tag}</span>
-        </div>
-        <p class="quote">"${q.text}"</p>
-        <div class="meta"><span>#${String(i+1).padStart(2,'0')}</span><span>Klik buat detail</span></div>
-      </article>
-    `).join('');
-  }
-  render();
-
-  /* ====== Modal ====== */
-  const modalBack = document.getElementById('modalBack');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalBody = document.getElementById('modalBody');
-  document.getElementById('closeBtn').onclick = ()=> modalBack.classList.remove('show');
-  modalBack.addEventListener('click', e => { if(e.target===modalBack) modalBack.classList.remove('show'); });
-
-  document.getElementById('openBtn').onclick = ()=>{
-    modalTitle.textContent = "Kena Pas";
-    modalBody.innerHTML = `
-      <p>Kalau kamu ngerasa “kok nusuk banget”, itu bukan karena kalimatnya jahat.</p>
-      <p>Itu karena ada bagian dari kamu yang tahu: kamu bisa lebih punya standar, tapi kamu males.</p>
-      <p><b>Standar itu disiplin.</b> Bukan caption. Bukan drama. Bukan “aku kuat” tapi tiap malam butuh validasi.</p>
-    `;
-    modalBack.classList.add('show');
-  };
-
-  grid.addEventListener('click', (e)=>{
-    const card = e.target.closest('.card');
-    if(!card) return;
-    const i = Number(card.dataset.i);
-    const q = quotes[i];
-    modalTitle.textContent = q.title;
-    modalBody.innerHTML = `
-      <p><b>tag:</b> ${q.tag}</p>
-      <p>"${q.text}"</p>
-      <p>Kalau kamu pengen “nggak kerasa”, berarti kamu pengen nyindir tapi tetap aman. Itu namanya bukan nyindir, itu nyolek pelan.</p>
-    `;
-    modalBack.classList.add('show');
-  });
-
-  /* ====== Random focus ====== */
-  document.getElementById('randomBtn').onclick = ()=>{
-    const i = Math.floor(Math.random()*quotes.length);
-    const el = grid.querySelector(`[data-i="${i}"]`);
-    if(!el) return;
-    el.scrollIntoView({behavior:"smooth", block:"center"});
-    el.animate([
-      { transform:"translateY(0)", filter:"brightness(1)" },
-      { transform:"translateY(-4px)", filter:"brightness(1.18)" },
-      { transform:"translateY(0)", filter:"brightness(1)" }
-    ], {duration:520, easing:"ease-out"});
-  };
+function unlock(){
+  document.body.innerHTML = `
+  <div class="screen">
+    <h1 style="color:#00ff66;">Just kidding 😈</h1>
+    <p>Tenang. Cuma prank murahan.</p>
+  </div>
+  `;
+}
 </script>
+
 </body>
 </html>
