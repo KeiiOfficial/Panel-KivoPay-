@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEII · OFFICIAL</title>
+    <title>KEII · PREMIUM STORE</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -15,23 +15,25 @@
         }
 
         body {
-            background: #f5f5f5;
-            color: #1e1e1e;
+            background: #0e0e12;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* INTRO LOADING — VERSI BARU (CARD STYLE) */
+        /* ========== INTRO ANIMASI SUPER ========== */
         .intro-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #ffffff;
+            background: #0a0a0f;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .intro-screen.hide {
@@ -39,137 +41,262 @@
             pointer-events: none;
         }
 
-        .intro-card {
-            background: #1a1a1a;
-            padding: 3rem 2.5rem;
-            border-radius: 48px;
-            text-align: center;
-            max-width: 480px;
-            width: 90%;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            border: 1px solid #333;
+        .intro-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            padding: 2rem;
         }
 
-        .intro-logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
+        /* floating shapes */
+        .shape {
+            position: absolute;
+            background: rgba(255, 107, 107, 0.05);
             border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #ff6b6b;
-            box-shadow: 0 0 40px rgba(255, 107, 107, 0.3);
+            filter: blur(40px);
+            z-index: 0;
+            animation: floatShape 8s infinite alternate;
         }
 
-        .intro-logo img {
+        .shape1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            background: rgba(255, 90, 90, 0.1);
+            animation-duration: 12s;
+        }
+
+        .shape2 {
+            width: 250px;
+            height: 250px;
+            bottom: -80px;
+            right: -80px;
+            background: rgba(200, 120, 255, 0.08);
+            animation-duration: 10s;
+            animation-delay: -2s;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 40px) scale(1.2); }
+        }
+
+        .intro-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 60px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            animation: cardAppear 0.8s ease-out;
+        }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .logo-wrapper {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 1.8rem;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, #ff6b6b, #ffb347);
+            animation: rotateGradient 6s linear infinite;
+            box-shadow: 0 0 40px rgba(255, 107, 107, 0.5);
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #0a0a0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid #0a0a0f;
+        }
+
+        .logo-inner img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
         .intro-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff, #ffb6b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .intro-title span {
-            color: #ff8a8a;
+        .intro-sub {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 2.5rem;
         }
 
-        .loader-wrapper {
-            margin: 2rem 0 1rem;
-        }
-
-        .loader {
-            width: 200px;
-            height: 4px;
-            background: #2a2a2a;
-            border-radius: 10px;
-            margin: 0 auto;
-            overflow: hidden;
+        /* loader mewah */
+        .loader-container {
+            margin: 2.5rem 0;
             position: relative;
         }
 
-        .loader-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ff6b6b, #ff8a8a, #ff6b6b);
-            background-size: 200% 100%;
-            border-radius: 10px;
-            animation: gradientMove 1.5s infinite linear;
-            transition: width 0.1s ease;
+        .loader-ring {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #ff6b6b, #ffb347, #6b5bff, #ff6b6b);
+            animation: rotateRing 3s linear infinite;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 200% 0%; }
+        .loader-ring::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: #0a0a0f;
+            border-radius: 50%;
         }
 
-        .loading-text {
-            color: #aaa;
-            font-size: 0.9rem;
+        .loader-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            text-align: center;
+        }
+
+        .loader-percent {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .loader-label {
+            color: #666;
+            font-size: 0.7rem;
             letter-spacing: 2px;
-            margin-top: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .enter-btn {
-            background: #ff6b6b;
-            color: white;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
             border: none;
-            padding: 0.9rem 2.5rem;
-            font-size: 1rem;
+            color: white;
             font-weight: 600;
-            border-radius: 40px;
+            font-size: 1.1rem;
+            padding: 1.2rem 3rem;
+            border-radius: 60px;
             cursor: pointer;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 0.5s ease 3.5s forwards;
-            transition: all 0.2s;
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+            animation: fadeUpBtn 0.6s ease 4.2s forwards;
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3);
+            transition: 0.3s;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .enter-btn:hover::before {
+            left: 100%;
         }
 
         .enter-btn:hover {
-            background: #ff8a8a;
-            transform: scale(1.02) translateY(-2px);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 30px 50px rgba(255, 107, 107, 0.5);
         }
 
-        @keyframes fadeUp {
+        @keyframes fadeUpBtn {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* MAIN CONTENT — VERSI BARU (ELEGAN, MINIMALIS) */
+        /* ========== MAIN CONTENT ========== */
         .main-content {
             max-width: 1300px;
             margin: 0 auto;
             padding: 2.5rem 2rem;
             opacity: 0;
-            animation: contentFade 0.8s ease 0.2s forwards;
+            animation: fadeMain 0.8s ease 0.2s forwards;
         }
 
-        @keyframes contentFade {
+        @keyframes fadeMain {
             to { opacity: 1; }
         }
 
         /* header */
-        .store-header {
+        .header-glass {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 3.5rem;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid #eee;
+            animation: slideDown 0.6s ease;
         }
 
-        .logo-area {
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-glass {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
 
-        .logo-small {
+        .logo-glass-img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -177,198 +304,212 @@
             border: 2px solid #ff6b6b;
         }
 
-        .logo-small img {
+        .logo-glass-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .logo-area h1 {
+        .logo-glass h1 {
             font-size: 1.5rem;
             font-weight: 600;
-            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff, #ffb6b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .logo-area h1 span {
-            color: #ff6b6b;
-        }
-
-        .header-right {
+        .status-glass {
             display: flex;
             gap: 2rem;
-            color: #888;
+            color: #aaa;
             font-size: 0.9rem;
         }
+        .status-glass i {
+            margin-right: 5px;
+            color: #ff6b6b;
+        }
 
-        /* kategori grid — versi baru (bordered) */
-        .section-title {
+        /* section title */
+        .section-title-anim {
             font-size: 2rem;
             font-weight: 600;
-            margin: 2.5rem 0 1.5rem;
-            letter-spacing: -0.5px;
+            margin: 3rem 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideRight 0.5s ease;
         }
 
-        .section-title i {
+        .section-title-anim i {
             color: #ff6b6b;
-            margin-right: 10px;
+            font-size: 2rem;
+            animation: bounceIcon 2s infinite;
         }
 
-        .category-grid {
+        @keyframes bounceIcon {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* kategori grid dengan animasi */
+        .kategori-grid-anim {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 1.8rem;
             margin-bottom: 3rem;
         }
 
-        .category-card {
-            background: white;
-            border-radius: 28px;
-            padding: 1.5rem;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.02);
-            border: 1px solid #f0f0f0;
-            transition: 0.25s ease;
+        .kartu {
+            background: rgba(30, 30, 40, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 1.8rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            animation: cardPop 0.5s ease backwards;
+            animation-delay: calc(var(--i) * 0.05s);
+            position: relative;
+            overflow: hidden;
         }
 
-        .category-card:hover {
-            transform: translateY(-6px);
-            border-color: #ffd6d6;
-            box-shadow: 0 20px 35px rgba(255, 107, 107, 0.08);
+        .kartu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,107,107,0.1), transparent);
+            transition: 0.5s;
         }
 
-        .category-icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 18px;
-            background: #fafafa;
+        .kartu:hover::before {
+            left: 100%;
+        }
+
+        .kartu:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ff6b6b;
+            box-shadow: 0 30px 50px rgba(255, 107, 107, 0.2);
+        }
+
+        @keyframes cardPop {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .kartu-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.2rem;
-            border: 1px solid #eee;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 107, 107, 0.2);
         }
 
-        .category-icon img {
+        .kartu-icon img {
             width: 35px;
             height: 35px;
             object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
         }
 
-        .category-name {
+        .kartu h3 {
             font-size: 1.2rem;
-            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .category-meta {
+        .kartu-meta {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            color: #888;
+            color: #aaa;
             font-size: 0.9rem;
-            border-top: 1px solid #f0f0f0;
-            margin-top: 1rem;
-            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
         }
 
-        .category-price {
-            font-weight: 700;
+        .kartu-harga {
             color: #ff6b6b;
+            font-weight: 700;
             font-size: 1.1rem;
         }
 
-        /* produk view */
+        /* produk view & payment view */
         .produk-view, .payment-view {
-            background: white;
-            border-radius: 36px;
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
             padding: 2rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
-            border: 1px solid #f0f0f0;
-            margin-top: 1rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            animation: fadeScale 0.4s ease;
+        }
+
+        @keyframes fadeScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .back-btn {
-            background: none;
-            border: 1px solid #ddd;
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 40px;
             cursor: pointer;
             margin-bottom: 2rem;
-            font-size: 0.9rem;
             transition: 0.2s;
         }
 
         .back-btn:hover {
             border-color: #ff6b6b;
-            color: #ff6b6b;
+            background: rgba(255,107,107,0.1);
         }
 
         .produk-header {
             display: flex;
             align-items: center;
             gap: 1.2rem;
+            margin-bottom: 2rem;
             padding-bottom: 1.5rem;
-            border-bottom: 2px solid #f5f5f5;
-            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .produk-header img {
             width: 60px;
             height: 60px;
-            object-fit: contain;
-            background: #f9f9f9;
+            background: rgba(255,255,255,0.05);
             padding: 10px;
-            border-radius: 18px;
-        }
-
-        .produk-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
+            border-radius: 20px;
         }
 
         .produk-item {
-            background: #f9f9f9;
-            border-radius: 18px;
-            padding: 1rem 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            margin-bottom: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
             cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid transparent;
         }
 
         .produk-item:hover {
-            border-color: #ffd6d6;
-            background: white;
-        }
-
-        .produk-harga {
-            font-weight: 700;
-            color: #ff6b6b;
-        }
-
-        /* payment view — fresh */
-        .selected-info {
-            background: #f9f9f9;
-            border-radius: 28px;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .selected-info h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1e1e1e;
-        }
-
-        .selected-harga {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ff6b6b;
-            margin: 1rem 0;
+            border-color: #ff6b6b;
+            transform: translateX(8px);
+            background: rgba(255,107,107,0.1);
         }
 
         .payment-grid {
@@ -378,124 +519,38 @@
             margin: 2rem 0;
         }
 
-        .metode-card {
-            background: #f9f9f9;
+        .payment-card {
+            background: rgba(0,0,0,0.3);
             border-radius: 24px;
             padding: 1.5rem;
-            border: 1px solid #eee;
+            border: 1px solid rgba(255,255,255,0.05);
             text-align: center;
-        }
-
-        .metode-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .metode-header img {
-            width: 28px;
-            height: 28px;
-        }
-
-        .nomor {
-            background: white;
-            padding: 0.8rem;
-            border-radius: 50px;
-            font-family: monospace;
-            margin: 1rem 0;
-            border: 1px solid #ddd;
-        }
-
-        .btn-pilih {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 50px;
-            width: 100%;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-pilih:hover {
-            background: #ff8a8a;
-        }
-
-        .qris-img {
-            max-width: 140px;
-            margin: 1rem auto;
-            display: block;
-            border-radius: 12px;
-        }
-
-        .admin-row {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0 1rem;
-        }
-
-        .admin-btn {
-            background: #1e1e1e;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .admin-btn.wa {
-            background: #25D366;
-        }
-
-        .admin-btn.tele {
-            background: #0088cc;
-        }
-
-        .footer-note {
-            text-align: center;
-            color: #aaa;
-            font-size: 0.85rem;
-            margin-top: 2rem;
         }
 
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.9);
             align-items: center;
             justify-content: center;
             z-index: 2000;
         }
 
         .modal-content {
-            background: white;
+            background: #1a1a2a;
             padding: 2rem;
             border-radius: 40px;
-            text-align: center;
             max-width: 400px;
-        }
-
-        .modal-content img {
-            max-width: 250px;
-            border-radius: 16px;
-            margin: 1rem 0;
+            border: 1px solid #ff6b6b;
         }
 
         .close-modal {
             background: #ff6b6b;
-            color: white;
             border: none;
+            color: white;
             padding: 0.7rem 2rem;
-            border-radius: 40px;
-            font-weight: 600;
+            border-radius: 30px;
             cursor: pointer;
         }
 
@@ -503,45 +558,56 @@
     </style>
 </head>
 <body>
-    <!-- INTRO LOADING (VERSI CARD) -->
+    <!-- INTRO ANIMASI SUPER -->
     <div class="intro-screen" id="introScreen">
-        <div class="intro-card">
-            <div class="intro-logo">
-                <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="logo">
-            </div>
-            <div class="intro-title">KEII <span>OFFICIAL</span></div>
-            <div class="loader-wrapper">
-                <div class="loader">
-                    <div class="loader-bar" id="loadingBar"></div>
+        <div class="intro-container">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+            <div class="intro-card">
+                <div class="logo-wrapper">
+                    <div class="logo-inner">
+                        <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="logo">
+                    </div>
                 </div>
-                <div class="loading-text" id="loadingPercent">0%</div>
+                <h1 class="intro-title">KEII OFFICIAL</h1>
+                <div class="intro-sub">premium store</div>
+                
+                <div class="loader-container">
+                    <div class="loader-ring">
+                        <div class="loader-content">
+                            <div class="loader-percent" id="percentDisplay">0%</div>
+                            <div class="loader-label">LOADING</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="enter-btn" id="enterBtn">MASUK SEKARANG</button>
             </div>
-            <button class="enter-btn" id="enterBtn">MASUK STORE</button>
         </div>
     </div>
-    <!-- MAIN CONTENT (VERSI BARU) -->
+      <!-- MAIN CONTENT -->
     <div class="main-content" id="mainContent" style="display: none;">
-        <!-- header -->
-        <div class="store-header">
-            <div class="logo-area">
-                <div class="logo-small">
-                    <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="logo">
+        <!-- header glass -->
+        <div class="header-glass">
+            <div class="logo-glass">
+                <div class="logo-glass-img">
+                    <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png">
                 </div>
-                <h1>KEII <span>OFFICIAL</span></h1>
+                <h1>KEII OFFICIAL</h1>
             </div>
-            <div class="header-right">
-                <span><i class="fas fa-circle" style="color: #4caf50; font-size: 0.6rem;"></i> Online</span>
+            <div class="status-glass">
+                <span><i class="fas fa-circle" style="color: #4caf50;"></i> Online</span>
                 <span><i class="far fa-clock"></i> 10.30-13.00 / 16.30-22.00</span>
             </div>
         </div>
 
         <!-- kategori view -->
         <div id="kategoriView">
-            <div class="section-title"><i class="fas fa-crown"></i> APPS PREMIUM</div>
-            <div class="category-grid" id="appsGrid"></div>
+            <div class="section-title-anim"><i class="fas fa-crown"></i> APPS PREMIUM</div>
+            <div class="kategori-grid-anim" id="appsGrid"></div>
 
-            <div class="section-title"><i class="fas fa-sim-card"></i> NOKOS & LAINNYA</div>
-            <div class="category-grid" id="nokosGrid"></div>
+            <div class="section-title-anim"><i class="fas fa-sim-card"></i> NOKOS & LAINNYA</div>
+            <div class="kategori-grid-anim" id="nokosGrid"></div>
         </div>
 
         <!-- produk view -->
@@ -556,78 +622,56 @@
         <div id="paymentView" style="display: none;">
             <div class="payment-view">
                 <button class="back-btn" id="backToProduk"><i class="fas fa-arrow-left"></i> Kembali</button>
-                
-                <div class="selected-info" id="selectedInfo">
-                    <h3>Pilih produk dulu</h3>
+                <div class="selected-info" id="selectedInfo" style="text-align:center; margin-bottom:2rem;">
+                    <h3>Pilih produk</h3>
                 </div>
-
-                <h3 style="margin-bottom: 1rem;">Metode Pembayaran</h3>
+                <h3 style="margin-bottom:1rem;">Metode Pembayaran</h3>
                 <div class="payment-grid">
-                    <!-- DANA -->
-                    <div class="metode-card">
-                        <div class="metode-header">
-                            <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png">
-                            <span>DANA</span>
-                        </div>
-                        <div class="nomor">0877 5351 3090</div>
-                        <button class="btn-pilih" onclick="showDana()">Tampilkan</button>
+                    <div class="payment-card">
+                        <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png" width="40">
+                        <div style="margin:1rem 0;">0877 5351 3090</div>
+                        <button class="close-modal" onclick="showDana()">Tampilkan</button>
                     </div>
-                    <!-- SEABANK -->
-                    <div class="metode-card">
-                        <div class="metode-header">
-                            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png">
-                            <span>SEABANK</span>
-                        </div>
-                        <div class="nomor">9015 1787 0612</div>
-                        <button class="btn-pilih" onclick="openModal('seabankModal')">Pop Up</button>
+                    <div class="payment-card">
+                        <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" width="40">
+                        <div style="margin:1rem 0;">9015 1787 0612</div>
+                        <button class="close-modal" onclick="openModal('seabankModal')">Pop Up</button>
                     </div>
-                    <!-- QRIS -->
-                    <div style="grid-column: span 2;" class="metode-card">
-                        <div class="metode-header">
-                            <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png">
-                            <span>QRIS</span>
-                        </div>
-                        <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" class="qris-img">
-                        <button class="btn-pilih" onclick="openModal('qrisModal')">QR Pop Up</button>
+                    <div style="grid-column:span 2;" class="payment-card">
+                        <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png" width="40">
+                        <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" style="max-width:120px; margin:1rem auto; display:block;">
+                        <button class="close-modal" onclick="openModal('qrisModal')">QR Pop Up</button>
                     </div>
                 </div>
-
-                <!-- admin contact -->
-                <div class="admin-row">
-                    <a href="https://wa.me/6285150895395" class="admin-btn wa"><i class="fab fa-whatsapp"></i> WhatsApp (Slow)</a>
-                    <a href="https://t.me/KivoPay1" class="admin-btn tele"><i class="fab fa-telegram"></i> Telegram (Fast)</a>
+                <div style="display:flex; gap:1rem; justify-content:center; margin:2rem 0;">
+                    <a href="https://wa.me/6285150895395" class="close-modal" style="background:#25D366;">WhatsApp</a>
+                    <a href="https://t.me/KivoPay1" class="close-modal" style="background:#0088cc;">Telegram</a>
                 </div>
-
-                <div class="footer-note">
-                    <i class="fas fa-info-circle"></i> Kirim bukti transfer ke admin setelah bayar
-                </div>
+                <div style="text-align:center; color:#aaa;">Kirim bukti transfer ke admin</div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- MODALS -->
     <div class="modal" id="seabankModal">
         <div class="modal-content">
-            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png">
+            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" width="80">
             <h3>SEABANK</h3>
-            <div style="background:#f0f0f0; padding:0.8rem; border-radius:30px; margin:1rem 0;">9015 1787 0612</div>
-            <p>a.n Keii Official</p>
+            <div style="background:#0f0f1a; padding:1rem; border-radius:30px; margin:1rem;">9015 1787 0612</div>
             <button class="close-modal" onclick="closeModal('seabankModal')">Tutup</button>
         </div>
     </div>
     <div class="modal" id="qrisModal">
         <div class="modal-content">
-            <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png">
-            <h3>QRIS</h3>
+            <img src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" style="max-width:250px;">
             <button class="close-modal" onclick="closeModal('qrisModal')">Tutup</button>
         </div>
     </div>
 
     <audio id="bgAudio" loop><source src="https://files.catbox.moe/mog6bq.mp3"></audio>
     <script>
-        // DATA PRODUK LENGKAP (sama persis kayak kemarin)
+        // DATA PRODUK (SESUAIKAN)
         const kategoriData = [
-            // APPS PREMIUM (0-4)
             { name: "Capcut Premium", paket: "6 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png",
               produk: ["Sharing 7 Hari Rp 8.000","Sharing 1 Bulan Rp 10.000","Sharing 1 Tahun Rp 25.000","Private 7 Hari Rp 11.000","Private 1 Bulan Rp 16.000","Private 1 Tahun Rp 36.000"] },
             { name: "ChatGPT Premium", paket: "2 Paket", harga: "Rp 18.000", logo: "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png",
@@ -638,7 +682,6 @@
               produk: ["6 User 1 Bulan Rp 31.000","10 User 1 Bulan Rp 25.000"] },
             { name: "Alight Motion", paket: "2 Paket", harga: "Rp 4.300", logo: "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png",
               produk: ["Private 1 Thn (seller) Rp 4.300","Private 1 Thn (buyer) Rp 5.500"] },
-            // NOKOS & LAINNYA (5-...)
             { name: "Nokos WhatsApp", paket: "5 Paket", harga: "Rp 8.000", logo: "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png",
               produk: ["Indonesia Rp 8.000","Filipina Rp 19.000","Hongkong Rp 11.000","Malaysia Rp 10.000","Thailand Rp 21.000"] },
             { name: "Nokos Telegram", paket: "4 Paket", harga: "Rp 7.000", logo: "https://images.bukaolshop.com/hosting/181218/450cb4fcb88a174062.png",
@@ -655,18 +698,16 @@
               produk: ["100 Pengikut Rp 5.000","300 Pengikut Rp 15.000","400 Rp 20.000","500 Rp 25.000","1k Rp 50.000","2k Rp 99.000"] }
         ];
 
-        // LOADING
-        let progress = 0;
-        const loadingBar = document.getElementById('loadingBar');
-        const percentEl = document.getElementById('loadingPercent');
+        // LOADING PROGRESS
+        let percent = 0;
+        const percentDisplay = document.getElementById('percentDisplay');
         const interval = setInterval(() => {
-            if (progress >= 100) clearInterval(interval);
+            if (percent >= 100) clearInterval(interval);
             else {
-                progress++;
-                loadingBar.style.width = progress + '%';
-                percentEl.textContent = progress + '%';
+                percent++;
+                percentDisplay.textContent = percent + '%';
             }
-        }, 30);
+        }, 35);
 
         // INTRO
         const intro = document.getElementById('introScreen');
@@ -678,34 +719,34 @@
             setTimeout(() => {
                 intro.style.display = 'none';
                 main.style.display = 'block';
-            }, 600);
+            }, 800);
             audio.play().catch(e=>{});
         });
         document.addEventListener('click', () => {
             if (audio.paused && intro.style.display === 'none') audio.play().catch(e=>{});
         });
 
-        // RENDER KATEGORI
+        // RENDER KATEGORI DENGAN ANIMASI DELAY
         function renderKategori() {
-            let apps = '', nokos = '';
+            let appsHtml = '', nokosHtml = '';
             for (let i=0; i<5; i++) {
                 let item = kategoriData[i];
-                apps += `<div class="category-card" onclick="showProduk(${i})">
-                    <div class="category-icon"><img src="${item.logo}"></div>
-                    <div class="category-name">${item.name}</div>
-                    <div class="category-meta"><span>${item.paket}</span><span class="category-price">${item.harga}</span></div>
+                appsHtml += `<div class="kartu" style="--i:${i}" onclick="showProduk(${i})">
+                    <div class="kartu-icon"><img src="${item.logo}"></div>
+                    <h3>${item.name}</h3>
+                    <div class="kartu-meta"><span>${item.paket}</span><span class="kartu-harga">${item.harga}</span></div>
                 </div>`;
             }
             for (let i=5; i<kategoriData.length; i++) {
                 let item = kategoriData[i];
-                nokos += `<div class="category-card" onclick="showProduk(${i})">
-                    <div class="category-icon"><img src="${item.logo}"></div>
-                    <div class="category-name">${item.name}</div>
-                    <div class="category-meta"><span>${item.paket}</span><span class="category-price">${item.harga}</span></div>
+                nokosHtml += `<div class="kartu" style="--i:${i}" onclick="showProduk(${i})">
+                    <div class="kartu-icon"><img src="${item.logo}"></div>
+                    <h3>${item.name}</h3>
+                    <div class="kartu-meta"><span>${item.paket}</span><span class="kartu-harga">${item.harga}</span></div>
                 </div>`;
             }
-            document.getElementById('appsGrid').innerHTML = apps;
-            document.getElementById('nokosGrid').innerHTML = nokos;
+            document.getElementById('appsGrid').innerHTML = appsHtml;
+            document.getElementById('nokosGrid').innerHTML = nokosHtml;
         }
 
         // VARIABEL
@@ -716,9 +757,7 @@
             let html = `<div class="produk-header"><img src="${item.logo}"><h2>${item.name}</h2></div><div class="produk-list">`;
             item.produk.forEach(p => {
                 let [nama, hrg] = p.split('Rp');
-                html += `<div class="produk-item" onclick="showPayment('${item.name}','${nama}','Rp${hrg}')">
-                    <span>${nama}</span><span class="produk-harga">Rp${hrg}</span>
-                </div>`;
+                html += `<div class="produk-item" onclick="showPayment('${item.name}','${nama}','Rp${hrg}')"><span>${nama}</span><span style="color:#ff6b6b;">Rp${hrg}</span></div>`;
             });
             html += '</div>';
             document.getElementById('produkContainer').innerHTML = html;
@@ -730,11 +769,12 @@
         window.showPayment = (kat, nama, harga) => {
             selectedProduk = kat + ' - ' + nama;
             selectedHarga = harga;
-            document.getElementById('selectedInfo').innerHTML = `<h3>${kat}</h3><p>${nama}</p><div class="selected-harga">${harga}</div>`;
+            document.getElementById('selectedInfo').innerHTML = `<h3>${kat}</h3><p>${nama}</p><h2 style="color:#ff6b6b;">${harga}</h2>`;
             document.getElementById('produkView').style.display = 'none';
             document.getElementById('paymentView').style.display = 'block';
         };
-             // BACK
+
+        // BACK
         document.getElementById('backToKategori').addEventListener('click', ()=>{
             document.getElementById('produkView').style.display = 'none';
             document.getElementById('kategoriView').style.display = 'block';
