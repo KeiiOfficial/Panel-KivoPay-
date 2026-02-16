@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Keii Store</title>
-  <meta name="description" content="Store digital: apps premium, streaming, AI, nokos, topup. Checkout manual via transfer + kirim bukti." />
+  <meta name="description" content="Store digital manual: pilih produk, pilih varian, bayar via transfer, kirim bukti." />
   <style>
     :root{
       --bg:#070013;
@@ -15,8 +15,6 @@
       --mut:#c7b8ff;
       --acc:#b56bff;
       --acc2:#7c3aed;
-      --ok:#7cffb2;
-      --bad:#ff7c9b;
       --shadow: 0 18px 56px rgba(0,0,0,.55);
       --r:18px;
     }
@@ -38,7 +36,6 @@
     .wrap{max-width:1100px;margin:0 auto;padding:16px}
     .hidden{display:none!important}
 
-    /* Top bar */
     header{
       position:sticky;top:0;z-index:10;
       backdrop-filter: blur(14px);
@@ -56,6 +53,7 @@
       border:1px solid rgba(181,107,255,.45);
       box-shadow: 0 10px 30px rgba(181,107,255,.20);
       overflow:hidden;
+      flex:0 0 auto;
     }
     .brand .logo img{width:100%;height:100%;object-fit:cover}
     .brand b{letter-spacing:.4px}
@@ -90,9 +88,9 @@
       background:rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.14);
       font-size:12px;font-weight:800;
+      margin-left:6px;
     }
 
-    /* Pages */
     .page{display:none}
     .page.active{display:block}
     .hero{
@@ -185,10 +183,11 @@
       background:rgba(0,0,0,.22);
       display:flex;align-items:center;justify-content:center;
       overflow:hidden;
+      flex:0 0 auto;
     }
     .cat .miniIcon img{width:100%;height:100%;object-fit:cover}
 
-    /* Product list */
+    /* Product list (MASTER) */
     .products{
       display:grid;
       grid-template-columns:1fr;
@@ -203,8 +202,10 @@
       border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.04);
       display:flex;flex-direction:column;gap:10px;
-      min-height:180px;
+      min-height:190px;
+      cursor:pointer;
     }
+    .p:hover{filter:brightness(1.03)}
     .p .top{
       display:flex;gap:10px;align-items:center;
     }
@@ -229,6 +230,10 @@
       width:max-content;
     }
     .row2{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .hint{font-size:12px;color:var(--mut);line-height:1.5}
+    .warn{color:#ffd8a8}
+
+    /* Qty */
     .qty{
       display:flex;align-items:center;gap:8px;
       border:1px solid rgba(255,255,255,.12);
@@ -288,8 +293,6 @@
       color:var(--txt);
       outline:none;
     }
-    .hint{font-size:12px;color:var(--mut);line-height:1.5}
-    .warn{color:#ffd8a8}
 
     /* Payment */
     .paygrid{display:grid;grid-template-columns:1fr;gap:10px}
@@ -314,7 +317,6 @@
       flex:0 0 auto;
     }
     .pay .picon img{width:100%;height:100%;object-fit:cover}
-    .pay b{display:block}
     .copy{
       margin-left:auto;
       padding:8px 10px;
@@ -324,7 +326,8 @@
       cursor:pointer;
       font-weight:900;
     }
-  /* QR popup */
+
+    /* QR popup */
     .qrisPopupImg{
       width:100%;
       max-width:520px;
@@ -390,8 +393,7 @@
   </style>
 </head>
 <body>
-
-<!-- Intro Loading (Halaman 1) -->
+<!-- Halaman 1: Intro Loading -->
 <div id="loadingPage" aria-label="Intro Loading">
   <div class="loadCard">
     <div class="loadTop">
@@ -409,7 +411,7 @@
       </div>
       <div class="hr"></div>
       <div class="hint">
-        <span class="warn">Catatan:</span> ini toko manual. Setelah transfer, kirim bukti ke admin (WA/Tele) biar diproses.
+        <span class="warn">Catatan:</span> toko manual. Setelah transfer, kirim bukti ke admin (Tele cepat).
       </div>
     </div>
   </div>
@@ -421,7 +423,7 @@
       <div class="logo"><img id="brandLogo" alt="Logo Store" /></div>
       <div>
         <b id="storeName">Keii Store</b><br />
-        <small class="mut" id="storeTag">Digital needs, manual tapi rapi</small>
+        <small class="mut" id="storeTag">Tema ungu • manual tapi rapi</small>
       </div>
     </div>
     <div class="pill">
@@ -437,10 +439,10 @@
   <section class="page active" id="page-categories">
     <div class="hero">
       <h1>Kategori</h1>
-      <p>Pilih kategori dulu. Biar lu gak scroll sampai tua.</p>
+      <p>Pilih kategori dulu. Abis itu baru pilih produk utama (bukan varian yang numpuk).</p>
       <div class="row">
         <span class="chip">Tema ungu ✅</span>
-        <span class="chip">Checkout manual ✅</span>
+        <span class="chip">Produk utama per kategori ✅</span>
         <span class="chip">Popup QRIS ✅</span>
       </div>
     </div>
@@ -478,11 +480,11 @@
     </footer>
   </section>
 
-  <!-- Halaman 3: Produk -->
+  <!-- Halaman 3: Produk (MASTER) -->
   <section class="page" id="page-products">
     <div class="hero">
       <h1 id="prodTitle">Produk</h1>
-      <p id="prodDesc">Pilih produk dan varian. Klik + buat masuk keranjang. Klik nama buat detail.</p>
+      <p id="prodDesc">Ini cuma produk utama. Klik salah satu untuk pilih varian & harga.</p>
       <div class="row">
         <button class="btn" onclick="go('categories')">← Kategori</button>
         <button class="btn primary" onclick="go('payment')">Lanjut Bayar</button>
@@ -504,7 +506,7 @@
   <section class="page" id="page-payment">
     <div class="hero">
       <h1>Pembayaran</h1>
-      <p>Pilih metode, transfer, lalu kirim bukti ke admin. Format order udah dibikin biar customer gak rewel (setidaknya berkurang).</p>
+      <p>Pilih metode, transfer, lalu kirim bukti. Format pesan otomatis biar gak ribet.</p>
       <div class="row">
         <button class="btn" onclick="go('products')">← Balik Produk</button>
         <button class="btn" onclick="openModal('cart')">Lihat Keranjang</button>
@@ -541,7 +543,7 @@
               <button class="btn" style="width:100%" onclick="sendToAdmin('wa')">Kirim Bukti via WhatsApp (Slow)</button>
               <div class="hr"></div>
               <div class="hint">
-                <b>Format otomatis:</b> sistem akan bikin pesan berisi item, total, dan metode bayar. Tinggal tempel bukti transfer.
+                <b>Format otomatis:</b> item + varian + total + metode bayar. Tinggal tempel bukti transfer.
               </div>
             </div>
           </div>
@@ -551,6 +553,7 @@
     </div>
   </section>
 </div>
+
 <!-- Modal -->
 <div class="modal" id="modal" onclick="closeModalIfBackdrop(event)">
   <div class="sheet">
@@ -564,150 +567,147 @@
 
 <script>
 /* =========================
-   CONFIG (yang lu minta)
+   CONFIG
    ========================= */
 const CONFIG = {
   storeName: "Keii Store",
   storeTag: "Tema ungu • manual tapi rapi",
   logoUrl: "https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png",
-
   admin: {
     wa: "https://wa.me/6285150895395",  // slow
     tele: "https://t.me/KivoPay1"       // fast
   },
-
   payments: [
     { id:"dana", name:"Dana", number:"087753513090", icon:"https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png", type:"number" },
     { id:"seabank", name:"SeaBank", number:"901517870612", icon:"https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png", type:"number" },
     { id:"qris", name:"QRIS", number:"Scan QR", icon:"https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png", qrisImage:"https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png", type:"qris" },
   ],
-
   noteSMM: "Cari Suntik Sosmed? PM Admin (Tele lebih cepat)."
 };
 
 /* =========================
-   DATA PRODUK
-   - Tiap varian jadi item sendiri (biar checkout jelas)
+   DATA: MASTER PRODUCTS + VARIANTS
    ========================= */
-const PRODUCTS = [
-  // Capcut
-  item("Apps Premium", "Capcut Pro Premium", "Sharing 7 Hari", 8000, "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png"),
-  item("Apps Premium", "Capcut Pro Premium", "Sharing 1 Bulan", 10000, "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png"),
-  item("Apps Premium", "Capcut Pro Premium", "Sharing 1 Tahun", 25000, "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png"),
-  item("Apps Premium", "Capcut Pro Premium", "Private 7 Hari", 11000, "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png"),
-  item("Apps Premium", "Capcut Pro Premium", "Private 1 Bulan", 16000, "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png"),
-  item("Apps Premium", "Capcut Pro Premium", "Private 1 Tahun", 36000, "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png"),
-
-  // Apple Music
-  item("Streaming", "Apple Music Premium", "Imees 1 Bulan", 10000, "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png"),
-  item("Streaming", "Apple Music Premium", "Imees 3 Bulan", 14000, "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png"),
-  item("Streaming", "Apple Music Premium", "Indplan 1 Bulan", 12000, "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png"),
-  item("Streaming", "Apple Music Premium", "Famplan 1 Bulan", 12000, "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png"),
-
-  // YouTube Premium
-  item("Streaming", "YouTube Premium", "Famplan 1 Bulan", 5000, "https://images.bukaolshop.com/hosting/181218/e1b9eae8982d985428.png"),
-  item("Streaming", "YouTube Premium", "Indplan Norush 1 Bulan (+2k acc s)", 11000, "https://images.bukaolshop.com/hosting/181218/e1b9eae8982d985428.png"),
-
-  // Wink
-  item("Apps Premium", "Wink Premium", "Private 7 Hari (acc b)", 8000, "https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png"),
-  item("Apps Premium", "Wink Premium", "Private 7 Hari (acc s)", 11000, "https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png"),
-
-  // ChatGPT
-  item("AI", "ChatGPT Premium", "Sharing 1 Bulan (Plus)", 18000, "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png"),
-  item("AI", "ChatGPT Premium", "Private 1 Bulan (via Invite)", 20000, "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png"),
-
-  // Prime Video
-  item("Streaming", "Prime Video", "Sharing 2 User 1 Bulan", 16000, "https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png"),
-  item("Streaming", "Prime Video", "Sharing 3 User 1 Bulan", 14000, "https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png"),
-  item("Streaming", "Prime Video", "Private 1 Bulan", 20000, "https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png"),
-
-  // Vision+
-  item("Streaming", "Vision+ Sport", "Sharing 1 Bulan Paytv", 15000, "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png"),
-  item("Streaming", "Vision+ Sport", "Sharing 1 Bulan Bkn Paytv", 40000, "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png"),
-  item("Streaming", "Vision+ Sport", "Private 1 Bulan Paytv", 32000, "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png"),
-  item("Streaming", "Vision+ Sport", "Private 1 Bulan Bkn Paytv", 40000, "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png"),
-
-  // Viki
-  item("Streaming", "Viki Premium", "Sharing 1 Bulan", 16000, "https://images.bukaolshop.com/hosting/181218/fc34fcbdb564591085.png"),
-
-  // Viu
-  item("Streaming", "Viu Premium", "Anlim 1 Bulan", 1000, "https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png"),
-  item("Streaming", "Viu Premium", "Anlim 1 Tahun", 8000, "https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png"),
-  item("Streaming", "Viu Premium", "Liftime", 9000, "https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png"),
-  item("Streaming", "Viu Premium", "Viu+ 1 Bulan", 16000, "https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png"),
-
-  // Canva (no logo dikasih, pake logo store biar gak kosong)
-  item("Apps Premium", "Canva Premium", "Member 7 Hari", 150, CONFIG.logoUrl),
-  item("Apps Premium", "Canva Premium", "Member 1 Bulan", 1000, CONFIG.logoUrl),
-  item("Apps Premium", "Canva Premium", "Member 1 Tahun", 12500, CONFIG.logoUrl),
-  item("Apps Premium", "Canva Premium", "Edu liftime (Gar 6b)", 12000, CONFIG.logoUrl),
-
-  // Alight Motion
-  item("Apps Premium", "Alight Motion Premium", "Private 1 Tahun (acc s)", 4300, "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png"),
-  item("Apps Premium", "Alight Motion Premium", "Private 1 Tahun (acc b)", 5500, "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png"),
-
-  // LokLok
-  item("Streaming", "LokLok Premium", "Sharing 1 Bulan 3 User (Basic No tv)", 20000, "https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png"),
-  item("Streaming", "LokLok Premium", "Sharing 1 Bulan 5 User (All device)", 25000, "https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png"),
-  item("Streaming", "LokLok Premium", "Private 1 Bulan Basic", 55000, "https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png"),
-  item("Streaming", "LokLok Premium", "Private 1 Bulan Standar", 80000, "https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png"),
-
-  // Disney
-  item("Streaming", "Disney Premium", "Disney 6 User 1 Bulan", 31000, "https://images.bukaolshop.com/hosting/181218/db9934847fa6433172.png"),
-  item("Streaming", "Disney Premium", "Disney 10 User 1 Bulan", 25000, "https://images.bukaolshop.com/hosting/181218/db9934847fa6433172.png"),
-
-  // Netflix
-  item("Streaming", "Netflix Premium", "Sharing 1p1u 7 Hari", 17000, "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
-  item("Streaming", "Netflix Premium", "Sharing 1p1u 1 Bulan", 30000, "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
-  item("Streaming", "Netflix Premium", "Sharing 1p2u 7 Hari", 16000, "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
-  item("Streaming", "Netflix Premium", "Sharing 1p2u 1 Bulan", 26000, "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
-  item("Streaming", "Netflix Premium", "Semi Privat 7 Hari", 22000, "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
-  item("Streaming", "Netflix Premium", "Semi Privat 1 Bulan", 38000, "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
-  item("Streaming", "Netflix Premium", "Private 1 Bulan", 200000, "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
-
-  // Gemini
-  item("AI", "Gemini Premium", "Private 1 Bulan", 11000, "https://images.bukaolshop.com/hosting/181218/4a193950e401725286.png"),
-  item("AI", "Gemini Premium", "Private 1 Tahun", 25000, "https://images.bukaolshop.com/hosting/181218/4a193950e401725286.png"),
-
-  // HBO Max
-  item("Streaming", "HBO Max Premium", "Sharing 1 Bulan Standar", 19000, "https://images.bukaolshop.com/hosting/181218/4f504ab6ac35117507.png"),
-  item("Streaming", "HBO Max Premium", "Sharing 1 Bulan Ultimate", 23000, "https://images.bukaolshop.com/hosting/181218/4f504ab6ac35117507.png"),
-  item("Streaming", "HBO Max Premium", "Private 1 Bulan Standar", 56000, "https://images.bukaolshop.com/hosting/181218/4f504ab6ac35117507.png"),
-  item("Streaming", "HBO Max Premium", "Private 1 Bulan Ultimate", 66000, "https://images.bukaolshop.com/hosting/181218/4f504ab6ac35117507.png"),
-
-  // Nokos WhatsApp
-  item("Nokos", "Nokos WhatsApp", "Indonesia", 8000, "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"),
-  item("Nokos", "Nokos WhatsApp", "Filipina", 19000, "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"),
-  item("Nokos", "Nokos WhatsApp", "Hongkong", 11000, "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"),
-  item("Nokos", "Nokos WhatsApp", "Malaysia", 10000, "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"),
-  item("Nokos", "Nokos WhatsApp", "Thailand", 21000, "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"),
-
-  // Topup Robux
-  item("Top Up Game", "Top Up Robux Vilog", "160 Robux", 27600, "https://images.bukaolshop.com/hosting/181218/c9625b182fcd73437.png"),
-  item("Top Up Game", "Top Up Robux Vilog", "320 Robux", 55800, "https://images.bukaolshop.com/hosting/181218/c9625b182fcd73437.png"),
-  item("Top Up Game", "Top Up Robux Vilog", "500 Robux", 72000, "https://images.bukaolshop.com/hosting/181218/c9625b182fcd73437.png"),
-  item("Top Up Game", "Top Up Robux Vilog", "1000 Robux", 135800, "https://images.bukaolshop.com/hosting/181218/c9625b182fcd73437.png"),
-  item("Top Up Game", "Top Up Robux Vilog", "2000 Robux", 268800, "https://images.bukaolshop.com/hosting/181218/c9625b182fcd73437.png"),
+const MASTER_PRODUCTS = [
+  master("Apps Premium", "Capcut Pro Premium", "https://images.bukaolshop.com/hosting/181218/47f862f5ed4a892435.png"),
+  master("Streaming", "Apple Music Premium", "https://images.bukaolshop.com/hosting/181218/0b89f116be8e434425.png"),
+  master("Streaming", "YouTube Premium", "https://images.bukaolshop.com/hosting/181218/e1b9eae8982d985428.png"),
+  master("Apps Premium", "Wink Premium", "https://images.bukaolshop.com/hosting/181218/1bcea869e27c407235.png"),
+  master("AI", "ChatGPT Premium", "https://images.bukaolshop.com/hosting/181218/26f804d66e6e88158.png"),
+  master("Streaming", "Prime Video", "https://images.bukaolshop.com/hosting/181218/ad8345f7b9c8953792.png"),
+  master("Streaming", "Vision+ Sport", "https://images.bukaolshop.com/hosting/181218/072f4a242c47628279.png"),
+  master("Streaming", "Viki Premium", "https://images.bukaolshop.com/hosting/181218/fc34fcbdb564591085.png"),
+  master("Streaming", "Viu Premium", "https://images.bukaolshop.com/hosting/181218/e185c3b3935534665.png"),
+  master("Apps Premium", "Canva Premium", CONFIG.logoUrl),
+  master("Apps Premium", "Alight Motion Premium", "https://images.bukaolshop.com/hosting/181218/4a04b8d7e542788237.png"),
+  master("Streaming", "LokLok Premium", "https://images.bukaolshop.com/hosting/181218/281994f16dd4975145.png"),
+  master("Streaming", "Disney Premium", "https://images.bukaolshop.com/hosting/181218/db9934847fa6433172.png"),
+  master("Streaming", "Netflix Premium", "https://images.bukaolshop.com/hosting/181218/e97361a0f1be36831.png"),
+  master("AI", "Gemini Premium", "https://images.bukaolshop.com/hosting/181218/4a193950e401725286.png"),
+  master("Streaming", "HBO Max Premium", "https://images.bukaolshop.com/hosting/181218/4f504ab6ac35117507.png"),
+  master("Nokos", "Nokos WhatsApp", "https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"),
+  master("Top Up Game", "Top Up Robux Vilog", "https://images.bukaolshop.com/hosting/181218/c9625b182fcd73437.png"),
 ];
-  function item(category, name, variant, price, icon){
-  return {
-    id: slug(category+"-"+name+"-"+variant),
-    category, name, variant, price, icon,
-    info: defaultInfo(name, category)
-  };
+
+const VARIANTS = [
+  v("Capcut Pro Premium","Sharing 7 Hari",8000),
+  v("Capcut Pro Premium","Sharing 1 Bulan",10000),
+  v("Capcut Pro Premium","Sharing 1 Tahun",25000),
+  v("Capcut Pro Premium","Private 7 Hari",11000),
+  v("Capcut Pro Premium","Private 1 Bulan",16000),
+  v("Capcut Pro Premium","Private 1 Tahun",36000),
+
+  v("Apple Music Premium","Imees 1 Bulan",10000),
+  v("Apple Music Premium","Imees 3 Bulan",14000),
+  v("Apple Music Premium","Indplan 1 Bulan",12000),
+  v("Apple Music Premium","Famplan 1 Bulan",12000),
+
+  v("YouTube Premium","Famplan 1 Bulan",5000),
+  v("YouTube Premium","Indplan Norush 1 Bulan (+2k acc s)",11000),
+
+  v("Wink Premium","Private 7 Hari (acc b)",8000),
+  v("Wink Premium","Private 7 Hari (acc s)",11000),
+
+  v("ChatGPT Premium","Sharing 1 Bulan (Plus)",18000),
+  v("ChatGPT Premium","Private 1 Bulan (via Invite)",20000),
+
+  v("Prime Video","Sharing 2 User 1 Bulan",16000),
+  v("Prime Video","Sharing 3 User 1 Bulan",14000),
+  v("Prime Video","Private 1 Bulan",20000),
+
+  v("Vision+ Sport","Sharing 1 Bulan Paytv",15000),
+  v("Vision+ Sport","Sharing 1 Bulan Bkn Paytv",40000),
+  v("Vision+ Sport","Private 1 Bulan Paytv",32000),
+  v("Vision+ Sport","Private 1 Bulan Bkn Paytv",40000),
+
+  v("Viki Premium","Sharing 1 Bulan",16000),
+
+  v("Viu Premium","Anlim 1 Bulan",1000),
+  v("Viu Premium","Anlim 1 Tahun",8000),
+  v("Viu Premium","Liftime",9000),
+  v("Viu Premium","Viu+ 1 Bulan",16000),
+
+  v("Canva Premium","Member 7 Hari",150),
+  v("Canva Premium","Member 1 Bulan",1000),
+  v("Canva Premium","Member 1 Tahun",12500),
+  v("Canva Premium","Edu liftime (Gar 6b)",12000),
+
+  v("Alight Motion Premium","Private 1 Tahun (acc s)",4300),
+  v("Alight Motion Premium","Private 1 Tahun (acc b)",5500),
+
+  v("LokLok Premium","Sharing 1 Bulan 3 User (Basic No tv)",20000),
+  v("LokLok Premium","Sharing 1 Bulan 5 User (All device)",25000),
+  v("LokLok Premium","Private 1 Bulan Basic",55000),
+  v("LokLok Premium","Private 1 Bulan Standar",80000),
+
+  v("Disney Premium","Disney 6 User 1 Bulan",31000),
+  v("Disney Premium","Disney 10 User 1 Bulan",25000),
+
+  v("Netflix Premium","Sharing 1p1u 7 Hari",17000),
+  v("Netflix Premium","Sharing 1p1u 1 Bulan",30000),
+  v("Netflix Premium","Sharing 1p2u 7 Hari",16000),
+  v("Netflix Premium","Sharing 1p2u 1 Bulan",26000),
+  v("Netflix Premium","Semi Privat 7 Hari",22000),
+  v("Netflix Premium","Semi Privat 1 Bulan",38000),
+  v("Netflix Premium","Private 1 Bulan",200000),
+
+  v("Gemini Premium","Private 1 Bulan",11000),
+  v("Gemini Premium","Private 1 Tahun",25000),
+
+  v("HBO Max Premium","Sharing 1 Bulan Standar",19000),
+  v("HBO Max Premium","Sharing 1 Bulan Ultimate",23000),
+  v("HBO Max Premium","Private 1 Bulan Standar",56000),
+  v("HBO Max Premium","Private 1 Bulan Ultimate",66000),
+
+  v("Nokos WhatsApp","Indonesia",8000),
+  v("Nokos WhatsApp","Filipina",19000),
+  v("Nokos WhatsApp","Hongkong",11000),
+  v("Nokos WhatsApp","Malaysia",10000),
+  v("Nokos WhatsApp","Thailand",21000),
+
+  v("Top Up Robux Vilog","160 Robux",27600),
+  v("Top Up Robux Vilog","320 Robux",55800),
+  v("Top Up Robux Vilog","500 Robux",72000),
+  v("Top Up Robux Vilog","1000 Robux",135800),
+  v("Top Up Robux Vilog","2000 Robux",268800),
+];
+
+function master(category, name, icon){
+  return { id: slug(category+"-"+name), category, name, icon, info: defaultInfo(name, category) };
 }
+function v(name, variant, price){ return { name, variant, price }; }
 
 function defaultInfo(name, category){
   if(category === "Top Up Game"){
-    return "Isi ID dengan benar. Salah input = tanggung sendiri (ini dunia digital, bukan dunia dongeng).";
+    return "Isi ID dengan benar. Salah input = order gagal / hangus. Ini bukan game tebak-tebakan.";
   }
   if(category === "Nokos"){
-    return "Pastikan bisa menerima OTP. Penggantian hanya jika nomor invalid sesuai aturan admin.";
+    return "Pastikan bisa terima OTP. Penggantian hanya jika nomor invalid sesuai aturan admin.";
   }
   if(category === "AI"){
     return "Proses sesuai antrean. Pastikan email/invite sesuai instruksi admin.";
   }
-  return "Manual delivery. Setelah transfer, kirim bukti + data yang diminta. Jangan spam chat kalau belum 5 menit.";
+  return "Manual delivery. Setelah transfer, kirim bukti + data yang diminta. Jangan spam chat sebelum 5 menit.";
 }
 
 /* =========================
@@ -716,7 +716,8 @@ function defaultInfo(name, category){
 let state = {
   category: "ALL",
   q: "",
-  cart: {},       // id -> qty
+  cart: {},          // itemId -> qty (itemId = slug(name-variant))
+  variantMeta: {},   // itemId -> {name, variant, price, icon, category}
   pay: "dana"
 };
 
@@ -738,24 +739,21 @@ function init(){
 
   // Links
   const waA = document.getElementById("waLink");
-  waA.href = CONFIG.admin.wa;
-  waA.textContent = CONFIG.admin.wa;
-
+  waA.href = CONFIG.admin.wa; waA.textContent = CONFIG.admin.wa;
   const teleA = document.getElementById("teleLink");
-  teleA.href = CONFIG.admin.tele;
-  teleA.textContent = CONFIG.admin.tele;
+  teleA.href = CONFIG.admin.tele; teleA.textContent = CONFIG.admin.tele;
 
   // Year
   document.getElementById("year").textContent = new Date().getFullYear();
 
   // Restore
   try{
-    const saved = JSON.parse(localStorage.getItem("keii_store_state") || "{}");
+    const saved = JSON.parse(localStorage.getItem("keii_store_state_v2") || "{}");
     if(saved.cart) state.cart = saved.cart;
     if(saved.pay) state.pay = saved.pay;
+    if(saved.variantMeta) state.variantMeta = saved.variantMeta;
   }catch(e){}
 
-  // Loading animation then show app
   runLoading().then(()=>{
     document.getElementById("loadingPage").style.display="none";
     renderAll();
@@ -764,9 +762,10 @@ function init(){
 }
 
 function persist(){
-  localStorage.setItem("keii_store_state", JSON.stringify({
+  localStorage.setItem("keii_store_state_v2", JSON.stringify({
     cart: state.cart,
-    pay: state.pay
+    pay: state.pay,
+    variantMeta: state.variantMeta
   }));
 }
 
@@ -783,8 +782,8 @@ function runLoading(){
     const steps = [
       [15, "Menyiapkan kategori…"],
       [35, "Muat produk…"],
-      [55, "Siapkan checkout…"],
-      [75, "Optimasi tampilan…"],
+      [55, "Siapkan varian…"],
+      [75, "Siapkan checkout…"],
       [95, "Hampir selesai…"],
       [100, "Gaskeun."]
     ];
@@ -831,41 +830,42 @@ function setCategory(cat){
 }
 
 function setText(id, txt){ document.getElementById(id).textContent = txt; }
-function rupiah(n){
-  return "Rp " + Number(n).toLocaleString("id-ID");
-}
-function slug(s){
-  return s.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"");
+function rupiah(n){ return "Rp " + Number(n).toLocaleString("id-ID"); }
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
+function escapeQuotes(s){ return String(s).replace(/'/g,"\\'"); }
+function escapeHTML(s){
+  return String(s)
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
 }
 
 /* =========================
-   RENDER
+   CATEGORIES
    ========================= */
-function renderAll(){
-  state.q = document.getElementById("q").value.trim().toLowerCase();
-
-  renderCats();
-  renderProducts();
-  updateCartCount();
-
-  document.getElementById("metaInfo").textContent = `${PRODUCTS.length} item`;
-}
-
 function categories(){
   const set = new Map();
-  for(const p of PRODUCTS){
+  for(const p of MASTER_PRODUCTS){
     if(!set.has(p.category)){
       set.set(p.category, { name:p.category, icon:p.icon });
     }
   }
   return ["ALL", ...Array.from(set.values()).map(x=>x.name)];
 }
-
 function catIconFor(cat){
   if(cat === "ALL") return CONFIG.logoUrl;
-  // cari ikon pertama dari kategori itu
-  const p = PRODUCTS.find(x=>x.category===cat);
+  const p = MASTER_PRODUCTS.find(x=>x.category===cat);
   return p ? p.icon : CONFIG.logoUrl;
+}
+
+/* =========================
+   FILTER & RENDER
+   ========================= */
+function renderAll(){
+  state.q = document.getElementById("q").value.trim().toLowerCase();
+  renderCats();
+  renderProducts();
+  updateCartCount();
+  document.getElementById("metaInfo").textContent = `${MASTER_PRODUCTS.length} produk`;
 }
 
 function renderCats(){
@@ -888,51 +888,49 @@ function renderCats(){
     `;
   }).join("");
   }
-
-function escapeQuotes(s){ return String(s).replace(/'/g,"\\'"); }
-
-function filteredProducts(){
+function filteredMasters(){
   const q = state.q;
-  return PRODUCTS.filter(p=>{
+  return MASTER_PRODUCTS.filter(p=>{
     const matchCat = (state.category === "ALL") ? true : p.category === state.category;
-    const matchQ = !q ? true : (
-      (p.name+" "+p.variant+" "+p.category).toLowerCase().includes(q)
-    );
+    const matchQ = !q ? true : (p.name + " " + p.category).toLowerCase().includes(q);
     return matchCat && matchQ;
   });
 }
 
+function minVariantPrice(name){
+  const vs = VARIANTS.filter(x=>x.name===name).map(x=>x.price);
+  return vs.length ? Math.min(...vs) : 0;
+}
+
 function renderProducts(){
-  const list = filteredProducts();
+  const list = filteredMasters();
   const el = document.getElementById("products");
 
   setText("prodTitle", state.category === "ALL" ? "Semua Produk" : state.category);
-  setText("resultCount", `${list.length} item`);
+  setText("resultCount", `${list.length} produk`);
 
   el.innerHTML = list.map(p=>{
-    const qty = state.cart[p.id] || 0;
+    const minPrice = minVariantPrice(p.name);
     return `
-      <div class="p">
-        <div class="top" onclick="openProduct('${p.id}')" style="cursor:pointer">
+      <div class="p" onclick="openMaster('${p.id}')">
+        <div class="top">
           <div class="icon"><img alt="" src="${p.icon}"></div>
           <div>
             <div class="name">${p.name}</div>
-            <div class="variant">${p.variant}</div>
+            <div class="variant">Klik untuk pilih varian</div>
           </div>
         </div>
 
         <div class="row2">
           <span class="tag">${p.category}</span>
-          <span class="price">${rupiah(p.price)}</span>
+          <span class="price">Mulai ${rupiah(minPrice)}</span>
         </div>
 
+        <div class="hint">${escapeHTML(p.info)}</div>
+
         <div class="row2">
-          <div class="qty">
-            <button onclick="event.stopPropagation(); add('${p.id}', -1)">−</button>
-            <span>${qty}</span>
-            <button onclick="event.stopPropagation(); add('${p.id}', 1)">+</button>
-          </div>
-          <button class="btn" onclick="openProduct('${p.id}')">Detail</button>
+          <button class="btn" onclick="event.stopPropagation(); openMaster('${p.id}')">Pilih Varian</button>
+          <button class="btn primary" onclick="event.stopPropagation(); go('payment')">Bayar</button>
         </div>
       </div>
     `;
@@ -941,66 +939,37 @@ function renderProducts(){
   updateCartCount();
 }
 
-function updateCartCount(){
-  const count = Object.values(state.cart).reduce((a,b)=>a+b,0);
-  document.getElementById("cartCount").textContent = count;
-}
-
-function add(id, delta){
-  const cur = state.cart[id] || 0;
-  const next = Math.max(0, cur + delta);
-  if(next === 0) delete state.cart[id];
-  else state.cart[id] = next;
-
-  persist();
-  renderProducts();
-  if(document.getElementById("page-payment").classList.contains("active")) renderPayment();
-}
-
-function cartItems(){
-  const items = [];
-  for(const [id, qty] of Object.entries(state.cart)){
-    const p = PRODUCTS.find(x=>x.id===id);
-    if(p) items.push({ ...p, qty });
-  }
-  return items;
-}
-
 /* =========================
-   MODALS: product detail, cart, QRIS
+   VARIANT MODAL (PILIH VARIAN + QTY)
    ========================= */
-function openModal(type){
-  const modal = document.getElementById("modal");
-  modal.classList.add("show");
+function findMasterById(id){ return MASTER_PRODUCTS.find(x=>x.id===id); }
+function findMasterByName(name){ return MASTER_PRODUCTS.find(x=>x.name===name); }
 
-  if(type === "cart"){
-    renderCartModal();
-  } else if(type === "qris"){
-    renderQrisModal();
-  } else if(type === "help"){
-    renderHelpModal();
-  } else if(type === "payment"){
-    renderPaymentModal();
-  } else {
-    // fallback
-    document.getElementById("modalTitle").textContent = "Info";
-    document.getElementById("modalBody").innerHTML = `<p class="hint">Kosong.</p>`;
-  }
-}
-
-function closeModal(){
-  document.getElementById("modal").classList.remove("show");
-}
-
-function closeModalIfBackdrop(e){
-  if(e.target.id === "modal") closeModal();
-}
-
-function openProduct(id){
-  const p = PRODUCTS.find(x=>x.id===id);
+function openMaster(masterId){
+  const p = findMasterById(masterId);
   if(!p) return;
-  document.getElementById("modalTitle").textContent = "Detail Produk";
-  const qty = state.cart[id] || 0;
+
+  const vars = VARIANTS.filter(x=>x.name===p.name);
+
+  document.getElementById("modalTitle").textContent = p.name;
+
+  const rows = vars.map(vr=>{
+    const vid = slug(p.name + "-" + vr.variant);
+    const qty = state.cart[vid] || 0;
+    return `
+      <div style="display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.14)">
+        <div>
+          <b>${vr.variant}</b><br>
+          <span class="mut">${rupiah(vr.price)}</span>
+        </div>
+        <div class="qty">
+          <button onclick="addVariant('${escapeQuotes(p.name)}','${escapeQuotes(vr.variant)}',${vr.price},'${p.icon}',-1)">−</button>
+          <span>${qty}</span>
+          <button onclick="addVariant('${escapeQuotes(p.name)}','${escapeQuotes(vr.variant)}',${vr.price},'${p.icon}',1)">+</button>
+        </div>
+      </div>
+    `;
+  }).join("");
 
   document.getElementById("modalBody").innerHTML = `
     <div style="display:flex;gap:12px;align-items:center">
@@ -1008,41 +977,79 @@ function openProduct(id){
         <img src="${p.icon}" alt="">
       </div>
       <div>
-        <b style="font-size:16px">${p.name}</b><br>
-        <span class="mut">${p.variant}</span>
+        <b style="font-size:16px">${p.category}</b><br>
+        <span class="mut">Pilih varian & jumlah</span>
       </div>
     </div>
-
     <div class="hr"></div>
-    <div class="tag">${p.category}</div>
-    <div style="height:8px"></div>
-    <b>${rupiah(p.price)}</b>
-    <div style="height:10px"></div>
-
-    <div class="hint">${escapeHTML(p.info)}</div>
-
+    ${rows || `<p class="hint">Varian belum diisi.</p>`}
     <div class="hr"></div>
-
-    <div class="row2">
-      <div class="qty">
-        <button onclick="add('${p.id}', -1)">−</button>
-        <span id="mqty">${qty}</span>
-        <button onclick="add('${p.id}', 1)">+</button>
-      </div>
-      <button class="btn primary" onclick="go('payment'); closeModal()">Checkout</button>
-    </div>
+    <button class="btn primary" style="width:100%" onclick="go('payment'); closeModal()">Lanjut Bayar</button>
   `;
+
   document.getElementById("modal").classList.add("show");
 }
 
-function escapeHTML(s){
-  return String(s)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+function addVariant(name, variant, price, icon, delta){
+  const id = slug(name + "-" + variant);
+  const cur = state.cart[id] || 0;
+  const next = Math.max(0, cur + delta);
+
+  if(next === 0) delete state.cart[id];
+  else state.cart[id] = next;
+
+  const m = findMasterByName(name);
+  state.variantMeta[id] = {
+    name, variant, price, icon,
+    category: m ? m.category : "Other"
+  };
+
+  persist();
+  updateCartCount();
+  // refresh payment if open
+  if(document.getElementById("page-payment").classList.contains("active")) renderPayment();
 }
+
+/* =========================
+   CART
+   ========================= */
+function updateCartCount(){
+  const count = Object.values(state.cart).reduce((a,b)=>a+b,0);
+  document.getElementById("cartCount").textContent = count;
+}
+
+function cartItems(){
+  const items = [];
+  for(const [id, qty] of Object.entries(state.cart)){
+    const meta = state.variantMeta[id];
+    if(meta) items.push({ id, qty, ...meta });
+  }
+  return items;
+}
+
+function clearCart(){
+  state.cart = {};
+  state.variantMeta = {};
+  persist();
+  renderAll();
+  if(document.getElementById("page-payment").classList.contains("active")) renderPayment();
+  closeModal();
+}
+
+/* =========================
+   MODAL: cart, qris
+   ========================= */
+function openModal(type){
+  const modal = document.getElementById("modal");
+  modal.classList.add("show");
+  if(type === "cart") return renderCartModal();
+  if(type === "qris") return renderQrisModal();
+  document.getElementById("modalTitle").textContent = "Info";
+  document.getElementById("modalBody").innerHTML = `<p class="hint">Kosong.</p>`;
+}
+
+function closeModal(){ document.getElementById("modal").classList.remove("show"); }
+function closeModalIfBackdrop(e){ if(e.target.id === "modal") closeModal(); }
 
 function renderCartModal(){
   const items = cartItems();
@@ -1061,12 +1068,12 @@ function renderCartModal(){
         <div>
           <b>${x.name}</b><br>
           <span class="mut">${x.variant}</span><br>
-          <span class="mini">${x.category} • ${rupiah(x.price)}</span>
+          <span class="hint">${x.category} • ${rupiah(x.price)}</span>
         </div>
         <div class="qty">
-          <button onclick="add('${x.id}', -1)">−</button>
+          <button onclick="addVariant('${escapeQuotes(x.name)}','${escapeQuotes(x.variant)}',${x.price},'${x.icon}',-1)">−</button>
           <span>${x.qty}</span>
-          <button onclick="add('${x.id}', 1)">+</button>
+          <button onclick="addVariant('${escapeQuotes(x.name)}','${escapeQuotes(x.variant)}',${x.price},'${x.icon}',1)">+</button>
         </div>
       </div>
     `).join("")}
@@ -1082,14 +1089,6 @@ function renderCartModal(){
     <button class="btn" style="width:100%" onclick="clearCart()">Kosongkan</button>
   `;
 }
-  
-function clearCart(){
-  state.cart = {};
-  persist();
-  renderAll();
-  renderPayment();
-  closeModal();
-}
 
 function renderQrisModal(){
   const q = CONFIG.payments.find(x=>x.id==="qris");
@@ -1101,17 +1100,14 @@ function renderQrisModal(){
     <div style="height:12px"></div>
     <button class="btn primary" style="width:100%" onclick="closeModal()">Selesai</button>
   `;
-}
-
+  }
 /* =========================
    PAYMENT PAGE
    ========================= */
 function renderPayment(){
-  // ringkasan
   const items = cartItems();
   const sum = document.getElementById("summary");
   const total = items.reduce((s,x)=>s + x.price*x.qty, 0);
-
   document.getElementById("sumCount").textContent = `${items.length} item`;
 
   if(items.length === 0){
@@ -1145,7 +1141,6 @@ function renderPayment(){
     `;
   }
 
-  // payments
   renderPayments();
   updateCartCount();
 }
@@ -1186,7 +1181,6 @@ function copyText(text){
 }
 
 function toast(msg){
-  // toast minimalis
   const t = document.createElement("div");
   t.textContent = msg;
   t.style.position="fixed";
@@ -1233,23 +1227,17 @@ function orderMessage(){
 
 function sendToAdmin(channel){
   const items = cartItems();
-  if(items.length === 0){
-    toast("Keranjang kosong.");
-    return;
-  }
+  if(items.length === 0){ toast("Keranjang kosong."); return; }
   const msg = orderMessage();
 
   if(channel === "wa"){
-    // wa.me butuh nomor, tapi user kasih link. Kita pakai link + text param.
     const url = CONFIG.admin.wa.includes("wa.me/")
       ? CONFIG.admin.wa + "?text=" + encodeURIComponent(msg)
       : "https://wa.me/?text=" + encodeURIComponent(msg);
     window.open(url, "_blank");
     return;
   }
-
   if(channel === "tele"){
-    // Telegram deep link pakai share url
     const url = "https://t.me/share/url?text=" + encodeURIComponent(msg);
     window.open(url, "_blank");
     return;
@@ -1257,9 +1245,8 @@ function sendToAdmin(channel){
 }
 
 /* =========================
-   Utils
+   EXPOSE FUNCTIONS (onclick)
    ========================= */
-// Expose functions for inline onclick handlers (FIX)
 window.openModal = openModal;
 window.closeModal = closeModal;
 window.closeModalIfBackdrop = closeModalIfBackdrop;
@@ -1267,8 +1254,8 @@ window.closeModalIfBackdrop = closeModalIfBackdrop;
 window.go = go;
 window.setCategory = setCategory;
 
-window.openProduct = openProduct;
-window.add = add;
+window.openMaster = openMaster;
+window.addVariant = addVariant;
 window.clearCart = clearCart;
 
 window.selectPay = selectPay;
