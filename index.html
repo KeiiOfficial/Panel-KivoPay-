@@ -1259,16 +1259,21 @@ function sendToAdmin(channel){
 /* =========================
    Utils
    ========================= */
-function openModal(type){ window.openModal = openModal; } // keep for inline calls
-function add(id, delta){ window.add = add; }              // keep for inline calls
-function openProduct(id){ window.openProduct = openProduct; }
-function clearCart(){ window.clearCart = clearCart; }
-function go(page){ window.go = go; }
-function setCategory(cat){ window.setCategory = setCategory; }
-function selectPay(id){ window.selectPay = selectPay; }
-function copyText(text){ window.copyText = copyText; }
-function closeModal(){ window.closeModal = closeModal; }
-function closeModalIfBackdrop(e){ window.closeModalIfBackdrop = closeModalIfBackdrop; }
+// Expose functions for inline onclick handlers (FIX)
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.closeModalIfBackdrop = closeModalIfBackdrop;
+
+window.go = go;
+window.setCategory = setCategory;
+
+window.openProduct = openProduct;
+window.add = add;
+window.clearCart = clearCart;
+
+window.selectPay = selectPay;
+window.copyText = copyText;
+window.sendToAdmin = sendToAdmin;
 </script>
 </body>
 </html>
