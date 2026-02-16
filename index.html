@@ -1,651 +1,603 @@
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Analisis Pesan Pasangan</title>
-  <meta name="description" content="Analisis teks chat yang kamu tempel: tone, red flags, green flags, pola komunikasi. Semua lokal di browser." />
-  <style>
-    :root{
-      --bg0:#070a12;
-      --bg1:#0b1020;
-      --card:rgba(255,255,255,.06);
-      --line:rgba(255,255,255,.12);
-      --txt:#eaf0ff;
-      --mut:#aeb9d6;
-      --acc:#8b5cf6;
-      --acc2:#ec4899;
-      --ok:#7cffb2;
-      --bad:#ff7c9b;
-      --warn:#ffd8a8;
-      --shadow: 0 18px 56px rgba(0,0,0,.55);
-      --r:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      color:var(--txt);
-      background:
-        radial-gradient(900px 520px at 20% 15%, rgba(139,92,246,.26), transparent 55%),
-        radial-gradient(850px 420px at 92% 20%, rgba(236,72,153,.18), transparent 55%),
-        radial-gradient(700px 360px at 50% 95%, rgba(255,255,255,.06), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:0 auto;padding:16px}
-    .center{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-    }
-    .card{
-      width:min(720px, 100%);
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.05);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .hd{
-      padding:14px 16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .bd{padding:16px}
-    .brand{
-      display:flex;align-items:center;gap:10px;
-    }
-    .logo{
-      width:42px;height:42px;border-radius:16px;
-      border:1px solid rgba(139,92,246,.45);
-      background: radial-gradient(circle at 30% 30%, rgba(139,92,246,.95), rgba(236,72,153,.25));
-      box-shadow: 0 10px 30px rgba(139,92,246,.20);
-      display:flex;align-items:center;justify-content:center;
-      font-weight:900;
-    }
-    .mut{color:var(--mut)}
-    .btn{
-      border:1px solid rgba(139,92,246,.45);
-      background:rgba(139,92,246,.12);
-      color:var(--txt);
-      padding:11px 14px;
-      border-radius:16px;
-      cursor:pointer;
-      font-weight:800;
-      transition:transform .06s ease, filter .15s ease;
-      user-select:none;
-    }
-    .btn:hover{filter:brightness(1.06)}
-    .btn:active{transform:scale(.985)}
-    .btn.primary{
-      border:0;
-      background:linear-gradient(135deg, rgba(139,92,246,.98), rgba(236,72,153,.75));
-      color:#0a0017;
-      font-weight:900;
-    }
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .chip{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:9px 12px;border-radius:999px;
-      background:rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      color:var(--mut);
-      font-size:12px;
-      width:max-content;
-    }
-    .hr{height:1px;background:rgba(255,255,255,.10);margin:14px 0}
-    .input, .ta, select{
-      width:100%;
-      padding:12px 12px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.25);
-      color:var(--txt);
-      outline:none;
-      font-size:14px;
-    }
-    .ta{min-height:180px;resize:vertical;line-height:1.5}
-    .grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
-    }
-    @media (min-width: 940px){
-      .grid{grid-template-columns: 1.1fr .9fr;}
-    }
-    .panel{
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      border-radius:18px;
-      padding:14px;
-    }
-    .kpi{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    @media (min-width: 520px){ .kpi{grid-template-columns:1fr 1fr 1fr 1fr;} }
-    .k{
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.22);
-      border-radius:16px;
-      padding:10px;
-    }
-    .k b{display:block;font-size:12px;color:var(--mut);font-weight:800}
-    .k span{font-size:18px;font-weight:950}
-    .tag{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.22);
-      color:var(--mut);
-      font-size:12px;
-      width:max-content;
-      margin:4px 6px 0 0;
-    }
-    .tag.ok{border-color: rgba(124,255,178,.35); color: rgba(124,255,178,.95)}
-    .tag.bad{border-color: rgba(255,124,155,.35); color: rgba(255,124,155,.95)}
-    .tag.warn{border-color: rgba(255,216,168,.35); color: rgba(255,216,168,.95)}
-    .small{font-size:12px;color:var(--mut);line-height:1.6}
-    .title{
-      font-size:22px;
-      margin:0 0 8px;
-      letter-spacing:.2px;
-      font-weight:950;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova IQC · modern screenshot generator</title>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- html2canvas for download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-    /* Intro loading overlay */
-    #intro{
-      position:fixed; inset:0; z-index:999;
-      display:flex; align-items:center; justify-content:center;
-      padding:16px;
-      background:
-        radial-gradient(900px 520px at 20% 15%, rgba(139,92,246,.30), transparent 55%),
-        radial-gradient(850px 420px at 92% 20%, rgba(236,72,153,.22), transparent 55%),
-        linear-gradient(180deg, #070a12, #0b1020);
-    }
-    .loadCard{
-      width:min(680px, 100%);
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .loadBody{padding:16px}
-    .bar{
-      width:100%; height:14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.22);
-      overflow:hidden;
-    }
-    .bar > div{
-      height:100%;
-      width:0%;
-      border-radius:999px;
-      background:linear-gradient(90deg, rgba(139,92,246,.95), rgba(236,72,153,.75), rgba(255,255,255,.22));
-      transition: width .06s linear;
-    }
-    .pct{
-      margin-top:10px;
-      display:flex; justify-content:space-between; align-items:center;
-      color:var(--mut);
-      font-size:12px;
-    }
-    .footer{
-      padding:14px 16px;
-      border-top:1px solid rgba(255,255,255,.10);
-      display:flex;
-      justify-content:flex-end;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .hide{display:none !important}
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:18px;
-      transform:translateX(-50%);
-      padding:10px 12px;
-      border-radius:14px;
-      background:rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.16);
-      color:var(--txt);
-      z-index:9999;
-      max-width:min(520px, calc(100% - 30px));
-      text-align:center;
-      font-weight:700;
-    }
-  </style>
+        body {
+            background: #f2f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        /* left panel — controls */
+        .control-panel {
+            flex: 1.2;
+            min-width: 320px;
+            background: #ffffffd9;
+            backdrop-filter: blur(10px);
+            padding: 32px 28px;
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .control-panel h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #1c1c1e, #3a3a3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .control-panel .sub {
+            color: #6c6c70;
+            font-weight: 400;
+            margin-bottom: 32px;
+            border-left: 4px solid #0a84ff;
+            padding-left: 16px;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #1c1c1e;
+            margin-bottom: 6px;
+        }
+
+        .input-group label i {
+            color: #0a84ff;
+            width: 18px;
+        }
+
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #f8f9fc;
+            border: 1.5px solid #e9e9ed;
+            border-radius: 18px;
+            font-size: 1rem;
+            font-weight: 450;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .input-group input:focus, 
+        .input-group select:focus, 
+        .input-group textarea:focus {
+            border-color: #0a84ff;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(10,132,255,0.15);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .row-duo {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row-duo .input-group {
+            flex: 1;
+        }
+
+        /* signal bars custom */
+        .signal-bars {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8f9fc;
+            padding: 10px 16px;
+            border-radius: 30px;
+            border: 1.5px solid #e9e9ed;
+        }
+
+        .bars-option {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            cursor: pointer;
+            background: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid transparent;
+            transition: all 0.1s;
+        }
+
+        .bars-option.selected {
+            background: #0a84ff;
+            border-color: #0a84ff;
+        }
+        .bars-option.selected .bar {
+            background-color: white !important;
+        }
+
+        .bar {
+            width: 4px;
+            border-radius: 2px;
+            background: #8e8e93;
+            transition: background 0.1s;
+        }
+        .bar1 { height: 10px; }
+        .bar2 { height: 14px; }
+        .bar3 { height: 18px; }
+        .bar4 { height: 22px; }
+
+        /* template chips */
+        .template-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .chip {
+            background: #f1f3f8;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #e1e4ea;
+            transition: all 0.15s;
+            cursor: pointer;
+        }
+        .chip:hover {
+            background: #e4e9f2;
+            border-color: #0a84ff;
+        }
+
+        .btn-primary {
+            background: #0a84ff;
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+            box-shadow: 0 8px 18px #0a84ff40;
+            margin: 28px 0 12px;
+        }
+        .btn-primary:hover {
+            background: #0073e5;
+            transform: scale(1.01);
+        }
+        .btn-secondary {
+            background: white;
+            border: 1.5px solid #c6c6c8;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #f8f9fc;
+            border-color: #0a84ff;
+        }
+        .action-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        /* right panel — preview */
+        .preview-panel {
+            flex: 1;
+            min-width: 340px;
+            background: #111113;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        /* iPhone screenshot mock — glassmorphism style */
+        .iqc-card {
+            width: 100%;
+            max-width: 360px;
+            background: rgba(30, 30, 34, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 44px;
+            padding: 24px 20px 30px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 2px rgba(255,255,255,0.05) inset;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            transition: all 0.2s;
+        }
+
+        /* status bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0 6px;
+            color: #f0f0f4;
+            margin-bottom: 24px;
+        }
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .provider-text {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+        }
+        .time {
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .battery {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 8px;
+            border-radius: 30px;
+        }
+        .battery-level {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .battery-icon {
+            font-size: 0.9rem;
+            color: #30d158;
+        }
+        .signal {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 22px;
+        }
+
+        /* chat bubble */
+        .quote-bubble {
+            background: #0a84ff;
+            padding: 22px 24px;
+            border-radius: 34px 34px 34px 12px;
+            margin: 20px 0 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .quote-text {
+            font-size: 1.7rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            word-break: break-word;
+        }
+        .quote-sub {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* message meta */
+        .message-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #8e8e93;
+            font-size: 0.85rem;
+            padding: 0 8px;
+        }
+        .action-icons {
+            display: flex;
+            gap: 18px;
+            color: #a9a9b0;
+        }
+        .action-icons i {
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+        .action-icons i:hover { color: #0a84ff; }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            opacity: 0.3;
+            letter-spacing: 0.3px;
+        }
+
+        /* small reset */
+        .no-select { user-select: none; }
+    </style>
 </head>
-
 <body>
-  <!-- Intro -->
-  <div id="intro">
-    <div class="loadCard">
-      <div class="hd">
-        <div class="brand">
-          <div class="logo">M</div>
-          <div>
-            <b>Haii ini Mirayy!</b><br/>
-            <span class="mut" style="font-size:12px">Web Analisis Pesan (paste teks, bukan nyolong chat)</span>
-          </div>
-        </div>
-        <span class="chip">Mode: Lokal ✅</span>
-      </div>
-      <div class="loadBody">
-        <p class="small" style="margin:0 0 12px">
-          Selamat datang. Tempel chat yang kamu punya (dengan izin/akses yang sah), lalu aku bantu baca polanya:
-          tone, red flags, green flags, dan saran respon.
-        </p>
-
-        <div class="bar"><div id="barFill"></div></div>
-        <div class="pct">
-          <span id="status">Menyiapkan modul analisis…</span>
-          <span><b id="pctNum">1</b>%</span>
+<div class="app-container">
+    <!-- control panel -->
+    <div class="control-panel">
+        <h2>Nova IQC <span style="font-weight: 300; background: none; -webkit-text-fill-color: #6c6c70; font-size: 1rem; margin-left: 8px;">by ditzz</span></h2>
+        <div class="sub">Buat screenshot quotes kekinian — beda style, lebih fresh.</div>
+        <div class="input-group">
+            <label><i class="far fa-clock"></i> Waktu</label>
+            <input type="text" id="timeInput" value="11.26" placeholder="contoh: 11.26">
         </div>
 
-        <div class="hr"></div>
-
-        <div class="panel">
-          <div class="small">
-            <span style="color:var(--warn);font-weight:900">Catatan:</span>
-            Ini cuma analisis teks, bukan “kebenaran hubungan”. Kalau lu cari alat buat ngintip pasangan,
-            cari masalah lain. Ini web buat bantu lu berpikir lebih jernih.
-          </div>
+        <div class="input-group">
+            <label><i class="fas fa-quote-right"></i> Pesan / Kutipan</label>
+            <textarea id="messageInput">minimal gak ngemis</textarea>
         </div>
-      </div>
-      <div class="footer">
-        <button class="btn" id="skipBtn" onclick="finishIntro()">Skip</button>
-        <button class="btn primary" id="goBtn" onclick="finishIntro()" disabled>Lanjutkan ke Aplikasi</button>
-      </div>
+
+        <div class="row-duo">
+            <div class="input-group">
+                <label><i class="fas fa-wifi"></i> Provider</label>
+                <input type="text" id="providerInput" value="INDOSAT OOREDOO">
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-battery-three-quarters"></i> Baterai %</label>
+                <input type="number" id="batteryInput" min="0" max="100" value="8">
+            </div>
+        </div>
+
+        <!-- sinyal dengan pilihan bar interaktif -->
+        <label style="margin-bottom: 10px; display: block;"><i class="fas fa-signal"></i> Sinyal (kuat 1-4)</label>
+        <div class="signal-bars" id="signalSelector">
+            <div class="bars-option selected" data-bars="4">
+                <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div><div class="bar bar4"></div>
+            </div>
+            <div class="bars-option" data-bars="3">
+                <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div><div class="bar bar4" style="background: #3a3a3c;"></div>
+            </div>
+            <div class="bars-option" data-bars="2">
+                <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3" style="background: #3a3a3c;"></div><div class="bar bar4" style="background: #3a3a3c;"></div>
+            </div>
+            <div class="bars-option" data-bars="1">
+                <div class="bar bar1"></div><div class="bar bar2" style="background: #3a3a3c;"></div><div class="bar bar3" style="background: #3a3a3c;"></div><div class="bar bar4" style="background: #3a3a3c;"></div>
+            </div>
+        </div>
+        <!-- hidden input untuk menyimpan nilai sinyal -->
+        <input type="hidden" id="signalValue" value="4">
+
+        <!-- template kata2 (berbeda dari contoh) -->
+        <div class="input-group" style="margin-top: 20px;">
+            <label><i class="far fa-copy"></i> Template inspirasi</label>
+            <div class="template-chips">
+                <span class="chip">hidup itu indah</span>
+                <span class="chip">tetap semangat</span>
+                <span class="chip">bersyukur hari ini</span>
+                <span class="chip">jangan lupa tersenyum</span>
+                <span class="chip">breathe</span>
+                <span class="chip">on my way</span>
+            </div>
+        </div>
+
+        <!-- action buttons -->
+        <button class="btn-primary" id="downloadBtn"><i class="fas fa-arrow-down-to-line"></i> Download Screenshot</button>
+        <div class="action-row">
+            <button class="btn-secondary" id="resetBtn"><i class="fas fa-rotate-right"></i> Reset ke contoh</button>
+        </div>
+        <p style="font-size:0.7rem; color:#aaa; margin-top:24px; text-align:center;">★ preview langsung berubah saat edit</p>
     </div>
-  </div>
 
-  <!-- App -->
-  <div class="wrap" id="app" style="padding-top:18px">
-    <div class="card">
-      <div class="hd">
-        <div class="brand">
-          <div class="logo">M</div>
-          <div>
-            <b>Analisis Pesan Pasangan</b><br/>
-            <span class="mut" style="font-size:12px">Tempel chat → lihat pola → ambil keputusan</span>
-          </div>
+    <!-- preview panel -->
+    <div class="preview-panel" id="previewPanel">
+        <div class="iqc-card" id="iqcPreview">
+            <!-- status bar -->
+            <div class="status-bar">
+                <div class="status-left">
+                    <span class="provider-text" id="providerPreview">INDOSAT OOREDOO</span>
+                    <span class="time" id="timePreview">11.26</span>
+                </div>
+                <div class="status-right">
+                    <div class="signal" id="signalPreview">
+                        <!-- diisi lewat js -->
+                    </div>
+                    <div class="battery">
+                        <span class="battery-level" id="batteryPreview">8%</span>
+                        <i class="fas fa-bolt battery-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- chat bubble -->
+            <div class="quote-bubble">
+                <div class="quote-text" id="messagePreview">minimal gak ngemis</div>
+                <div class="quote-sub">~ iqc</div>
+            </div>
+
+            <!-- message action row (seperti di contoh tapi disusun beda) -->
+            <div class="message-meta">
+                <span><i class="far fa-star" style="margin-right: 5px;"></i> Beri Bintang</span>
+                <div class="action-icons">
+                    <i class="fas fa-reply"></i>
+                    <i class="fas fa-forward"></i>
+                    <i class="far fa-copy"></i>
+                    <i class="fas fa-ellipsis"></i>
+                </div>
+            </div>
+            <div class="footer-note">dari Nova · quoted screenshot</div>
         </div>
-        <div class="row">
-          <span class="chip">Tidak upload data</span>
-          <button class="btn" onclick="loadExample()">Contoh</button>
-          <button class="btn primary" onclick="run()">Analisis</button>
-        </div>
-      </div>
-
-      <div class="bd">
-        <div class="grid">
-          <div class="panel">
-            <h2 class="title">Input Chat</h2>
-            <div class="row">
-              <select id="mode">
-                <option value="auto">Mode: Auto (deteksi umum)</option>
-                <option value="id">Mode: Indonesia</option>
-                <option value="mix">Mode: Campuran (ID + slang)</option>
-              </select>
-              <input class="input" id="you" placeholder="Nama kamu (opsional) contoh: Aku / Keii" />
-              <input class="input" id="them" placeholder="Nama dia (opsional) contoh: Dia / Sayang" />
-            </div>
-
-            <div class="hr"></div>
-
-            <textarea class="ta" id="text" placeholder="Paste chat di sini. Contoh:
-Aku: kamu di mana?
-Dia: nanti dulu, lagi sibuk.
-Aku: iya, tapi jangan ngilang dong...
-"></textarea>
-
-            <div class="hr"></div>
-
-            <div class="row">
-              <button class="btn" onclick="clearAll()">Reset</button>
-              <button class="btn" onclick="copyResult()">Copy Hasil</button>
-              <button class="btn primary" onclick="run()">Analisis Sekarang</button>
-            </div>
-
-            <p class="small" style="margin:12px 0 0">
-              Tips: kalau chat panjang, cukup ambil 30–80 baris terakhir biar analisisnya relevan.
-            </p>
-          </div>
-
-          <div class="panel">
-            <h2 class="title">Hasil</h2>
-
-            <div class="kpi" id="kpi">
-              <div class="k"><b>Tone Dominan</b><span id="tone">-</span></div>
-              <div class="k"><b>Skor Negatif</b><span id="neg">-</span></div>
-              <div class="k"><b>Skor Positif</b><span id="pos">-</span></div>
-              <div class="k"><b>Level Risiko</b><span id="risk">-</span></div>
-            </div>
-
-            <div class="hr"></div>
-
-            <div>
-              <b>Tag</b><br/>
-              <div id="tags" style="margin-top:6px"></div>
-            </div>
-
-            <div class="hr"></div>
-
-            <div>
-              <b>Ringkasan</b>
-              <div class="small" id="summary" style="margin-top:8px">Belum ada analisis.</div>
-            </div>
-
-            <div class="hr"></div>
-
-            <div>
-              <b>Saran Respon (Contoh)</b>
-              <div class="small" id="reply" style="margin-top:8px">-</div>
-            </div>
-
-            <div class="hr"></div>
-
-            <div>
-              <b>Highlight Kata/Pola</b>
-              <div class="small" id="high" style="margin-top:8px">-</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bd" style="padding-top:0">
-        <div class="panel">
-          <b>Privasi</b>
-          <p class="small" style="margin:8px 0 0">
-            Analisis berjalan di browser kamu. Tidak ada server, tidak ada “sadap”.
-            Kalau lu mau analisis yang lebih akurat (misal klasifikasi emosi lebih dalam),
-            itu butuh AI online dan itu artinya data bisa keluar. Di sini sengaja enggak.
-          </p>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script>
-    // ===== Intro loading 1-100% =====
-    const barFill = document.getElementById('barFill');
-    const pctNum  = document.getElementById('pctNum');
-    const status  = document.getElementById('status');
-    const goBtn   = document.getElementById('goBtn');
+<script>
+    (function() {
+        // elements
+        const timeInput = document.getElementById('timeInput');
+        const messageInput = document.getElementById('messageInput');
+        const providerInput = document.getElementById('providerInput');
+        const batteryInput = document.getElementById('batteryInput');
+        const signalValue = document.getElementById('signalValue');
 
-    let p = 1;
-    const steps = [
-      [15, "Menyiapkan modul analisis…"],
-      [35, "Memuat kamus kata…"],
-      [55, "Menyiapkan deteksi pola…"],
-      [75, "Menyiapkan UI…"],
-      [95, "Hampir siap…"],
-      [100,"Siap."]
-    ];
-    const t = setInterval(()=>{
-      p += Math.floor(Math.random()*3)+1;
-      if(p>100) p=100;
-      pctNum.textContent = p;
-      barFill.style.width = p + "%";
-      for(const [pt,msg] of steps){
-        if(p<=pt){ status.textContent = msg; break; }
-      }
-      if(p>=100){
-        clearInterval(t);
-        goBtn.disabled = false;
-      }
-    }, 26);
+        const timePreview = document.getElementById('timePreview');
+        const messagePreview = document.getElementById('messagePreview');
+        const providerPreview = document.getElementById('providerPreview');
+        const batteryPreview = document.getElementById('batteryPreview');
+        const signalPreview = document.getElementById('signalPreview');
 
-    function finishIntro(){
-      document.getElementById('intro').classList.add('hide');
-    }
+        const signalOptions = document.querySelectorAll('.bars-option');
+        const templateChips = document.querySelectorAll('.chip');
 
-    // ===== Analysis engine (heuristic) =====
-    const POS = [
-      "makasih","terima kasih","thanks","maaf","sorry","sayang","cinta","kangen",
-      "paham","ngerti","baik","support","tenang","aman","jujur","komit","serius",
-      "mau denger","aku dengar","aku paham","aku ngerti","peluk","❤️","🫶","😊"
-    ];
-    const NEG = [
-      "anj","anjir","tolol","bodoh","bego","najis","kontol","bangsat","goblok",
-      "capek","muak","males","ribet","berantem","berisik","drama",
-      "udah","terserah","whatever","ga peduli","ngapain","sok","susah",
-      "bohong","dibohongin","selingkuh","ghost","ngilang","cuek","dingin",
-      "nanti","sibuk","ga bisa","gak bisa","ga mau","gak mau","jijik","malu"
-    ];
-    const REDFLAGS = [
-      {k:["terserah","yaudah","udah lah"], t:"Stonewalling / pasif-agresif"},
-      {k:["ngilang","ghost","diemin"], t:"Menghilang (avoidant)"},
-      {k:["bohong","dibohongin","selingkuh"], t:"Kejujuran bermasalah"},
-      {k:["tolol","goblok","bego","bodoh"], t:"Menghina / merendahkan"},
-      {k:["ga peduli","gak peduli"], t:"Invalidasi / tidak peduli"},
-      {k:["urus sendiri","bukan urusan aku"], t:"Lempar tanggung jawab"},
-    ];
-    const GREENFLAGS = [
-      {k:["maaf","sorry"], t:"Ada effort memperbaiki"},
-      {k:["aku paham","aku ngerti","paham"], t:"Validasi perasaan"},
-      {k:["kita cari solusi","gimana kalau"], t:"Problem solving"},
-      {k:["jujur","komit","serius"], t:"Niat jelas"},
-    ];
+        // preview card
+        const iqcCard = document.getElementById('iqcPreview');
 
-    function norm(s){
-      return (s||"").toLowerCase()
-        .replace(/\s+/g,' ')
-        .trim();
-    }
+        // inisialisasi signal bar dari hidden
+        function renderSignalBars(level) {
+            let barsHtml = '';
+            for (let i = 1; i <= 4; i++) {
+                const height = i === 1 ? 10 : i === 2 ? 14 : i === 3 ? 18 : 22;
+                const bgColor = i <= level ? 'white' : '#3a3a3c';
+                barsHtml += `<div class="bar bar${i}" style="height: ${height}px; background: ${bgColor};"></div>`;
+            }
+            signalPreview.innerHTML = barsHtml;
+        }
 
-    function countHits(text, list){
-      let c=0;
-      for(const w of list){
-        const re = new RegExp(escapeReg(w), "g");
-        const m = text.match(re);
-        if(m) c += m.length;
-      }
-      return c;
-    }
+        // update semua tampilan dari input
+        function updatePreview() {
+            timePreview.textContent = timeInput.value || '11.26';
+            messagePreview.textContent = messageInput.value || 'minimal gak ngemis';
+            providerPreview.textContent = providerInput.value || 'INDOSAT OOREDOO';
+            let batt = parseInt(batteryInput.value, 10);
+            if (isNaN(batt)) batt = 8;
+            if (batt < 0) batt = 0;
+            if (batt > 100) batt = 100;
+            batteryPreview.textContent = batt + '%';
 
-    function escapeReg(s){
-      return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    }
+            let signalLevel = parseInt(signalValue.value, 10) || 4;
+            renderSignalBars(signalLevel);
+        }
 
-    function riskLevel(pos, neg, redCount){
-      // skala kasar, karena hidup juga kasar
-      const score = (neg*2) + (redCount*3) - (pos);
-      if(score <= 2) return {label:"Rendah", cls:"ok"};
-      if(score <= 7) return {label:"Sedang", cls:"warn"};
-      return {label:"Tinggi", cls:"bad"};
-    }
+        // event input
+        timeInput.addEventListener('input', updatePreview);
+        messageInput.addEventListener('input', updatePreview);
+        providerInput.addEventListener('input', updatePreview);
+        batteryInput.addEventListener('input', updatePreview);
 
-    function dominantTone(pos, neg){
-      if(pos===0 && neg===0) return "Netral";
-      if(pos > neg*1.2) return "Hangat";
-      if(neg > pos*1.2) return "Tegang";
-      return "Campur";
-    }
+        // signal picker
+        signalOptions.forEach(opt => {
+            opt.addEventListener('click', function(e) {
+                signalOptions.forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const bars = this.getAttribute('data-bars');
+                signalValue.value = bars;
+                updatePreview();
+            });
+        });
 
-    function findPatterns(text){
-      const foundRed = [];
-      for(const r of REDFLAGS){
-        if(r.k.some(k => text.includes(k))) foundRed.push(r.t);
-      }
-      const foundGreen = [];
-      for(const g of GREENFLAGS){
-        if(g.k.some(k => text.includes(k))) foundGreen.push(g.t);
-      }
-      return {foundRed, foundGreen};
-    }
+        // chip template
+        templateChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                messageInput.value = this.innerText;
+                updatePreview();
+            });
+        });
 
-    function highlight(text){
-      const hits = [];
-      const top = [...new Set([...NEG, ...POS])].slice(0, 80);
-      for(const w of top){
-        if(text.includes(w)) hits.push(w);
-      }
-      return hits.slice(0, 18);
-    }
+        // reset ke nilai awal (contoh) tapi beda tema
+        const resetBtn = document.getElementById('resetBtn');
+        resetBtn.addEventListener('click', function() {
+            timeInput.value = '11.26';
+            messageInput.value = 'minimal gak ngemis';
+            providerInput.value = 'INDOSAT OOREDOO';
+            batteryInput.value = '8';
+            // set signal ke 4
+            signalValue.value = '4';
+            signalOptions.forEach(o => o.classList.remove('selected'));
+            document.querySelector('.bars-option[data-bars="4"]').classList.add('selected');
+            updatePreview();
+        });
 
-    function buildReply(tone, risk){
-      if(risk === "Tinggi"){
-        return `Kalimat aman: "Aku pengin kita ngobrol jelas. Kalau sekarang belum siap, bilang kapan bisa. Kalau tetap menghindar/menghina, aku bakal jaga jarak dulu."`;
-      }
-      if(tone === "Tegang"){
-        return `Kalimat aman: "Aku nangkep kamu lagi nggak enak. Aku cuma butuh kejelasan: kamu maunya gimana dan kapan bisa ngobrol tanpa marah-marah?"`;
-      }
-      if(tone === "Hangat"){
-        return `Kalimat aman: "Makasih udah jelasin. Biar makin jelas, kita sepakatin aturan komunikasi: kalau sibuk bilang estimasi, jangan ngilang."`;
-      }
-      return `Kalimat aman: "Aku butuh kejelasan biar nggak overthinking. Kamu bisa jelasin singkat sekarang atau tentuin waktu ngobrol?"`;
-    }
+        // download menggunakan html2canvas
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', function() {
+            html2canvas(iqcCard, {
+                scale: 2,
+                backgroundColor: null,
+                allowTaint: false,
+                useCORS: true,
+                logging: false,
+                background: '#111113'  // fallback
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'iqc-nova.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                alert('gagal render, coba lagi.');
+            });
+        });
 
-    function tagHTML(label, type){
-      const cls = type || "";
-      return `<span class="tag ${cls}">${label}</span>`;
-    }
+        // initial render
+        updatePreview();
 
-    function run(){
-      const raw = document.getElementById('text').value || "";
-      const text = norm(raw);
-
-      if(text.length < 10){
-        toast("Tempel chat dulu. Ini bukan cenayang.");
-        return;
-      }
-
-      const pos = countHits(text, POS);
-      const neg = countHits(text, NEG);
-      const {foundRed, foundGreen} = findPatterns(text);
-      const tone = dominantTone(pos, neg);
-      const risk = riskLevel(pos, neg, foundRed.length);
-
-      // KPIs
-      document.getElementById('tone').textContent = tone;
-      document.getElementById('pos').textContent = String(pos);
-      document.getElementById('neg').textContent = String(neg);
-      document.getElementById('risk').textContent = risk.label;
-
-      // Tags
-      const tags = [];
-      tags.push(tagHTML(`Tone: ${tone}`, tone==="Hangat" ? "ok" : (tone==="Tegang" ? "warn" : "")));
-      tags.push(tagHTML(`Risiko: ${risk.label}`, risk.cls));
-      if(foundGreen.length) tags.push(tagHTML(`Green: ${foundGreen.length}`, "ok"));
-      if(foundRed.length) tags.push(tagHTML(`Red: ${foundRed.length}`, "bad"));
-
-      // list items
-      for(const g of foundGreen.slice(0,4)) tags.push(tagHTML(g, "ok"));
-      for(const r of foundRed.slice(0,4)) tags.push(tagHTML(r, "bad"));
-      document.getElementById('tags').innerHTML = tags.join("");
-
-      // Summary
-      const lines = [];
-      if(tone==="Hangat") lines.push("Nada chat cenderung hangat. Masih ada ruang komunikasi sehat.");
-      else if(tone==="Tegang") lines.push("Nada chat tegang. Kalau diterusin tanpa kontrol, ujungnya salah paham atau perang kecil.");
-      else if(tone==="Campur") lines.push("Nada chat campur. Ada sisi baik, tapi ada pemicu konflik juga.");
-      else lines.push("Nada chat netral. Belum cukup sinyal emosi dari teks.");
-
-      if(foundRed.length){
-        lines.push(`Terdeteksi beberapa red flag: ${foundRed.slice(0,3).join(", ")}${foundRed.length>3?"…":""}.`);
-      } else {
-        lines.push("Tidak ada red flag kuat dari kata kunci, tapi tetap lihat konteks.");
-      }
-
-      if(foundGreen.length){
-        lines.push(`Ada green flag: ${foundGreen.slice(0,3).join(", ")}${foundGreen.length>3?"…":""}.`);
-      } else {
-        lines.push("Green flag belum keliatan kuat. Mungkin chatnya terlalu singkat atau lagi fase dingin.");
-      }
-
-      document.getElementById('summary').textContent = lines.join(" ");
-
-      // Reply suggestion
-      document.getElementById('reply').textContent = buildReply(tone, risk.label);
-
-      // Highlights
-      const h = highlight(text);
-      document.getElementById('high').innerHTML = h.length
-        ? h.map(w => tagHTML(w, POS.includes(w) ? "ok" : (NEG.includes(w) ? "bad" : ""))).join("")
-        : "-";
-    }
-
-    function clearAll(){
-      document.getElementById('text').value = "";
-      document.getElementById('you').value = "";
-      document.getElementById('them').value = "";
-      document.getElementById('tone').textContent = "-";
-      document.getElementById('pos').textContent = "-";
-      document.getElementById('neg').textContent = "-";
-      document.getElementById('risk').textContent = "-";
-      document.getElementById('tags').innerHTML = "";
-      document.getElementById('summary').textContent = "Belum ada analisis.";
-      document.getElementById('reply').textContent = "-";
-      document.getElementById('high').textContent = "-";
-      toast("Reset.");
-    }
-
-    function loadExample(){
-      document.getElementById('text').value =
-`Aku: kamu di mana?
-Dia: nanti dulu, lagi sibuk.
-Aku: ya bilang dong, jangan ngilang.
-Dia: terserah.
-Aku: aku cuma minta kejelasan.
-Dia: yaudah maaf, aku capek.`;
-      toast("Contoh dimuat. Klik Analisis.");
-    }
-
-    function copyResult(){
-      const tone = document.getElementById('tone').textContent;
-      const pos  = document.getElementById('pos').textContent;
-      const neg  = document.getElementById('neg').textContent;
-      const risk = document.getElementById('risk').textContent;
-      const summary = document.getElementById('summary').textContent;
-      const reply = document.getElementById('reply').textContent;
-
-      const out =
-`HASIL ANALISIS PESAN
-Tone: ${tone}
-Positif: ${pos}
-Negatif: ${neg}
-Risiko: ${risk}
-
-Ringkasan:
-${summary}
-
-Saran respon:
-${reply}`;
-
-      navigator.clipboard.writeText(out).then(()=>{
-        toast("Hasil dicopy.");
-      }).catch(()=>{
-        toast("Gagal copy. Browser lu pelit izin clipboard.");
-      });
-    }
-
-    function toast(msg){
-      const t = document.createElement("div");
-      t.className = "toast";
-      t.textContent = msg;
-      document.body.appendChild(t);
-      setTimeout(()=>t.remove(), 1400);
-    }
-
-    // expose
-    window.finishIntro = finishIntro;
-    window.run = run;
-    window.clearAll = clearAll;
-    window.copyResult = copyResult;
-    window.loadExample = loadExample;
-  </script>
+        // biar input baterai tidak <0 / >100
+        batteryInput.addEventListener('change', function() {
+            let v = parseInt(this.value, 10);
+            if (isNaN(v)) v = 8;
+            v = Math.min(100, Math.max(0, v));
+            this.value = v;
+            updatePreview();
+        });
+    })();
+</script>
 </body>
 </html>
