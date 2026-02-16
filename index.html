@@ -3,600 +3,649 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova IQC · modern screenshot generator</title>
-    <!-- Font & Icons -->
+    <title>GLASS IQC · next gen quoted screenshot</title>
+    <!-- Font: Space Grotesk (beda total dari inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- html2canvas for download -->
+    <!-- html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: #f2f4f8;
+            background: #0b0f15;
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
+            background-image: radial-gradient(circle at 30% 40%, #2a2f45 0%, #0a0c14 80%);
         }
 
-        .app-container {
-            max-width: 1100px;
+        .nebula-container {
+            max-width: 1300px;
             width: 100%;
-            background: white;
-            border-radius: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
             display: flex;
-            flex-direction: row;
             flex-wrap: wrap;
-            overflow: hidden;
-            backdrop-filter: blur(2px);
+            gap: 30px;
+            backdrop-filter: blur(4px);
         }
 
-        /* left panel — controls */
-        .control-panel {
+        /* ========== CONTROL CARD ========== */
+        .control-card {
             flex: 1.2;
-            min-width: 320px;
-            background: #ffffffd9;
-            backdrop-filter: blur(10px);
-            padding: 32px 28px;
-            border-right: 1px solid rgba(0,0,0,0.05);
+            min-width: 340px;
+            background: rgba(18, 22, 30, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(120, 140, 200, 0.25);
+            border-radius: 48px;
+            padding: 36px 32px;
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(160, 190, 255, 0.1) inset;
+            color: #eef3fc;
         }
 
-        .control-panel h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            background: linear-gradient(145deg, #1c1c1e, #3a3a3c);
+        .control-header {
+            margin-bottom: 36px;
+        }
+
+        .control-header h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff, #b0ccff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .control-header .tagline {
+            color: #8892b0;
+            font-weight: 400;
+            border-left: 3px solid #4e7aff;
+            padding-left: 16px;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        .glass-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4e7aff80, #aa80ff80, transparent);
+            margin: 28px 0 32px;
+        }
+
+        .param-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .param-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        .param-row .field {
+            flex: 1 1 180px;
+        }
+
+        .field label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #a3b3d6;
             margin-bottom: 8px;
         }
 
-        .control-panel .sub {
-            color: #6c6c70;
-            font-weight: 400;
-            margin-bottom: 32px;
-            border-left: 4px solid #0a84ff;
-            padding-left: 16px;
-            font-size: 0.95rem;
+        .field label i {
+            color: #5f8aff;
+            width: 20px;
         }
 
-        .input-group {
-            margin-bottom: 24px;
-        }
-
-        .input-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: #1c1c1e;
-            margin-bottom: 6px;
-        }
-
-        .input-group label i {
-            color: #0a84ff;
-            width: 18px;
-        }
-
-        .input-group input, 
-        .input-group select, 
-        .input-group textarea {
+        .field input, .field textarea, .field select {
             width: 100%;
-            padding: 12px 16px;
-            background: #f8f9fc;
-            border: 1.5px solid #e9e9ed;
-            border-radius: 18px;
+            background: rgba(8, 12, 22, 0.7);
+            border: 1.5px solid #2c3550;
+            border-radius: 22px;
+            padding: 14px 20px;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1rem;
-            font-weight: 450;
-            transition: all 0.2s;
-            outline: none;
-        }
-
-        .input-group input:focus, 
-        .input-group select:focus, 
-        .input-group textarea:focus {
-            border-color: #0a84ff;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(10,132,255,0.15);
-        }
-
-        .input-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .row-duo {
-            display: flex;
-            gap: 15px;
-        }
-
-        .row-duo .input-group {
-            flex: 1;
-        }
-
-        /* signal bars custom */
-        .signal-bars {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f8f9fc;
-            padding: 10px 16px;
-            border-radius: 30px;
-            border: 1.5px solid #e9e9ed;
-        }
-
-        .bars-option {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            cursor: pointer;
-            background: white;
-            padding: 6px 14px;
-            border-radius: 40px;
-            border: 1px solid transparent;
-            transition: all 0.1s;
-        }
-
-        .bars-option.selected {
-            background: #0a84ff;
-            border-color: #0a84ff;
-        }
-        .bars-option.selected .bar {
-            background-color: white !important;
-        }
-
-        .bar {
-            width: 4px;
-            border-radius: 2px;
-            background: #8e8e93;
-            transition: background 0.1s;
-        }
-        .bar1 { height: 10px; }
-        .bar2 { height: 14px; }
-        .bar3 { height: 18px; }
-        .bar4 { height: 22px; }
-
-        /* template chips */
-        .template-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
-        }
-        .chip {
-            background: #f1f3f8;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid #e1e4ea;
-            transition: all 0.15s;
-            cursor: pointer;
-        }
-        .chip:hover {
-            background: #e4e9f2;
-            border-color: #0a84ff;
-        }
-
-        .btn-primary {
-            background: #0a84ff;
             color: white;
-            border: none;
-            padding: 16px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            width: 100%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.2s;
-            box-shadow: 0 8px 18px #0a84ff40;
-            margin: 28px 0 12px;
-        }
-        .btn-primary:hover {
-            background: #0073e5;
-            transform: scale(1.01);
-        }
-        .btn-secondary {
-            background: white;
-            border: 1.5px solid #c6c6c8;
-            padding: 12px 20px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            outline: none;
             transition: 0.2s;
         }
-        .btn-secondary:hover {
-            background: #f8f9fc;
-            border-color: #0a84ff;
-        }
-        .action-row {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
+
+        .field input:focus, .field textarea:focus {
+            border-color: #6d8eff;
+            box-shadow: 0 0 0 4px #1e3155;
         }
 
-        /* right panel — preview */
-        .preview-panel {
-            flex: 1;
-            min-width: 340px;
-            background: #111113;
+        .field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* range slider ala glassmorphism */
+        .slider-group {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 40px;
+            padding: 14px 20px;
+            border: 1px solid #2a334a;
+        }
+        .slider-group span {
+            display: flex;
+            justify-content: space-between;
+            color: #b7c3e6;
+            margin-bottom: 8px;
+        }
+        input[type=range] {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #5f8aff, #b38cff);
+            border-radius: 10px;
+            -webkit-appearance: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #7f9fff;
+            border: 2px solid #121826;
+            cursor: pointer;
+        }
+
+        /* signal custom */
+        .signal-panel {
+            display: flex;
+            gap: 15px;
+            background: rgba(8, 12, 22, 0.7);
+            border-radius: 40px;
+            padding: 12px 18px;
+            border: 1px solid #2c3550;
+            flex-wrap: wrap;
+        }
+        .signal-option {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 18px;
+            border-radius: 40px;
+            border: 1px solid #38405f;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .signal-option.active {
+            background: #2a3a70;
+            border-color: #7f9fff;
+            box-shadow: 0 0 12px #3f5fcf;
+        }
+        .sig-bar {
+            width: 5px;
+            background: #b0c4ff;
+            border-radius: 3px;
+        }
+        .sig1 { height: 12px; }
+        .sig2 { height: 18px; }
+        .sig3 { height: 24px; }
+        .sig4 { height: 30px; }
+
+        .template-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 25px 0 20px;
+        }
+        .phrase-chip {
+            background: rgba(60, 80, 140, 0.25);
+            border: 1px solid #384a74;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #d3e0ff;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: 0.15s;
+        }
+        .phrase-chip:hover {
+            background: #2f4172;
+            border-color: #8aa5ff;
+            color: white;
+        }
+
+        .btn-orb {
+            background: linear-gradient(145deg, #2b3c77, #1b2752);
+            border: none;
+            border-radius: 60px;
+            padding: 18px 30px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 30px 20px;
-        }
-
-        /* iPhone screenshot mock — glassmorphism style */
-        .iqc-card {
+            gap: 12px;
             width: 100%;
-            max-width: 360px;
-            background: rgba(30, 30, 34, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 44px;
-            padding: 24px 20px 30px;
-            box-shadow: 0 30px 50px rgba(0,0,0,0.7), 0 0 0 2px rgba(255,255,255,0.05) inset;
-            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            border: 1px solid #6a86e0;
+            box-shadow: 0 15px 25px -8px #00000080, 0 0 0 1px #9bb3ff inset;
+            transition: 0.15s;
+            margin-top: 25px;
+        }
+        .btn-orb:hover {
+            background: linear-gradient(145deg, #3450a0, #222f60);
+            transform: scale(1.01);
+        }
+        .btn-second {
+            background: transparent;
+            border: 1.5px solid #42547a;
+            border-radius: 60px;
+            padding: 14px 26px;
+            color: #b7cbff;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .btn-second:hover {
+            border-color: #809cff;
             color: white;
-            transition: all 0.2s;
+            background: #1a2540;
         }
 
-        /* status bar */
-        .status-bar {
+        /* ========== PREVIEW CARD ========== (BENAR-BENAR BEDA) */
+        .preview-area {
+            flex: 1;
+            min-width: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nova-iqc {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(12, 16, 28, 0.65);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 60px;
+            padding: 30px 24px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 40px 70px -10px black, 0 0 0 2px rgba(140, 180, 255, 0.2) inset;
+            color: white;
+        }
+
+        /* floating top bar */
+        .top-glow {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
-            font-weight: 600;
-            padding: 0 6px;
-            color: #f0f0f4;
-            margin-bottom: 24px;
+            margin-bottom: 40px;
+            background: rgba(0, 5, 15, 0.4);
+            padding: 12px 22px;
+            border-radius: 120px;
+            border: 1px solid #3e4b70;
         }
-        .status-left {
+        .provider-badge {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
         }
-        .provider-text {
-            font-weight: 500;
+        .provider-badge i {
+            color: #62a8ff;
+            font-size: 1.2rem;
+        }
+        .provider-name {
+            font-weight: 600;
             letter-spacing: -0.02em;
-            background: rgba(255,255,255,0.15);
-            padding: 4px 10px;
-            border-radius: 40px;
-            font-size: 0.75rem;
+            background: linear-gradient(135deg, #eef6ff, #b9d0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .time {
+        .time-badge {
+            background: #1f2740;
+            padding: 6px 14px;
+            border-radius: 60px;
             font-weight: 500;
-            opacity: 0.9;
+            border: 1px solid #4b618b;
         }
-        .status-right {
+
+        /* sinyal+baterai di card terpisah */
+        .status-pill {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .sig-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+        }
+        .bar-s {
+            width: 6px;
+            background: #b5ceff;
+            border-radius: 4px;
+        }
+        .bar-s.inactive {
+            background: #31415f;
+        }
+        .battery-pill {
+            background: #1d263f;
+            border-radius: 40px;
+            padding: 8px 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        .battery {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(0,0,0,0.4);
-            padding: 4px 8px;
-            border-radius: 30px;
-        }
-        .battery-level {
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-        .battery-icon {
-            font-size: 0.9rem;
-            color: #30d158;
-        }
-        .signal {
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            height: 22px;
+            border: 1px solid #4a608b;
         }
 
-        /* chat bubble */
-        .quote-bubble {
-            background: #0a84ff;
-            padding: 22px 24px;
-            border-radius: 34px 34px 34px 12px;
-            margin: 20px 0 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
+        /* pesan di tengah — BENTUK BERBEDA (lingkaran stream) */
+        .message-frost {
+            background: radial-gradient(circle at 30% 20%, #2860dd30, #142550);
+            border-radius: 70px 70px 70px 10px;
+            padding: 32px 28px;
+            margin: 30px 0 40px;
+            border: 1px solid #ffffff20;
+            box-shadow: 0 20px 30px -10px #00000080;
         }
-        .quote-text {
-            font-size: 1.7rem;
-            font-weight: 600;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
+        .quote-giant {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
             word-break: break-word;
         }
-        .quote-sub {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 12px;
-            opacity: 0.8;
-            font-size: 0.9rem;
+        .quote-giant::before {
+            content: '“';
+            font-size: 3rem;
+            opacity: 0.4;
+            margin-right: 5px;
         }
 
-        /* message meta */
-        .message-meta {
+        /* bar aksi — beda layout */
+        .action-strip {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: #8e8e93;
-            font-size: 0.85rem;
-            padding: 0 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 200px;
+            padding: 12px 22px;
+            border: 1px solid #3d4b72;
+            margin-top: 30px;
         }
-        .action-icons {
+        .left-actions {
             display: flex;
-            gap: 18px;
-            color: #a9a9b0;
+            gap: 20px;
         }
-        .action-icons i {
-            font-size: 1.1rem;
-            transition: color 0.2s;
+        .left-actions i {
+            opacity: 0.7;
+            transition: 0.15s;
         }
-        .action-icons i:hover { color: #0a84ff; }
+        .right-label {
+            background: #1f2942;
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            border: 1px solid #5a6d9b;
+        }
 
-        .footer-note {
+        .foot-note {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.7rem;
+            margin-top: 30px;
             opacity: 0.3;
-            letter-spacing: 0.3px;
+            font-size: 0.7rem;
         }
 
-        /* small reset */
-        .no-select { user-select: none; }
+        /* utility */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-<div class="app-container">
-    <!-- control panel -->
-    <div class="control-panel">
-        <h2>Nova IQC <span style="font-weight: 300; background: none; -webkit-text-fill-color: #6c6c70; font-size: 1rem; margin-left: 8px;">by ditzz</span></h2>
-        <div class="sub">Buat screenshot quotes kekinian — beda style, lebih fresh.</div>
-        <div class="input-group">
-            <label><i class="far fa-clock"></i> Waktu</label>
-            <input type="text" id="timeInput" value="11.26" placeholder="contoh: 11.26">
+<div class="nebula-container">
+    <!-- left: control glass -->
+    <div class="control-card">
+        <div class="control-header">
+            <h1>GLASS IQC</h1>
+            <div class="tagline">floating · next gen · no clone</div>
         </div>
 
-        <div class="input-group">
-            <label><i class="fas fa-quote-right"></i> Pesan / Kutipan</label>
-            <textarea id="messageInput">minimal gak ngemis</textarea>
-        </div>
+        <div class="glass-divider"></div>
 
-        <div class="row-duo">
-            <div class="input-group">
-                <label><i class="fas fa-wifi"></i> Provider</label>
-                <input type="text" id="providerInput" value="INDOSAT OOREDOO">
+        <div class="param-grid">
+            <div class="param-row">
+                <div class="field">
+                    <label><i class="far fa-clock"></i> Waktu</label>
+                    <input type="text" id="glTime" value="20:14" placeholder="20:14">
+                </div>
+                <div class="field">
+                    <label><i class="fas fa-signal"></i> Provider</label>
+                    <input type="text" id="glProvider" value="ORBIT·ID" placeholder="contoh: ORBIT">
+                </div>
             </div>
-            <div class="input-group">
-                <label><i class="fas fa-battery-three-quarters"></i> Baterai %</label>
-                <input type="number" id="batteryInput" min="0" max="100" value="8">
-            </div>
-        </div>
 
-        <!-- sinyal dengan pilihan bar interaktif -->
-        <label style="margin-bottom: 10px; display: block;"><i class="fas fa-signal"></i> Sinyal (kuat 1-4)</label>
-        <div class="signal-bars" id="signalSelector">
-            <div class="bars-option selected" data-bars="4">
-                <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div><div class="bar bar4"></div>
+            <div class="field">
+                <label><i class="fas fa-message"></i> Quote</label>
+                <textarea id="glMessage">hidup bukan saling mendahului</textarea>
             </div>
-            <div class="bars-option" data-bars="3">
-                <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div><div class="bar bar4" style="background: #3a3a3c;"></div>
-            </div>
-            <div class="bars-option" data-bars="2">
-                <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3" style="background: #3a3a3c;"></div><div class="bar bar4" style="background: #3a3a3c;"></div>
-            </div>
-            <div class="bars-option" data-bars="1">
-                <div class="bar bar1"></div><div class="bar bar2" style="background: #3a3a3c;"></div><div class="bar bar3" style="background: #3a3a3c;"></div><div class="bar bar4" style="background: #3a3a3c;"></div>
-            </div>
-        </div>
-        <!-- hidden input untuk menyimpan nilai sinyal -->
-        <input type="hidden" id="signalValue" value="4">
 
-        <!-- template kata2 (berbeda dari contoh) -->
-        <div class="input-group" style="margin-top: 20px;">
-            <label><i class="far fa-copy"></i> Template inspirasi</label>
-            <div class="template-chips">
-                <span class="chip">hidup itu indah</span>
-                <span class="chip">tetap semangat</span>
-                <span class="chip">bersyukur hari ini</span>
-                <span class="chip">jangan lupa tersenyum</span>
-                <span class="chip">breathe</span>
-                <span class="chip">on my way</span>
+            <!-- battery slider -->
+            <div class="slider-group">
+                <span><span><i class="fas fa-battery-full"></i> Daya baterai</span> <span id="battPercentShow">58%</span></span>
+                <input type="range" id="glBattery" min="0" max="100" value="58">
+            </div>
+
+            <!-- sinyal selector berbeda (pake bar vertikal) -->
+            <div>
+                <label style="margin-bottom: 12px; display: block;"><i class="fas fa-chart-line"></i> Kuat sinyal</label>
+                <div class="signal-panel" id="glSignalPanel">
+                    <div class="signal-option" data-sig="1">
+                        <div class="sig-bar sig1"></div>
+                    </div>
+                    <div class="signal-option" data-sig="2">
+                        <div class="sig-bar sig1"></div><div class="sig-bar sig2"></div>
+                    </div>
+                    <div class="signal-option active" data-sig="3">
+                        <div class="sig-bar sig1"></div><div class="sig-bar sig2"></div><div class="sig-bar sig3"></div>
+                    </div>
+                    <div class="signal-option" data-sig="4">
+                        <div class="sig-bar sig1"></div><div class="sig-bar sig2"></div><div class="sig-bar sig3"></div><div class="sig-bar sig4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- template kata2 (beda total kata2nya) -->
+            <div>
+                <label style="margin-bottom: 12px;"><i class="far fa-gem"></i> vibes words</label>
+                <div class="template-row">
+                    <span class="phrase-chip">semesta mendukung</span>
+                    <span class="phrase-chip">float your way</span>
+                    <span class="phrase-chip">noir vibes</span>
+                    <span class="phrase-chip">glow in dark</span>
+                    <span class="phrase-chip">night rhythm</span>
+                </div>
+            </div>
+
+            <!-- button utama -->
+            <button class="btn-orb" id="glDownloadBtn"><i class="fas fa-cloud-arrow-down"></i> Simpan sebagai PNG</button>
+            <div style="display: flex; gap: 15px; margin-top: 15px;">
+                <button class="btn-second" id="glResetBtn"><i class="fas fa-undo-alt"></i> Reset default</button>
             </div>
         </div>
-
-        <!-- action buttons -->
-        <button class="btn-primary" id="downloadBtn"><i class="fas fa-arrow-down-to-line"></i> Download Screenshot</button>
-        <div class="action-row">
-            <button class="btn-secondary" id="resetBtn"><i class="fas fa-rotate-right"></i> Reset ke contoh</button>
-        </div>
-        <p style="font-size:0.7rem; color:#aaa; margin-top:24px; text-align:center;">★ preview langsung berubah saat edit</p>
     </div>
 
-    <!-- preview panel -->
-    <div class="preview-panel" id="previewPanel">
-        <div class="iqc-card" id="iqcPreview">
-            <!-- status bar -->
-            <div class="status-bar">
-                <div class="status-left">
-                    <span class="provider-text" id="providerPreview">INDOSAT OOREDOO</span>
-                    <span class="time" id="timePreview">11.26</span>
+    <!-- right: preview area (beda total) -->
+    <div class="preview-area">
+        <div class="nova-iqc" id="glPreviewCard">
+            <!-- layer atas -->
+            <div class="top-glow">
+                <div class="provider-badge">
+                    <i class="fas fa-satellite-dish"></i>
+                    <span class="provider-name" id="glProviderPreview">ORBIT·ID</span>
                 </div>
-                <div class="status-right">
-                    <div class="signal" id="signalPreview">
-                        <!-- diisi lewat js -->
-                    </div>
-                    <div class="battery">
-                        <span class="battery-level" id="batteryPreview">8%</span>
-                        <i class="fas fa-bolt battery-icon"></i>
-                    </div>
+                <div class="time-badge" id="glTimePreview">20:14</div>
+            </div>
+
+            <!-- bar sinyal dan batre -->
+            <div class="status-pill">
+                <div class="sig-bars" id="glSignalPreview">
+                    <!-- akan diisi js -->
+                </div>
+                <div class="battery-pill" id="glBatteryPreview">
+                    <i class="fas fa-bolt" style="color: #e8b339;"></i> <span>58%</span>
                 </div>
             </div>
 
-            <!-- chat bubble -->
-            <div class="quote-bubble">
-                <div class="quote-text" id="messagePreview">minimal gak ngemis</div>
-                <div class="quote-sub">~ iqc</div>
+            <!-- pesan utama bentuk beda -->
+            <div class="message-frost">
+                <div class="quote-giant" id="glMessagePreview">hidup bukan saling mendahului</div>
             </div>
 
-            <!-- message action row (seperti di contoh tapi disusun beda) -->
-            <div class="message-meta">
-                <span><i class="far fa-star" style="margin-right: 5px;"></i> Beri Bintang</span>
-                <div class="action-icons">
-                    <i class="fas fa-reply"></i>
-                    <i class="fas fa-forward"></i>
-                    <i class="far fa-copy"></i>
-                    <i class="fas fa-ellipsis"></i>
+            <!-- aksi strip dengan layout beda -->
+            <div class="action-strip">
+                <div class="left-actions">
+                    <i class="far fa-star"></i>
+                    <i class="far fa-comment"></i>
+                    <i class="fas fa-retweet"></i>
+                    <i class="far fa-bookmark"></i>
                 </div>
+                <div class="right-label">IQC·glas</div>
             </div>
-            <div class="footer-note">dari Nova · quoted screenshot</div>
+            <div class="foot-note">— ghost edition —</div>
         </div>
     </div>
 </div>
 
 <script>
     (function() {
-        // elements
-        const timeInput = document.getElementById('timeInput');
-        const messageInput = document.getElementById('messageInput');
-        const providerInput = document.getElementById('providerInput');
-        const batteryInput = document.getElementById('batteryInput');
-        const signalValue = document.getElementById('signalValue');
+        // === ELEMEN ===
+        const timeInp = document.getElementById('glTime');
+        const providerInp = document.getElementById('glProvider');
+        const msgInp = document.getElementById('glMessage');
+        const battSlider = document.getElementById('glBattery');
+        const battPercentSpan = document.getElementById('battPercentShow');
 
-        const timePreview = document.getElementById('timePreview');
-        const messagePreview = document.getElementById('messagePreview');
-        const providerPreview = document.getElementById('providerPreview');
-        const batteryPreview = document.getElementById('batteryPreview');
-        const signalPreview = document.getElementById('signalPreview');
+        const timePrev = document.getElementById('glTimePreview');
+        const providerPrev = document.getElementById('glProviderPreview');
+        const msgPrev = document.getElementById('glMessagePreview');
+        const battPrev = document.getElementById('glBatteryPreview'); // kita isi span didalamnya
+        const signalPreviewDiv = document.getElementById('glSignalPreview');
 
-        const signalOptions = document.querySelectorAll('.bars-option');
-        const templateChips = document.querySelectorAll('.chip');
+        const signalOptions = document.querySelectorAll('.signal-option');
+        let currentSignal = 3;  // default
 
-        // preview card
-        const iqcCard = document.getElementById('iqcPreview');
-
-        // inisialisasi signal bar dari hidden
-        function renderSignalBars(level) {
+        // === update signal di preview ===
+        function renderSignal(level) {
             let barsHtml = '';
             for (let i = 1; i <= 4; i++) {
-                const height = i === 1 ? 10 : i === 2 ? 14 : i === 3 ? 18 : 22;
-                const bgColor = i <= level ? 'white' : '#3a3a3c';
-                barsHtml += `<div class="bar bar${i}" style="height: ${height}px; background: ${bgColor};"></div>`;
+                let height = i === 1 ? 12 : i === 2 ? 18 : i === 3 ? 24 : 30;
+                let activeClass = i <= level ? '' : 'inactive';
+                barsHtml += `<div class="bar-s sig${i} ${activeClass}" style="height: ${height}px;"></div>`;
             }
-            signalPreview.innerHTML = barsHtml;
+            signalPreviewDiv.innerHTML = barsHtml;
         }
 
-        // update semua tampilan dari input
-        function updatePreview() {
-            timePreview.textContent = timeInput.value || '11.26';
-            messagePreview.textContent = messageInput.value || 'minimal gak ngemis';
-            providerPreview.textContent = providerInput.value || 'INDOSAT OOREDOO';
-            let batt = parseInt(batteryInput.value, 10);
-            if (isNaN(batt)) batt = 8;
-            if (batt < 0) batt = 0;
-            if (batt > 100) batt = 100;
-            batteryPreview.textContent = batt + '%';
+        // === update semua dari input ===
+        function fullUpdate() {
+            // waktu
+            timePrev.textContent = timeInp.value || '20:14';
+            providerPrev.textContent = providerInp.value || 'ORBIT·ID';
+            msgPrev.textContent = msgInp.value || 'hidup bukan saling mendahului';
 
-            let signalLevel = parseInt(signalValue.value, 10) || 4;
-            renderSignalBars(signalLevel);
+            // battery
+            let battVal = parseInt(battSlider.value, 10);
+            if (isNaN(battVal)) battVal = 58;
+            battVal = Math.min(100, Math.max(0, battVal));
+            battSlider.value = battVal;
+            battPercentSpan.textContent = battVal + '%';
+            // update di preview
+            const spanInBatt = battPrev.querySelector('span') || battPrev;
+            battPrev.innerHTML = `<i class="fas fa-bolt" style="color: #e8b339;"></i> <span>${battVal}%</span>`;
+
+            // signal
+            renderSignal(currentSignal);
         }
 
-        // event input
-        timeInput.addEventListener('input', updatePreview);
-        messageInput.addEventListener('input', updatePreview);
-        providerInput.addEventListener('input', updatePreview);
-        batteryInput.addEventListener('input', updatePreview);
-
-        // signal picker
+        // inisialisasi signal option click
         signalOptions.forEach(opt => {
-            opt.addEventListener('click', function(e) {
-                signalOptions.forEach(o => o.classList.remove('selected'));
-                this.classList.add('selected');
-                const bars = this.getAttribute('data-bars');
-                signalValue.value = bars;
-                updatePreview();
+            opt.addEventListener('click', function() {
+                signalOptions.forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                const sigLevel = parseInt(this.getAttribute('data-sig'), 10);
+                if (!isNaN(sigLevel)) {
+                    currentSignal = sigLevel;
+                    renderSignal(currentSignal);
+                }
             });
         });
 
-        // chip template
-        templateChips.forEach(chip => {
+          // chip phrase
+        document.querySelectorAll('.phrase-chip').forEach(chip => {
             chip.addEventListener('click', function() {
-                messageInput.value = this.innerText;
-                updatePreview();
+                msgInp.value = this.innerText;
+                fullUpdate();
             });
         });
 
-        // reset ke nilai awal (contoh) tapi beda tema
-        const resetBtn = document.getElementById('resetBtn');
-        resetBtn.addEventListener('click', function() {
-            timeInput.value = '11.26';
-            messageInput.value = 'minimal gak ngemis';
-            providerInput.value = 'INDOSAT OOREDOO';
-            batteryInput.value = '8';
-            // set signal ke 4
-            signalValue.value = '4';
-            signalOptions.forEach(o => o.classList.remove('selected'));
-            document.querySelector('.bars-option[data-bars="4"]').classList.add('selected');
-            updatePreview();
+        // event listeners
+        timeInp.addEventListener('input', fullUpdate);
+        providerInp.addEventListener('input', fullUpdate);
+        msgInp.addEventListener('input', fullUpdate);
+        battSlider.addEventListener('input', function() {
+            battPercentSpan.textContent = this.value + '%';
+            fullUpdate();
         });
 
-        // download menggunakan html2canvas
-        const downloadBtn = document.getElementById('downloadBtn');
-        downloadBtn.addEventListener('click', function() {
-            html2canvas(iqcCard, {
+        // reset ke default tapi beda dari contoh awal
+        document.getElementById('glResetBtn').addEventListener('click', function() {
+            timeInp.value = '23:47';
+            providerInp.value = 'NEBULA·NET';
+            msgInp.value = 'langit tetap di atas';
+            battSlider.value = '42';
+            currentSignal = 2;  // pilih sinyal 2
+            // set active signal
+            signalOptions.forEach(o => o.classList.remove('active'));
+            document.querySelector('.signal-option[data-sig="2"]').classList.add('active');
+            fullUpdate();
+        });
+
+        // download
+        document.getElementById('glDownloadBtn').addEventListener('click', function() {
+            const card = document.getElementById('glPreviewCard');
+            html2canvas(card, {
                 scale: 2,
-                backgroundColor: null,
+                background: '#0c101c',
                 allowTaint: false,
                 useCORS: true,
-                logging: false,
-                background: '#111113'  // fallback
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'iqc-nova.png';
+                link.download = 'glass-iqc.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-            }).catch(err => {
-                alert('gagal render, coba lagi.');
-            });
+            }).catch(() => alert('coba lagi'));
         });
 
-        // initial render
-        updatePreview();
+        // first call
+        fullUpdate();
 
-        // biar input baterai tidak <0 / >100
-        batteryInput.addEventListener('change', function() {
-            let v = parseInt(this.value, 10);
-            if (isNaN(v)) v = 8;
-            v = Math.min(100, Math.max(0, v));
-            this.value = v;
-            updatePreview();
-        });
+        // biar slider kebaca pas awal
+        battPercentSpan.textContent = battSlider.value + '%';
     })();
 </script>
 </body>
