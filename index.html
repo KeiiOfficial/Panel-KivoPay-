@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</title>
+    <title>KEII OFFICIAL | T5</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -15,18 +15,18 @@
         }
 
         body {
-            background: #0f0719;
-            background: linear-gradient(145deg, #1a0f2a, #0c0620);
-            color: #fff;
+            background: #e0f2ff;
+            background: linear-gradient(145deg, #d4ebff, #b8dcff);
+            color: #1a2b3c;
             min-height: 100vh;
         }
 
-        /* ========== INTRO LOADING ========== */
+        /* ========== INTRO LOADING BIRU CERAH ========== */
         .intro-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #0b0820;
-            background: radial-gradient(circle at 30% 30%, #3c1e6a, #0a0320);
+            background: #004aad;
+            background: radial-gradient(circle at 30% 30%, #2a7fff, #004aad);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -50,7 +50,7 @@
 
         .floating-elements i {
             position: absolute;
-            color: rgba(160, 120, 240, 0.1);
+            color: rgba(255, 255, 255, 0.15);
             font-size: 4rem;
             animation: float 10s infinite ease-in-out;
         }
@@ -68,7 +68,7 @@
         .particle {
             position: absolute;
             width: 4px; height: 4px;
-            background: #c07cff;
+            background: white;
             border-radius: 50%;
             animation: particleFloat 5s infinite;
         }
@@ -80,22 +80,22 @@
         }
 
         .intro-card {
-            background: rgba(30, 15, 50, 0.8);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
-            border: 2px solid #aa66ff;
+            border: 2px solid white;
             border-radius: 60px;
             padding: 3rem 2.5rem;
             text-align: center;
             max-width: 540px;
             width: 90%;
-            box-shadow: 0 0 100px #9f5eff;
+            box-shadow: 0 0 100px #2a7fff;
             position: relative;
             z-index: 10;
             animation: cardGlow 3s infinite alternate;
         }
         @keyframes cardGlow {
-            from { box-shadow: 0 0 50px #7a3fb0; }
-            to { box-shadow: 0 0 120px #b77cff; }
+            from { box-shadow: 0 0 50px #1e5fd9; }
+            to { box-shadow: 0 0 120px #7fb2ff; }
         }
 
         .intro-logo {
@@ -103,8 +103,8 @@
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid #aa66ff;
-            box-shadow: 0 0 60px #c07cff;
+            border: 4px solid white;
+            box-shadow: 0 0 60px #7fb2ff;
             background: white;
         }
         .intro-logo img {
@@ -116,16 +116,16 @@
             font-size: 2.2rem; font-weight: 800;
             color: white;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px #aa66ff;
+            text-shadow: 0 0 20px #004aad;
         }
-        .intro-title span { color: #d9aaff; }
+        .intro-title span { color: #c3e0ff; }
 
         .typing-container {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.1);
             border-radius: 60px;
             padding: 1rem 1.5rem;
             margin: 1.8rem 0;
-            border: 1px solid #d9aaff;
+            border: 1px solid white;
         }
         .typing-text {
             font-size: 1.3rem;
@@ -135,7 +135,7 @@
         .typing-cursor {
             display: inline-block;
             width: 2px; height: 1.8rem;
-            background: #d9aaff;
+            background: white;
             margin-left: 5px;
             animation: blink 1s infinite;
         }
@@ -144,35 +144,35 @@
         .loader-wrapper { margin: 2rem 0; }
         .loader-bg {
             width: 100%; height: 6px;
-            background: #2e1b4a;
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             overflow: hidden;
         }
         .loader-bar {
             height: 100%; width: 0%;
-            background: linear-gradient(90deg, #aa66ff, #d9aaff, #aa66ff);
+            background: linear-gradient(90deg, white, #c3e0ff, white);
             border-radius: 10px;
             transition: width 0.1s ease;
-            box-shadow: 0 0 20px #d9aaff;
+            box-shadow: 0 0 20px white;
         }
         .loader-text {
             margin-top: 1rem;
-            color: #d9aaff;
+            color: white;
             font-size: 0.9rem;
             letter-spacing: 2px;
         }
 
         .enter-btn {
-            background: linear-gradient(45deg, #aa66ff, #c07cff);
-            border: none; color: white;
+            background: white;
+            border: none; color: #004aad;
             font-weight: 700; font-size: 1.2rem;
             padding: 1rem 3rem; border-radius: 60px;
             cursor: pointer; margin-top: 1rem;
             opacity: 0; transform: translateY(20px);
             animation: fadeUp 0.6s ease 4.2s forwards;
-            box-shadow: 0 20px 40px #3b1b60;
+            box-shadow: 0 20px 40px #001f4a;
         }
-        .enter-btn:hover { transform: scale(1.03) translateY(-2px); background: #b77cff; }
+        .enter-btn:hover { transform: scale(1.03) translateY(-2px); background: #c3e0ff; }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         /* ========== MAIN CONTENT ========== */
@@ -189,261 +189,253 @@
             text-align: center;
             margin-bottom: 2rem;
             padding: 1.5rem;
-            background: linear-gradient(145deg, #281a3a, #130b20);
+            background: white;
             border-radius: 40px;
-            border: 1px solid #aa66ff;
+            border: 1px solid #7fb2ff;
+            box-shadow: 0 10px 20px rgba(0, 74, 173, 0.1);
         }
         .store-header h1 {
             font-size: 1.8rem; font-weight: 700;
-            color: #f0e4ff;
+            color: #004aad;
         }
         .store-header p {
-            color: #d9aaff;
+            color: #2a7fff;
             margin-top: 0.5rem;
         }
         .store-header a {
-            color: #c07cff;
+            color: #004aad;
             text-decoration: none;
-            border-bottom: 1px dashed #aa66ff;
+            border-bottom: 1px dashed #2a7fff;
         }
 
-        /* Kategori Title */
-        .kategori-title {
-            font-size: 1.6rem; font-weight: 600;
-            margin: 2rem 0 1rem;
-            color: #f0e4ff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-left: 5px solid #aa66ff;
-            padding-left: 1rem;
-        }
-        .kategori-title i { font-size: 1.8rem; color: #c07cff; }
-
-        /* GRID PRODUK 2 KOLOM DENGAN LOGO */
-        .produk-grid {
+        /* Kategori Grid */
+        .kategori-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
         }
 
-        .produk-card {
-            background: linear-gradient(145deg, #1f1330, #140b22);
-            border-radius: 30px;
-            padding: 1.2rem 1rem;
+        .kategori-card {
+            background: white;
+            border-radius: 40px;
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
-            border: 1px solid #4a2c70;
+            gap: 0.8rem;
+            border: 1px solid #7fb2ff;
             cursor: pointer;
             transition: 0.3s;
-            animation: cardAppear 0.5s backwards;
-            animation-delay: calc(var(--i) * 0.03s);
+            box-shadow: 0 5px 15px rgba(0, 74, 173, 0.05);
         }
-        .produk-card:hover {
-            border-color: #aa66ff;
+        .kategori-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px #3b1b60;
+            border-color: #004aad;
+            box-shadow: 0 15px 30px rgba(0, 74, 173, 0.15);
         }
 
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .produk-logo {
-            width: 40px; height: 40px;
-            background: #2e1b4a;
-            border-radius: 15px;
+        .kategori-logo {
+            width: 50px; height: 50px;
+            background: #e0f2ff;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5px;
-            border: 1px solid #aa66ff;
+            padding: 8px;
         }
-        .produk-logo img {
+        .kategori-logo img {
             width: 100%; height: 100%;
             object-fit: contain;
-            filter: brightness(1.2);
         }
 
+        .kategori-nama {
+            font-size: 1.3rem; font-weight: 700;
+            color: #004aad;
+        }
+        .kategori-desc {
+            color: #2a7fff;
+            font-size: 0.9rem;
+        }
+
+        /* Produk View (per kategori) */
+        .produk-view {
+            background: white;
+            border-radius: 40px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid #7fb2ff;
+        }
+
+        .produk-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px dashed #b8dcff;
+        }
+        .produk-item:last-child { border-bottom: none; }
+
         .produk-nama {
-            font-size: 1rem; font-weight: 600;
-            color: white;
+            font-size: 1.1rem; font-weight: 500;
+            color: #1a2b3c;
         }
         .produk-harga {
             font-size: 1.2rem; font-weight: 700;
-            color: #ffb366;
-            margin-top: 0.3rem;
+            color: #004aad;
+        }
+        .btn-pilih {
+            background: #2a7fff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn-pilih:hover { background: #004aad; }
+
+        .back-btn {
+            background: white;
+            border: 1px solid #7fb2ff;
+            color: #004aad;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            display: inline-block;
         }
 
-        /* Payment Section */
-        .payment-section {
-            background: linear-gradient(145deg, #1f1330, #140b22);
+        /* Order View */
+        .order-view {
+            background: white;
             border-radius: 40px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid #aa66ff;
-        }
-        .payment-title {
-            font-size: 1.5rem; color: #d9aaff;
-            margin-bottom: 1.5rem; text-align: center;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border: 1px solid #7fb2ff;
         }
 
-        /* Format Order */
+        .order-detail {
+            background: #e0f2ff;
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
         .format-order {
-            background: #1a0f26;
+            background: #f0f8ff;
             border-radius: 30px;
             padding: 1.5rem;
             margin: 1.5rem 0;
-            border: 2px dashed #aa66ff;
-        }
-        .format-order h4 {
-            color: #ffb366;
-            margin-bottom: 1rem;
-            display: flex; align-items: center; gap: 8px;
+            border: 2px dashed #2a7fff;
         }
         .format-row {
             display: flex; margin: 0.8rem 0; align-items: center;
         }
         .format-label {
-            width: 80px; color: #d9aaff;
-        }
-        .format-value {
-            flex: 1; color: white; font-weight: 600;
+            width: 80px; color: #004aad; font-weight: 600;
         }
         .format-input {
-            flex: 1; background: #2e1b4a;
-            border: 1px solid #4a2c70; border-radius: 50px;
-            padding: 0.6rem 1rem; color: white;
+            flex: 1; background: white;
+            border: 1px solid #b8dcff; border-radius: 50px;
+            padding: 0.6rem 1rem; color: #1a2b3c;
         }
         .format-buttons {
             display: flex; gap: 0.8rem; margin-top: 1.5rem;
         }
         .format-btn {
-            flex: 1; background: #aa66ff; color: white;
+            flex: 1; background: #2a7fff; color: white;
             border: none; padding: 0.8rem; border-radius: 50px;
             font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            font-size: 0.9rem;
         }
-        .format-btn.copy { background: #2e1b4a; border: 1px solid #aa66ff; }
+        .format-btn.copy { background: white; color: #004aad; border: 1px solid #2a7fff; }
 
         .warning-box {
-            background: rgba(200, 70, 70, 0.15);
+            background: #fff0f0;
             border: 1px solid #ff6666;
             border-radius: 30px;
             padding: 1.2rem;
             margin: 1.5rem 0;
             text-align: center;
-            color: #ffaaaa;
-            font-weight: 600;
+            color: #cc3333;
         }
-        .warning-box i { color: #ff6666; margin-right: 8px; }
 
         .payment-metode {
-            display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem;
+            display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0;
         }
         .metode-card {
-            background: #1a0f26; border-radius: 30px;
-            padding: 1.5rem; border: 1px solid #4a2c70;
-        }
-        .metode-header {
-            display: flex; align-items: center; gap: 10px;
-            margin-bottom: 1rem; font-size: 1.3rem; color: #ffb366;
+            background: #e0f2ff; border-radius: 30px;
+            padding: 1.2rem; border: 1px solid #7fb2ff;
         }
         .metode-number {
-            background: #2e1b4a; padding: 0.8rem; border-radius: 50px;
-            text-align: center; font-size: 1.2rem; color: #d9aaff;
-            border: 1px solid #aa66ff; cursor: pointer; margin-bottom: 1rem;
+            background: white; padding: 0.6rem; border-radius: 50px;
+            text-align: center; font-size: 1.1rem; color: #004aad;
+            margin: 0.8rem 0; cursor: pointer;
         }
         .qris-preview {
             text-align: center; margin: 1rem 0;
         }
         .qris-preview img {
             max-width: 200px; width: 100%; border-radius: 15px;
-            border: 2px solid #aa66ff; cursor: pointer;
+            border: 2px solid #2a7fff; cursor: pointer;
         }
-        .btn-popup {
-            background: #aa66ff; border: none; color: white;
-            padding: 0.8rem; border-radius: 50px; font-weight: 600;
-            cursor: pointer; width: 100%;
-        }
-        .back-btn {
-            background: #2e1b4a; border: 1px solid #aa66ff; color: white;
-            padding: 0.8rem 1.5rem; border-radius: 50px;
-            margin-bottom: 1.5rem; cursor: pointer; width: fit-content;
-        }
-          /* Admin */
-        .admin-section {
-            text-align: center; margin: 1.5rem 0;
-        }
-        .admin-btn {
-            background: #2e1b4a; border: 1px solid #aa66ff;
-            color: #d9aaff; padding: 0.6rem 1.2rem; border-radius: 50px;
-            text-decoration: none; font-weight: 600; display: inline-flex;
-            align-items: center; gap: 8px; font-size: 0.9rem;
-        }
-
-        /* Pop-up Join Saluran */
-        .channel-popup {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px); align-items: center; justify-content: center;
-            z-index: 3000; padding: 1rem;
-        }
-        .channel-popup.show { display: flex; }
-        .popup-content {
-            background: #1f1330; border-radius: 40px; padding: 1.5rem;
-            text-align: center; max-width: 320px; width: 90%;
-            border: 2px solid #25D366;
-        }
-        .popup-content i { font-size: 2.5rem; color: #25D366; margin-bottom: 0.5rem; }
-        .popup-content h2 { color: #25D366; margin-bottom: 0.5rem; font-size: 1.4rem; }
-        .popup-content p { color: #ccc; margin-bottom: 1rem; font-size: 0.85rem; }
-        .popup-buttons { display: flex; gap: 0.8rem; justify-content: center; }
-        .popup-btn {
-            padding: 0.5rem 1.2rem; border-radius: 40px; border: none;
-            font-weight: 600; cursor: pointer; font-size: 0.85rem;
-        }
-        .popup-btn.join { background: #25D366; color: white; }
-        .popup-btn.close { background: #4a2c70; color: white; }
 
         /* Modal */
         .modal {
             display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px); align-items: center; justify-content: center;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px); align-items: center; justify-content: center;
             z-index: 2000; padding: 1rem;
         }
         .modal-content {
-            background: #1f1330; border-radius: 60px; padding: 2rem;
+            background: white; border-radius: 60px; padding: 2rem;
             text-align: center; max-width: 500px; width: 100%;
-            border: 3px solid #aa66ff;
+            border: 3px solid #2a7fff;
         }
         .modal-content img {
             max-width: 350px; width: 100%; margin: 1.5rem 0; border-radius: 20px;
         }
         .modal-close {
-            background: #aa66ff; color: white; border: none;
+            background: #2a7fff; color: white; border: none;
             padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; cursor: pointer;
         }
 
-        .footer {
-            text-align: center; margin-top: 2rem; color: #6a4a9a;
+        /* Pop-up Join Saluran */
+        .channel-popup {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px); align-items: center; justify-content: center;
+            z-index: 3000; padding: 1rem;
         }
+        .channel-popup.show { display: flex; }
+        .popup-content {
+            background: white; border-radius: 40px; padding: 1.5rem;
+            text-align: center; max-width: 320px; width: 90%;
+            border: 3px solid #25D366;
+        }
+        .popup-content i { font-size: 2.5rem; color: #25D366; }
+        .popup-btn.join { background: #25D366; color: white; border: none; padding: 0.5rem 1.2rem; border-radius: 40px; }
+        .popup-btn.close { background: #ddd; color: #333; border: none; padding: 0.5rem 1.2rem; border-radius: 40px; }
+
+        .admin-section { text-align: center; margin: 1.5rem 0; }
+        .admin-btn {
+            background: #2a7fff; color: white; padding: 0.6rem 1.2rem;
+            border-radius: 50px; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 8px;
+        }
+
+        .footer { text-align: center; margin-top: 2rem; color: #2a7fff; }
         audio { display: none; }
     </style>
 </head>
 <body>
-    <!-- POP-UP JOIN SALURAN WA -->
+    <!-- POP-UP JOIN SALURAN -->
     <div class="channel-popup" id="channelPopup">
         <div class="popup-content">
             <i class="fab fa-whatsapp"></i>
-            <h2>Join Saluran WA</h2>
-            <p>Dapatkan info terbaru, promo, dan update produk langsung dari saluran resmi Keii Official.</p>
-            <div class="popup-buttons">
+            <h2 style="color:#075e54;">Join Saluran WA</h2>
+            <p style="color:#333;">Dapatkan info terbaru, promo, dan update produk langsung dari saluran resmi Keii Official.</p>
+            <div style="display:flex; gap:0.8rem; justify-content:center; margin-top:1rem;">
                 <a href="https://whatsapp.com/channel/0029VbCMhxiLSmbSzw8kOv0q" target="_blank" class="popup-btn join"><i class="fab fa-whatsapp"></i> Join</a>
                 <button class="popup-btn close" onclick="closeChannelPopup()">Nanti</button>
             </div>
@@ -453,15 +445,14 @@
     <!-- INTRO LOADING -->
     <div class="intro-screen" id="introScreen">
         <div class="floating-elements">
-            <i class="fas fa-crown"></i> <i class="fas fa-star"></i> <i class="fas fa-gem"></i>
-            <i class="fas fa-crown"></i> <i class="fas fa-star"></i> <i class="fas fa-gem"></i>
+            <i class="fas fa-circle"></i> <i class="fas fa-square"></i> <i class="fas fa-triangle"></i>
         </div>
         <div class="particles" id="particles"></div>
         <div class="intro-card">
             <div class="intro-logo">
                 <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="Keii Logo">
             </div>
-            <div class="intro-title">— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</div>
+            <div class="intro-title">KEII <span>OFFICIAL</span></div>
             <div class="typing-container">
                 <div class="typing-text" id="typingText"></div>
                 <span class="typing-cursor"></span>
@@ -479,113 +470,81 @@
     <!-- MAIN CONTENT -->
     <div class="main-content" id="mainContent" style="display: none;">
         <div class="store-header">
-            <h1>— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</h1>
+            <h1>KEII OFFICIAL | T5</h1>
             <p><i class="fab fa-telegram"></i> <a href="https://t.me/keiiofficial">@keiiofficial</a></p>
         </div>
 
-        <!-- VIEW PRODUK -->
-        <div id="produkView">
-            <!-- APLIKASI BUG NIKA v27 -->
-            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/14d64071e23b494337.png" style="width:30px; height:30px; border-radius:10px;"> APLIKASI BUG NIKA v27</div>
-            <div class="produk-grid" id="bugNikaGrid"></div>
-
-            <!-- APLIKASI BUG XCVI v9 -->
-            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" style="width:30px; height:30px; border-radius:10px;"> APLIKASI BUG XCVI v9</div>
-            <div class="produk-grid" id="bugXcviGrid"></div>
-
-            <!-- NOKOS WHATSAPP -->
-            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png" style="width:30px; height:30px; border-radius:10px;"> NOKOS WHATSAPP</div>
-            <div class="produk-grid" id="nokosGrid"></div>
-
-            <!-- PANEL & TITLE (digabung) -->
-            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png" style="width:30px; height:30px; border-radius:10px;"> PANEL PTERODACTYL</div>
-            <div class="produk-grid" id="panelGrid"></div>
-
-            <!-- SEWA BOT JAGA GROUP -->
-            <div class="kategori-title"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png" style="width:30px; height:30px; border-radius:10px;"> SEWA BOT JAGA GROUP</div>
-            <div class="produk-grid" id="sewaBotGrid"></div>
-
-            <!-- TITLE PANEL (digabung di atas, tapi ditampilkan di sini) -->
-            <div class="kategori-title"><i class="fas fa-crown"></i> TITLE PANEL PTERODACTYL</div>
-            <div class="produk-grid" id="titleGrid"></div>
-        </div>
-
-        <!-- VIEW PEMBAYARAN -->
-        <div id="paymentView" style="display: none;">
-            <button class="back-btn" id="backToProduk"><i class="fas fa-arrow-left"></i> Kembali</button>
-
-            <div class="payment-section">
-                <div class="payment-title" id="selectedProdukInfo">Pilih produk dulu</div>
-
-                <!-- FORMAT ORDER -->
-                <div class="format-order" id="formatOrder">
-                    <h4><i class="fas fa-shopping-cart"></i> Format Order</h4>
-                    <div class="format-row">
-                        <span class="format-label">Produk:</span>
-                        <span class="format-value" id="formatProduk">-</span>
-                    </div>
-                    <div class="format-row">
-                        <span class="format-label">Harga:</span>
-                        <span class="format-value" id="formatHarga">-</span>
-                    </div>
-                    <div class="format-row">
-                        <span class="format-label">Nama:</span>
-                        <input type="text" class="format-input" id="inputNama" placeholder="Nama Anda" value="Customer">
-                    </div>
-                    <div class="format-row">
-                        <span class="format-label">No. HP:</span>
-                        <input type="text" class="format-input" id="inputNoHP" placeholder="08xxxxxxxxxx" value="08xxxxxxxxxx">
-                    </div>
-                    <div class="format-buttons">
-                        <button class="format-btn copy" onclick="copyFormat()"><i class="fas fa-copy"></i> Salin</button>
-                        <button class="format-btn" onclick="sendToTelegram()"><i class="fab fa-telegram"></i> Kirim</button>
-                    </div>
+        <!-- HALAMAN KATEGORI (default) -->
+        <div id="kategoriView">
+            <div class="kategori-grid">
+                <!-- Kategori 1: Bug Nika -->
+                <div class="kategori-card" onclick="showKategori('bugNika')">
+                    <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/14d64071e23b494337.png"></div>
+                    <div class="kategori-nama">BUG NIKA v27</div>
+                    <div class="kategori-desc">4 produk tersedia</div>
                 </div>
-
-                <!-- PERINGATAN -->
-                <div class="warning-box">
-                    <i class="fas fa-exclamation-triangle"></i> Sesudah Bayar Harap Chat Admin Jika Tidak Ada Chat & Bukti Transfer Tidak Akan Di Proses
+                <!-- Kategori 2: Bug XCVI -->
+                <div class="kategori-card" onclick="showKategori('bugXcvi')">
+                    <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png"></div>
+                    <div class="kategori-nama">BUG XCVI v9</div>
+                    <div class="kategori-desc">5 produk tersedia</div>
                 </div>
-
-                <!-- METODE PEMBAYARAN -->
-                <div class="payment-metode">
-                    <div class="metode-card">
-                        <div class="metode-header"><i class="fas fa-wallet"></i> DANA</div>
-                        <div class="metode-number" onclick="copyNumber('087753513090')">0877 5351 3090</div>
-                        <button class="btn-popup" onclick="showDanaModal()">Tampilkan</button>
-                    </div>
-                    <div class="metode-card">
-                        <div class="metode-header"><i class="fas fa-qrcode"></i> QRIS</div>
-                        <div class="qris-preview" onclick="openQrisModal()">
-                            <img src="https://images.bukaolshop.com/hosting/181218/15b9e709ce2931209.png" alt="QRIS">
-                        </div>
-                        <button class="btn-popup" onclick="openQrisModal()">Perbesar QRIS</button>
-                    </div>
+                <!-- Kategori 3: Nokos WhatsApp -->
+                <div class="kategori-card" onclick="showKategori('nokos')">
+                    <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"></div>
+                    <div class="kategori-nama">NOKOS WA</div>
+                    <div class="kategori-desc">4 negara</div>
                 </div>
-
-                <div class="admin-section">
-                    <a href="https://t.me/keiiofficial" class="admin-btn"><i class="fab fa-telegram"></i> @keiiofficial</a>
+                <!-- Kategori 4: Panel Pterodactyl -->
+                <div class="kategori-card" onclick="showKategori('panel')">
+                    <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
+                    <div class="kategori-nama">PANEL</div>
+                    <div class="kategori-desc">8 pilihan RAM</div>
+                </div>
+                <!-- Kategori 5: Sewa Bot -->
+                <div class="kategori-card" onclick="showKategori('sewaBot')">
+                    <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
+                    <div class="kategori-nama">SEWA BOT</div>
+                    <div class="kategori-desc">Jaga Group</div>
+                </div>
+                <!-- Kategori 6: Title Panel -->
+                <div class="kategori-card" onclick="showKategori('title')">
+                    <div class="kategori-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
+                    <div class="kategori-nama">TITLE PANEL</div>
+                    <div class="kategori-desc">Reseller/Admin</div>
                 </div>
             </div>
         </div>
 
+        <!-- HALAMAN PRODUK (per kategori) -->
+        <div id="produkView" style="display: none;">
+            <button class="back-btn" id="backToKategori"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <div class="produk-view" id="produkContainer"></div>
+        </div>
+
+        <!-- HALAMAN ORDER -->
+        <div id="orderView" style="display: none;">
+            <button class="back-btn" id="backToProduk"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <div class="order-view" id="orderContainer"></div>
+        </div>
+
         <div class="footer">
-            <p>© 2026 — ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭</p>
+            <p>© 2026 KEII OFFICIAL | T5</p>
         </div>
     </div>
 
     <!-- MODALS -->
     <div class="modal" id="danaModal">
         <div class="modal-content">
-            <i class="fas fa-wallet" style="font-size:4rem; color:#d9aaff;"></i>
-            <h2 style="color:#d9aaff;">DANA</h2>
-            <div style="background:#2e1b4a; padding:1rem; border-radius:50px; font-size:1.5rem;">0877 5351 3090</div>
+            <i class="fas fa-wallet" style="font-size:4rem; color:#004aad;"></i>
+            <h2>DANA</h2>
+            <div style="background:#e0f2ff; padding:1rem; border-radius:50px;">0877 5351 3090</div>
             <button class="modal-close" onclick="closeModal('danaModal')">Tutup</button>
         </div>
     </div>
     <div class="modal" id="qrisModal">
         <div class="modal-content">
-            <h2 style="color:#d9aaff;">QRIS</h2>
+            <h2>QRIS</h2>
             <img src="https://images.bukaolshop.com/hosting/181218/15b9e709ce2931209.png" alt="QRIS">
             <button class="modal-close" onclick="closeModal('qrisModal')">Tutup</button>
         </div>
@@ -597,7 +556,7 @@
     </audio>
 
     <script>
-        // ========== DATA PRODUK ==========
+      // ========== DATA PRODUK ==========
         const produkData = {
             bugNika: [
                 { nama: "Akses 7 Hari", harga: "Rp 25.000" },
@@ -613,10 +572,10 @@
                 { nama: "Permanen", harga: "Rp 50.000" }
             ],
             nokos: [
-                { nama: "Nokos Indonesia", harga: "Rp 8.000" },
-                { nama: "Nokos Filipina", harga: "Rp 19.000" },
-                { nama: "Nokos Malaysia", harga: "Rp 10.000" },
-                { nama: "Nokos Hongkong", harga: "Rp 12.000" }
+                { nama: "Indonesia", harga: "Rp 8.000" },
+                { nama: "Filipina", harga: "Rp 19.000" },
+                { nama: "Malaysia", harga: "Rp 10.000" },
+                { nama: "Hongkong", harga: "Rp 12.000" }
             ],
             panel: [
                 { nama: "4 GB", harga: "Rp 3.000" }, { nama: "5 GB", harga: "Rp 4.000" },
@@ -628,111 +587,107 @@
                 { nama: "5 Hari", harga: "Rp 3.000" }, { nama: "10 Hari", harga: "Rp 5.000" },
                 { nama: "15 Hari", harga: "Rp 10.000" }, { nama: "1 Bulan", harga: "Rp 25.000" },
                 { nama: "2 Bulan", harga: "Rp 30.000" }, { nama: "3 Bulan", harga: "Rp 35.000" },
-                { nama: "Script Bot", harga: "Rp 30.000 Free Panel" }
+                { nama: "Script Bot", harga: "Rp 30.000 (Free Panel)" }
             ],
             title: [
                 { nama: "Reseller Panel", harga: "Rp 15.000" },
-                { nama: "Admin Panel", harga: "Rp 20.000 (Spek Vps Ram 16GB c8)" }
+                { nama: "Admin Panel", harga: "Rp 20.000 (VPS 16GB c8)" }
             ]
         };
 
-        let selectedKategori = '', selectedNama = '', selectedHarga = '';
+        let selectedKategori = '', selectedItem = '', selectedHarga = '';
 
-        function renderProduk() {
-            // Bug Nika
-            let html = '';
-            produkData.bugNika.forEach((item, i) => {
-                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Bug Nika', '${item.nama}', '${item.harga}')">
-                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/14d64071e23b494337.png"></div>
-                    <div class="produk-nama">${item.nama}</div>
-                    <div class="produk-harga">${item.harga}</div>
+        // ========== NAVIGASI ==========
+        window.showKategori = (kat) => {
+            const items = produkData[kat];
+            let html = `<h3 style="margin-bottom:1rem; color:#004aad;">${kat === 'bugNika' ? 'BUG NIKA v27' : kat === 'bugXcvi' ? 'BUG XCVI v9' : kat === 'nokos' ? 'NOKOS WHATSAPP' : kat === 'panel' ? 'PANEL PTERODACTYL' : kat === 'sewaBot' ? 'SEWA BOT JAGA GROUP' : 'TITLE PANEL'}</h3>`;
+            items.forEach(item => {
+                html += `<div class="produk-item">
+                    <span class="produk-nama">${item.nama}</span>
+                    <span class="produk-harga">${item.harga}</span>
+                    <button class="btn-pilih" onclick="pilihProduk('${kat}', '${item.nama}', '${item.harga}')">Pilih</button>
                 </div>`;
             });
-            document.getElementById('bugNikaGrid').innerHTML = html;
-
-            // Bug XCVI
-            html = '';
-            produkData.bugXcvi.forEach((item, i) => {
-                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Bug XCVI', '${item.nama}', '${item.harga}')">
-                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png"></div>
-                    <div class="produk-nama">${item.nama}</div>
-                    <div class="produk-harga">${item.harga}</div>
-                </div>`;
-            });
-            document.getElementById('bugXcviGrid').innerHTML = html;
-
-            // Nokos
-            html = '';
-            produkData.nokos.forEach((item, i) => {
-                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Nokos WhatsApp', '${item.nama}', '${item.harga}')">
-                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/7266732e2e41874360.png"></div>
-                    <div class="produk-nama">${item.nama}</div>
-                    <div class="produk-harga">${item.harga}</div>
-                </div>`;
-            });
-            document.getElementById('nokosGrid').innerHTML = html;
-
-            // Panel
-            html = '';
-            produkData.panel.forEach((item, i) => {
-                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Panel Pterodactyl', '${item.nama}', '${item.harga}')">
-                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
-                    <div class="produk-nama">${item.nama}</div>
-                    <div class="produk-harga">${item.harga}</div>
-                </div>`;
-            });
-            document.getElementById('panelGrid').innerHTML = html;
-
-            // Sewa Bot
-            html = '';
-            produkData.sewaBot.forEach((item, i) => {
-                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Sewa Bot Jaga Group', '${item.nama}', '${item.harga}')">
-                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
-                    <div class="produk-nama">${item.nama}</div>
-                    <div class="produk-harga">${item.harga}</div>
-                </div>`;
-            });
-            document.getElementById('sewaBotGrid').innerHTML = html;
-
-            // Title Panel
-            html = '';
-            produkData.title.forEach((item, i) => {
-                html += `<div class="produk-card" style="--i:${i}" onclick="pilihProduk('Title Panel', '${item.nama}', '${item.harga}')">
-                    <div class="produk-logo"><img src="https://images.bukaolshop.com/hosting/181218/0e2fc56f3780364168.png"></div>
-                    <div class="produk-nama">${item.nama}</div>
-                    <div class="produk-harga">${item.harga}</div>
-                </div>`;
-            });
-            document.getElementById('titleGrid').innerHTML = html;
-        }
-
-        window.pilihProduk = (kat, nama, harga) => {
-            selectedKategori = kat; selectedNama = nama; selectedHarga = harga;
-            document.getElementById('selectedProdukInfo').innerHTML = `<h3>${kat}</h3><p>${nama}</p><p style="color:#ffb366; font-size:1.5rem;">${harga}</p>`;
-            document.getElementById('formatProduk').textContent = `${kat} - ${nama}`;
-            document.getElementById('formatHarga').textContent = harga;
-            document.getElementById('produkView').style.display = 'none';
-            document.getElementById('paymentView').style.display = 'block';
+            document.getElementById('produkContainer').innerHTML = html;
+            document.getElementById('kategoriView').style.display = 'none';
+            document.getElementById('produkView').style.display = 'block';
+            document.getElementById('orderView').style.display = 'none';
         };
 
-        // ========== FUNGSI FORMAT ==========
+        window.pilihProduk = (kat, nama, harga) => {
+            selectedKategori = kat; selectedItem = nama; selectedHarga = harga;
+            let html = `
+                <div class="order-detail">
+                    <h3 style="color:#004aad;">${kat}</h3>
+                    <p style="font-size:1.2rem; margin:0.5rem 0;">${nama}</p>
+                    <p style="font-size:1.5rem; color:#004aad; font-weight:700;">${harga}</p>
+                </div>
+                <div class="format-order">
+                    <h4 style="color:#004aad;"><i class="fas fa-shopping-cart"></i> Format Order</h4>
+                    <div class="format-row"><span class="format-label">Produk:</span><span style="flex:1; color:#004aad;" id="formatProduk">${kat} - ${nama}</span></div>
+                    <div class="format-row"><span class="format-label">Harga:</span><span style="flex:1; color:#004aad;" id="formatHarga">${harga}</span></div>
+                    <div class="format-row"><span class="format-label">Nama:</span><input type="text" class="format-input" id="inputNama" value="Customer"></div>
+                    <div class="format-row"><span class="format-label">No. HP:</span><input type="text" class="format-input" id="inputNoHP" value="08xxxxxxxxxx"></div>
+                    <div class="format-buttons">
+                        <button class="format-btn copy" onclick="copyFormat()">Salin</button>
+                        <button class="format-btn" onclick="sendToTelegram()">Kirim</button>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i> Sesudah Bayar Harap Chat Admin Jika Tidak Ada Chat & Bukti Transfer Tidak Akan Di Proses
+                </div>
+                <h4 style="color:#004aad; margin:1rem 0;">Metode Pembayaran</h4>
+                <div class="payment-metode">
+                    <div class="metode-card">
+                        <div style="font-weight:600;">DANA</div>
+                        <div class="metode-number" onclick="copyNumber('087753513090')">0877 5351 3090</div>
+                        <button class="format-btn" onclick="showDanaModal()" style="background:#2a7fff;">Tampilkan</button>
+                    </div>
+                    <div class="metode-card">
+                        <div style="font-weight:600;">QRIS</div>
+                        <div class="qris-preview" onclick="openQrisModal()">
+                            <img src="https://images.bukaolshop.com/hosting/181218/15b9e709ce2931209.png">
+                        </div>
+                        <button class="format-btn" onclick="openQrisModal()" style="background:#2a7fff;">Perbesar QRIS</button>
+                    </div>
+                </div>
+                <div class="admin-section">
+                    <a href="https://t.me/keiiofficial" class="admin-btn"><i class="fab fa-telegram"></i> @keiiofficial</a>
+                </div>
+            `;
+            document.getElementById('orderContainer').innerHTML = html;
+            document.getElementById('produkView').style.display = 'none';
+            document.getElementById('orderView').style.display = 'block';
+        };
+
+        // ========== BACK BUTTONS ==========
+        document.getElementById('backToKategori').addEventListener('click', () => {
+            document.getElementById('produkView').style.display = 'none';
+            document.getElementById('kategoriView').style.display = 'block';
+        });
+        document.getElementById('backToProduk').addEventListener('click', () => {
+            document.getElementById('orderView').style.display = 'none';
+            document.getElementById('produkView').style.display = 'block';
+        });
+
+        // ========== FUNGSI ORDER ==========
         window.copyFormat = () => {
             const nama = document.getElementById('inputNama').value;
             const noHP = document.getElementById('inputNoHP').value;
-            const teks = `ORDER BARU\n\nProduk: ${selectedKategori} - ${selectedNama}\nHarga: ${selectedHarga}\nNama: ${nama}\nNo. HP: ${noHP}\n\nBukti transfer menyusul.`;
+            const teks = `ORDER BARU\n\nProduk: ${selectedKategori} - ${selectedItem}\nHarga: ${selectedHarga}\nNama: ${nama}\nNo. HP: ${noHP}\n\nBukti transfer menyusul.`;
             navigator.clipboard.writeText(teks).then(() => alert('Format order disalin!'));
         };
         window.sendToTelegram = () => {
             const nama = document.getElementById('inputNama').value;
             const noHP = document.getElementById('inputNoHP').value;
-            const teks = `ORDER BARU%0A%0AProduk: ${selectedKategori} - ${selectedNama}%0AHarga: ${selectedHarga}%0ANama: ${nama}%0ANo. HP: ${noHP}%0A%0ABukti transfer menyusul.`;
+            const teks = `ORDER BARU%0A%0AProduk: ${selectedKategori} - ${selectedItem}%0AHarga: ${selectedHarga}%0ANama: ${nama}%0ANo. HP: ${noHP}%0A%0ABukti transfer menyusul.`;
             window.open(`https://t.me/keiiofficial?text=${teks}`, '_blank');
         };
 
         // ========== INTRO ==========
         function createParticles() {
             const container = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 20; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
                 p.style.left = Math.random() * 100 + '%';
@@ -743,17 +698,17 @@
         }
         createParticles();
 
-        const phrases = ["— ⌭ 𝐊𝐄𝐈𝐈 𝐎𝐅𝐅𝐈𝐂𝐈𝐀𝐋 | 𝐓𝟓 ⌭", "Bug Nika • Bug XCVI • Nokos", "Panel • Sewa Bot • Title"];
+        const phrases = ["Selamat Datang Di Keii Official", "Bug Nika • Bug XCVI • Panel", "Nokos • Sewa Bot • Title"];
         let pIndex = 0, cIndex = 0, isDeleting = false;
         const typingEl = document.getElementById('typingText');
         function typeEffect() {
             const current = phrases[pIndex];
             if (!isDeleting && cIndex <= current.length) {
                 typingEl.textContent = current.substring(0, cIndex++);
-                setTimeout(typeEffect, 120);
+                setTimeout(typeEffect, 100);
             } else if (isDeleting && cIndex >= 0) {
                 typingEl.textContent = current.substring(0, cIndex--);
-                setTimeout(typeEffect, 60);
+                setTimeout(typeEffect, 50);
             } else {
                 isDeleting = !isDeleting;
                 if (!isDeleting) pIndex = (pIndex + 1) % phrases.length;
@@ -787,11 +742,6 @@
 
         window.closeChannelPopup = () => channelPopup.classList.remove('show');
 
-        document.getElementById('backToProduk').addEventListener('click', () => {
-            document.getElementById('paymentView').style.display = 'none';
-            document.getElementById('produkView').style.display = 'block';
-        });
-
         window.showDanaModal = () => document.getElementById('danaModal').style.display = 'flex';
         window.openQrisModal = () => document.getElementById('qrisModal').style.display = 'flex';
         window.closeModal = (id) => document.getElementById(id).style.display = 'none';
@@ -800,8 +750,6 @@
             if (e.target.classList.contains('modal')) e.target.style.display = 'none';
             if (e.target.classList.contains('channel-popup')) e.target.classList.remove('show');
         };
-
-        renderProduk();
     </script>
 </body>
-</html>
+</html>  
