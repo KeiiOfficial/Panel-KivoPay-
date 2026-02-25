@@ -439,6 +439,139 @@
             font-size: 18px;
         }
 
+        /* ===== PRODUCT CATEGORIES ===== */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid #8a2be2;
+            color: white;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-utama);
+            border-color: transparent;
+        }
+
+        .tab-btn:hover {
+            background: #8a2be2;
+        }
+
+        /* ===== PRODUCT GRID ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 30px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-utama);
+            opacity: 0.1;
+            transition: 0.5s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #8a2be2;
+            box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-utama);
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .product-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: var(--gradient-utama);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .product-price {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .product-desc {
+            color: #aaa;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .product-desc i {
+            color: #00ff00;
+            margin-right: 5px;
+        }
+         .btn-product {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient-utama);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .btn-product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #8a2be2;
+        }
+
         /* ===== TESTIMONI CARD ===== */
         .testimoni-card {
             background: var(--bg-card);
@@ -565,6 +698,10 @@
             z-index: 2;
         }
 
+        .contact-icon i {
+            font-size: 60px;
+        }
+
         .contact-icon img {
             width: 100%;
             height: 100%;
@@ -612,7 +749,8 @@
             margin-top: 100px;
             border-top: 2px solid #8a2be2;
         }
-           .footer-content {
+
+        .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
@@ -724,8 +862,12 @@
             .contact-grid {
                 grid-template-columns: 1fr;
             }
-        }
-    </style>
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            }
+         </style>
 </head>
 <body>
     <!-- BACKGROUND ANIMATION -->
@@ -736,20 +878,14 @@
 
     <!-- FLOATING LOGOS (WA & TELEGRAM) -->
     <div class="floating-logos">
-        <!-- LOGO WHATSAPP - LANGSUNG KE WA -->
+        <!-- LOGO WHATSAPP -->
         <div class="logo-circle whatsapp" onclick="window.open('https://wa.me/6285657279971', '_blank')">
-            <!-- PAKAI ICON FONT AWESOME DULU, NANTI BISA DIGANTI DENGAN LINK GAMBAR -->
             <i class="fab fa-whatsapp"></i>
-            <!-- UNTUK PAKAI GAMBAR, HAPUS ICON DI ATAS DAN UNCOMMENT CODE DI BAWAH -->
-            <!-- <img src="https://images.bukaolshop.com/hosting/181218/60c88b2821bf500477.png" alt="WhatsApp"> -->
         </div>
         
-        <!-- LOGO TELEGRAM - LANGSUNG KE TELEGRAM -->
+        <!-- LOGO TELEGRAM -->
         <div class="logo-circle telegram" onclick="window.open('https://t.me/keiiofficial', '_blank')">
-            <!-- PAKAI ICON FONT AWESOME DULU -->
             <i class="fab fa-telegram-plane"></i>
-            <!-- UNTUK PAKAI GAMBAR, HAPUS ICON DI ATAS DAN UNCOMMENT CODE DI BAWAH -->
-            <!-- <img src="https://images.bukaolshop.com/hosting/181218/450cb4fcb88a174062.png" alt="Telegram"> -->
         </div>
     </div>
 
@@ -774,6 +910,7 @@
             </div>
             <div class="nav-links">
                 <a href="#home">Home</a>
+                <a href="#products">Products</a>
                 <a href="#testimoni">Testimoni</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -782,7 +919,7 @@
 
     <!-- MAIN CONTENT -->
     <main>
-        <!-- HERO SECTION -->
+        <!-- HERO SECTION - SESUAI GAMBAR -->
         <section class="hero" id="home">
             <div class="container">
                 <div class="hero-content">
@@ -820,7 +957,237 @@
             </div>
         </section>
 
-        <!-- TESTIMONI SECTION -->
+        <!-- PRODUCTS SECTION - LENGKAP DENGAN SEMUA PRODUK -->
+        <section class="container" id="products">
+            <div class="section-title">
+                <h2>OUR <span>PRODUCTS</span></h2>
+                <p>Pilih produk sesuai kebutuhanmu</p>
+            </div>
+
+            <!-- CATEGORY TABS -->
+            <div class="category-tabs">
+                <button class="tab-btn active" onclick="filterProducts('all')">ALL</button>
+                <button class="tab-btn" onclick="filterProducts('murbug')">MURBUG</button>
+                <button class="tab-btn" onclick="filterProducts('script')">SCRIPT</button>
+                <button class="tab-btn" onclick="filterProducts('panel')">PANEL</button>
+            </div>
+
+            <!-- PRODUCT GRID - MURBUG CATEGORY -->
+            <div class="product-grid" id="productGrid">
+                <!-- MURBUG 1 MINGGU -->
+                <div class="product-card" data-category="murbug">
+                    <div class="product-badge">HOT</div>
+                    <div class="product-icon">⚡</div>
+                    <div class="product-name">Murbug 1 Minggu</div>
+                    <div class="product-price">Rp 5.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Murbug aktif 7 hari<br>
+                        <i class="fas fa-check-circle"></i> Full fitur<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Murbug 1 Minggu', 5000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- MURBUG 1 BULAN -->
+                <div class="product-card" data-category="murbug">
+                    <div class="product-badge">POPULER</div>
+                    <div class="product-icon">🔥</div>
+                    <div class="product-name">Murbug 1 Bulan</div>
+                    <div class="product-price">Rp 10.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Murbug aktif 30 hari<br>
+                        <i class="fas fa-check-circle"></i> Full fitur<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Murbug 1 Bulan', 10000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- MURBUG PERMANEN -->
+                <div class="product-card" data-category="murbug">
+                    <div class="product-badge">BEST</div>
+                    <div class="product-icon">💀</div>
+                    <div class="product-name">Murbug Permanen</div>
+                    <div class="product-price">Rp 15.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Murbug aktif selamanya<br>
+                        <i class="fas fa-check-circle"></i> Full fitur<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Murbug Permanen', 15000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- ADMIN MURBUG PERMANEN -->
+                <div class="product-card" data-category="murbug">
+                    <div class="product-icon">👑</div>
+                    <div class="product-name">Admin Murbug Permanen</div>
+                    <div class="product-price">Rp 25.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Akses admin permanen<br>
+                        <i class="fas fa-check-circle"></i> Full kontrol<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Admin Murbug Permanen', 25000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- SCRIPT SETTO V2 -->
+                <div class="product-card" data-category="script">
+                    <div class="product-icon">📜</div>
+                    <div class="product-name">Script Setto v2.0.0</div>
+                    <div class="product-price">Rp 35.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Free Update ke v3.0.0<br>
+                        <i class="fas fa-check-circle"></i> Source code lengkap<br>
+                        <i class="fas fa-check-circle"></i> Tutorial included
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Script Setto v2.0.0', 35000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- SCRIPT SETTO V3 PO -->
+                <div class="product-card" data-category="script">
+                    <div class="product-badge">PO</div>
+                    <div class="product-icon">⚡</div>
+                    <div class="product-name">Script Setto v3.0.0</div>
+                    <div class="product-price">Rp 25.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Free Update ke v4.0.0<br>
+                        <i class="fas fa-check-circle"></i> Pre-order price<br>
+                        <i class="fas fa-check-circle"></i> Source code lengkap
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Script Setto v3.0.0 PO', 25000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- RESELLER SCRIPT -->
+                <div class="product-card" data-category="script">
+                    <div class="product-icon">💎</div>
+                    <div class="product-name">Reseller Script Setto</div>
+                    <div class="product-price">Rp 40.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Promo Ramadhan<br>
+                        <i class="fas fa-check-circle"></i> Bisa jual script<br>
+                        <i class="fas fa-check-circle"></i> Free update
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Reseller Script Setto', 40000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PARTNER SCRIPT -->
+                <div class="product-card" data-category="script">
+                    <div class="product-icon">👥</div>
+                    <div class="product-name">Partner Script Setto</div>
+                    <div class="product-price">Rp 80.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Admin group buyer<br>
+                        <i class="fas fa-check-circle"></i> Buka reseller<br>
+                        <i class="fas fa-check-circle"></i> Free update
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Partner Script Setto', 80000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PANEL 5 GB -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">🖥️</div>
+                    <div class="product-name">Panel 5 GB</div>
+                    <div class="product-price">Rp 4.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> RAM 5 GB<br>
+                        <i class="fas fa-check-circle"></i> Full akses<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Panel 5 GB', 4000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PANEL 6 GB -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">💻</div>
+                    <div class="product-name">Panel 6 GB</div>
+                    <div class="product-price">Rp 5.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> RAM 6 GB<br>
+                        <i class="fas fa-check-circle"></i> Full akses<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Panel 6 GB', 5000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PANEL 7 GB -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">⌨️</div>
+                    <div class="product-name">Panel 7 GB</div>
+                    <div class="product-price">Rp 6.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> RAM 7 GB<br>
+                        <i class="fas fa-check-circle"></i> Full akses<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Panel 7 GB', 6000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PANEL 8 GB -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">🖱️</div>
+                    <div class="product-name">Panel 8 GB</div>
+                    <div class="product-price">Rp 7.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> RAM 8 GB<br>
+                        <i class="fas fa-check-circle"></i> Full akses<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Panel 8 GB', 7000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PANEL 9 GB -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">📊</div>
+                    <div class="product-name">Panel 9 GB</div>
+                    <div class="product-price">Rp 8.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> RAM 9 GB<br>
+                        <i class="fas fa-check-circle"></i> Full akses<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Panel 9 GB', 8000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PANEL 10 GB -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">🚀</div>
+                    <div class="product-name">Panel 10 GB</div>
+                    <div class="product-price">Rp 9.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> RAM 10 GB<br>
+                        <i class="fas fa-check-circle"></i> Full akses<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Panel 10 GB', 9000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- PANEL UNLIMITED -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">♾️</div>
+                    <div class="product-name">Panel Unlimited</div>
+                    <div class="product-price">Rp 10.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> RAM Unlimited<br>
+                        <i class="fas fa-check-circle"></i> Full akses<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Panel Unlimited', 10000)">BELI SEKARANG</button>
+                </div>
+
+                <!-- RESELLER PANEL -->
+                <div class="product-card" data-category="panel">
+                    <div class="product-icon">🔄</div>
+                    <div class="product-name">Reseller Panel</div>
+                    <div class="product-price">Rp 15.000</div>
+                    <div class="product-desc">
+                        <i class="fas fa-check-circle"></i> Buka reseller panel<br>
+                        <i class="fas fa-check-circle"></i> Harga khusus<br>
+                        <i class="fas fa-check-circle"></i> Support 24/7
+                    </div>
+                    <button class="btn-product" onclick="buyProduct('Reseller Panel', 15000)">BELI SEKARANG</button>
+                </div>
+            </div>
+        </section>
+           <!-- TESTIMONI SECTION - SESUAI GAMBAR -->
         <section class="container" id="testimoni">
             <div class="section-title">
                 <h2>CLIENT <span>TESTIMONI</span></h2>
@@ -850,10 +1217,7 @@
                 <!-- CARD WHATSAPP -->
                 <div class="contact-card" onclick="window.open('https://wa.me/6285657279971', '_blank')">
                     <div class="contact-icon">
-                        <!-- ICON WA -->
-                        <i class="fab fa-whatsapp" style="font-size: 60px; color: #25D366;"></i>
-                        <!-- UNTUK PAKAI GAMBAR, HAPUS ICON DI ATAS DAN UNCOMMENT DI BAWAH -->
-                        <!-- <img src="https://images.bukaolshop.com/hosting/181218/60c88b2821bf500477.png" alt="WhatsApp"> -->
+                        <i class="fab fa-whatsapp" style="color: #25D366;"></i>
                     </div>
                     <h3>WHATSAPP</h3>
                     <p>0856-5727-9971</p>
@@ -865,10 +1229,7 @@
                 <!-- CARD TELEGRAM -->
                 <div class="contact-card" onclick="window.open('https://t.me/keiiofficial', '_blank')">
                     <div class="contact-icon">
-                        <!-- ICON TELEGRAM -->
-                        <i class="fab fa-telegram-plane" style="font-size: 60px; color: #0088cc;"></i>
-                        <!-- UNTUK PAKAI GAMBAR, HAPUS ICON DI ATAS DAN UNCOMMENT DI BAWAH -->
-                        <!-- <img src="https://images.bukaolshop.com/hosting/181218/450cb4fcb88a174062.png" alt="Telegram"> -->
+                        <i class="fab fa-telegram-plane" style="color: #0088cc;"></i>
                     </div>
                     <h3>TELEGRAM</h3>
                     <p>@keiiofficial</p>
@@ -880,7 +1241,7 @@
                 <!-- CARD CHANNEL -->
                 <div class="contact-card" onclick="window.open('https://whatsapp.com/channel/0029VbCMhxiLSmbSzw8kOv0q', '_blank')">
                     <div class="contact-icon">
-                        <i class="fas fa-users" style="font-size: 60px; color: #8a2be2;"></i>
+                        <i class="fas fa-users" style="color: #8a2be2;"></i>
                     </div>
                     <h3>CHANNEL</h3>
                     <p>Testimoni & Info</p>
@@ -911,7 +1272,7 @@
                 <p><i class="fas fa-users"></i> Channel Testimoni</p>
             </div>
             <div class="footer-section">
-                <h3>LAYANAN</h3>
+                <h3>PRODUCTS</h3>
                 <p>Murbug 1 Minggu</p>
                 <p>Murbug 1 Bulan</p>
                 <p>Murbug Permanen</p>
@@ -955,6 +1316,39 @@
             isPlaying = !isPlaying;
         }
 
+        // BUY FUNCTION
+        function buyProduct(productName, price) {
+            let message = `Halo KEII OFFICIAL 2026, saya ingin order:\n\nProduk: ${productName}\nHarga: Rp ${price.toLocaleString()}\n\nMohon info pembayaran dan proses order.`;
+            let waNumber = "6285657279971";
+            let url = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // FILTER PRODUCTS
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const tabs = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.textContent.toLowerCase().includes(category) || (category === 'all' && tab.textContent === 'ALL')) {
+                    tab.classList.add('active');
+                }
+            });
+
+            products.forEach(product => {
+                if (category === 'all') {
+                    product.style.display = 'block';
+                } else {
+                    if (product.dataset.category === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                }
+            });
+        }
+
         // ANIMATION ON SCROLL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -965,7 +1359,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.testimoni-card, .contact-card').forEach(card => {
+        document.querySelectorAll('.product-card, .testimoni-card, .contact-card').forEach(card => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
             card.style.transition = 'all 0.6s ease-out';
