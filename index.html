@@ -34,50 +34,289 @@
             position: relative;
         }
 
-        /* ===== BACKGROUND ANIMASI ===== */
-        .background-animation {
+        /* ===== INTRO LOADING SUPER KECE ===== */
+        .intro-loading {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
+            height: 100vh;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 1.5s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
-        .gradient-bg {
+        .intro-loading.hide {
+            transform: scale(1.5);
+            opacity: 0;
+            visibility: hidden;
+            filter: blur(20px);
+        }
+
+        .intro-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ROTATING CRYSTALS */
+        .crystal-ring {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: radial-gradient(circle at 30% 50%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 80%, rgba(65, 105, 225, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 10% 20%, rgba(0, 191, 255, 0.2) 0%, transparent 50%);
-            animation: rotateBg 50s linear infinite;
-        }
-
-        @keyframes rotateBg {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(138, 43, 226, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(138, 43, 226, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+            animation: rotateRing 10s linear infinite;
         }
 
-        @keyframes gridMove {
-            from { transform: translate(0, 0); }
-            to { transform: translate(50px, 50px); }
+        .crystal-ring span {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-utama);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(8px);
+            opacity: 0.6;
+        }
+
+        .crystal-ring span:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation: floatCrystal1 4s ease-in-out infinite;
+        }
+
+        .crystal-ring span:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            width: 100px;
+            height: 100px;
+            animation: floatCrystal2 5s ease-in-out infinite;
+        }
+
+        .crystal-ring span:nth-child(3) {
+            bottom: 15%;
+            left: 25%;
+            width: 70px;
+            height: 70px;
+            animation: floatCrystal3 4.5s ease-in-out infinite;
+        }
+
+        .crystal-ring span:nth-child(4) {
+            top: 25%;
+            right: 25%;
+            width: 90px;
+            height: 90px;
+            animation: floatCrystal4 5.5s ease-in-out infinite;
+        }
+
+        .crystal-ring span:nth-child(5) {
+            bottom: 30%;
+            right: 30%;
+            width: 60px;
+            height: 60px;
+            animation: floatCrystal1 4.2s ease-in-out infinite;
+        }
+
+        .crystal-ring span:nth-child(6) {
+            top: 45%;
+            left: 10%;
+            width: 85px;
+            height: 85px;
+            animation: floatCrystal2 4.8s ease-in-out infinite;
+        }
+
+        @keyframes rotateRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes floatCrystal1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, -30px) rotate(180deg); }
+        }
+
+        @keyframes floatCrystal2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, -40px) rotate(-180deg); }
+        }
+
+        @keyframes floatCrystal3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-40px, 30px) rotate(90deg); }
+        }
+
+        @keyframes floatCrystal4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(35px, 35px) rotate(-90deg); }
+        }
+
+        /* LOGO UTAMA */
+        .intro-logo {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: var(--gradient-utama);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: morphing 4s ease-in-out infinite, glow 2s ease-in-out infinite;
+            z-index: 10;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.7);
+        }
+
+        .intro-logo::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(from 0deg, #8a2be2, #4169e1, #00bfff, #8a2be2);
+            animation: rotate 4s linear infinite;
+        }
+
+        .intro-logo::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: #050510;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        .intro-logo-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .intro-logo-content img {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            border: 3px solid white;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .intro-logo-content h2 {
+            font-size: 20px;
+            background: var(--gradient-utama);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        @keyframes morphing {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+            75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 50px #8a2be2; }
+            33% { box-shadow: 0 0 50px #4169e1; }
+            66% { box-shadow: 0 0 50px #00bfff; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* PROGRESS BAR */
+        .intro-progress {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 350px;
+            text-align: center;
+        }
+
+        .intro-progress-text {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .intro-progress-text span {
+            color: #00bfff;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .intro-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .intro-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-utama);
+            position: relative;
+            animation: progressLoading 3s ease-in-out forwards;
+        }
+
+        .intro-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background: white;
+            filter: blur(10px);
+            animation: scan 1.5s ease-in-out infinite;
+        }
+
+        @keyframes progressLoading {
+            0% { width: 0%; }
+            20% { width: 20%; }
+            40% { width: 40%; }
+            60% { width: 60%; }
+            80% { width: 80%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes scan {
+            0%, 100% { right: 0; opacity: 0; }
+            50% { right: 100%; opacity: 1; }
+        }
+
+        /* PERSENTASE ANGKA */
+        .intro-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            font-weight: 800;
+            background: var(--gradient-utama);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.1;
+            z-index: 1;
+            animation: pulseNumber 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseNumber {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.15; }
         }
 
         /* ===== FLOATING LOGOS ===== */
@@ -401,8 +640,7 @@
         .hero-image {
             position: relative;
         }
-
-        .hero-image img {
+       .hero-image img {
             width: 100%;
             max-width: 400px;
             border-radius: 30px;
@@ -554,7 +792,8 @@
             color: #00ff00;
             margin-right: 5px;
         }
-         .btn-product {
+
+        .btn-product {
             width: 100%;
             padding: 15px;
             background: var(--gradient-utama);
@@ -866,14 +1105,68 @@
             .product-grid {
                 grid-template-columns: 1fr;
             }
+
+            .intro-container {
+                width: 350px;
+                height: 350px;
             }
-         </style>
+
+            .intro-logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .intro-logo-content img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .intro-percentage {
+                font-size: 80px;
+            }
+
+            .crystal-ring span {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- BACKGROUND ANIMATION -->
-    <div class="background-animation">
-        <div class="gradient-bg"></div>
-        <div class="grid-overlay"></div>
+    <!-- INTRO LOADING SUPER KECE -->
+    <div class="intro-loading" id="introLoading">
+        <div class="intro-container">
+            <!-- ANGKA PERSENTASE BACKGROUND -->
+            <div class="intro-percentage" id="percentageNumber">0%</div>
+            
+            <!-- CRYSTAL RING BERPUTAR -->
+            <div class="crystal-ring">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <!-- LOGO UTAMA -->
+            <div class="intro-logo">
+                <div class="intro-logo-content">
+                    <img src="https://images.bukaolshop.com/hosting/181218/5c92165b6226544752.png" alt="KEII OFFICIAL">
+                    <h2>KEII OFFICIAL</h2>
+                </div>
+            </div>
+            
+            <!-- PROGRESS BAR -->
+            <div class="intro-progress">
+                <div class="intro-progress-text">
+                    LOADING <span id="progressPercent">0%</span>
+                </div>
+                <div class="intro-progress-bar">
+                    <div class="intro-progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- FLOATING LOGOS (WA & TELEGRAM) -->
@@ -971,7 +1264,6 @@
                 <button class="tab-btn" onclick="filterProducts('script')">SCRIPT</button>
                 <button class="tab-btn" onclick="filterProducts('panel')">PANEL</button>
             </div>
-
             <!-- PRODUCT GRID - MURBUG CATEGORY -->
             <div class="product-grid" id="productGrid">
                 <!-- MURBUG 1 MINGGU -->
@@ -1187,7 +1479,7 @@
                 </div>
             </div>
         </section>
-           <!-- TESTIMONI SECTION - SESUAI GAMBAR -->
+          <!-- TESTIMONI SECTION - SESUAI GAMBAR -->
         <section class="container" id="testimoni">
             <div class="section-title">
                 <h2>CLIENT <span>TESTIMONI</span></h2>
@@ -1286,22 +1578,55 @@
     </footer>
 
     <script>
+        // INTRO LOADING ANIMATION WITH PERCENTAGE
+        let progress = 0;
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        const percentageNumber = document.getElementById('percentageNumber');
+        
+        const interval = setInterval(() => {
+            progress += 1;
+            if (progress <= 100) {
+                // Update progress bar
+                progressFill.style.width = progress + '%';
+                progressPercent.textContent = progress + '%';
+                percentageNumber.textContent = progress + '%';
+                
+                // Change color based on progress
+                if (progress === 30) {
+                    percentageNumber.style.opacity = '0.15';
+                } else if (progress === 60) {
+                    percentageNumber.style.opacity = '0.2';
+                } else if (progress === 90) {
+                    percentageNumber.style.opacity = '0.25';
+                }
+            } else {
+                clearInterval(interval);
+                // Hide intro loading after complete
+                setTimeout(() => {
+                    document.getElementById('introLoading').classList.add('hide');
+                }, 500);
+            }
+        }, 30); // 30ms * 100 = 3 detik
+
         // MUSIC CONTROL
         let music = document.getElementById('bgMusic');
         let musicBtn = document.getElementById('musicBtn');
         let isPlaying = false;
 
-        // Autoplay after first interaction
-        document.addEventListener('click', function initMusic() {
-            if (!isPlaying) {
-                music.play().then(() => {
-                    isPlaying = true;
-                    musicBtn.innerHTML = '🔊';
-                    musicBtn.classList.add('playing');
-                }).catch(e => console.log('Autoplay prevented'));
-            }
-            document.removeEventListener('click', initMusic);
-        }, { once: true });
+        // Autoplay after first interaction (after loading)
+        setTimeout(() => {
+            document.addEventListener('click', function initMusic() {
+                if (!isPlaying) {
+                    music.play().then(() => {
+                        isPlaying = true;
+                        musicBtn.innerHTML = '🔊';
+                        musicBtn.classList.add('playing');
+                    }).catch(e => console.log('Autoplay prevented'));
+                }
+                document.removeEventListener('click', initMusic);
+            }, { once: true });
+        }, 3500); // Muncul setelah loading
 
         function toggleMusic() {
             if (isPlaying) {
